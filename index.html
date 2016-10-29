@@ -1505,7 +1505,10 @@ File::cleanDirectory('directory');
 
                 <h4><a name="helpers" href="#helpers">Helpers</a> <a href="http://laravel.com/docs/helpers" title="Helpers @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
                 <h6>Arrays</h6>
-                <pre class="prettyprint lang-php">array_add($array, 'key', 'value');
+                <pre class="prettyprint lang-php">
+array_add($array, 'key', 'value');
+// Result: [1, 2, 3, 4, 5, 6]
+$array = array_collapse([[1, 2, 3], [4, 5, 6]]);
 // Divide an array into two arrays. One with keys and the other with values
 array_divide($array);
 // Flatten a multi-dimensional associative array with dots
@@ -1524,9 +1527,9 @@ array_forget($array, 'foo.bar');
 array_get($array, 'foo', 'default');
 array_get($array, 'foo.bar', 'default');
 // Checks that a given item exists in an array using "dot" notation
-$hasDesk = array_has($array, 'products.desk');
+array_has($array, 'products.desk');
 // Returns the last element of an array passing a given truth test
-$value = array_last($array, function ($value, $key) {
+array_last($array, function ($value, $key) {
     return $value >= 150;
 });
 // Get a subset of the items from the given array
@@ -1534,7 +1537,7 @@ array_only($array, array('key'));
 // Return array of key => values
 array_pluck($array, 'key');
 // Push an item onto the beginning of an array
-$array = array_prepend($array, 'zero');
+array_prepend($array, 'zero');
 // Return and remove 'key' from array
 array_pull($array, 'key');
 // Set an array item to a given value using "dot" notation
@@ -1542,6 +1545,11 @@ array_set($array, 'key', 'value');
 // Dot notation
 array_set($array, 'key.subkey', 'value');
 array_sort($array, function(){});
+array_sort_recursive($array)
+// Filters the array using the given Closure:
+array_where($array, function ($value, $key) {
+    return is_string($value);
+});
 // Fill in data where it's missing.
 data_fill(&$target, $key, $value)
 // Set an item on an array or object using dot notation.
@@ -1552,15 +1560,24 @@ head($array);
 last($array);
                 </pre>
                 <h6>Paths</h6>
-                <pre class="prettyprint lang-php">app_path();
-//  Get the path to the public folder
-public_path();
-//  Returns the fully qualified path to the resources directory.
-resource_path();
+                <pre class="prettyprint lang-php">
+app_path();
 // App root path
 base_path();
+// configuration directory
+config_path();
+// database directory
+database_path();
+// Gets the path to a versioned Elixir file:
+elixir($file);
+// the public directory
+public_path();
+// the resources directory.
+resource_path();
+resource_path('assets/sass/app.scss');
 // Get the path to the storage folder
 storage_path();
+storage_path('app/file.txt');
                 </pre>
                 <h6>Strings</h6>
                 <pre class="prettyprint lang-php">
@@ -1576,6 +1593,8 @@ starts_with('Foo bar.', 'Foo');
 ends_with('Foo bar.', 'bar.');
 // Convert a string to snake case
 snake_case('fooBar');
+// Limits the number of characters in a string
+str_limit('The PHP framework for web artisans.', 7);
 // Determine if a given string contains a given substring
 str_contains('Hello foo bar.', 'foo');
 // Result: foo/bar/
@@ -1586,6 +1605,8 @@ str_random(25);
 str_replace_first($search, $replace, $subject)
 str_replace_last($search, $replace, $subject)
 str_singular('cars');
+// generates a URL friendly "slug", Result: laravel-5-framework
+str_slug('Laravel 5 Framework', '-');
 // Result: FooBar
 studly_case('foo_bar');
 // Result: A Nice Title Uses The Correct Case
@@ -1594,7 +1615,8 @@ trans('foo.bar');
 trans_choice('foo.bar', $count);
                 </pre>
                 <h6>URLs and Links</h6>
-                <pre class="prettyprint lang-php">action('FooController@method', $parameters);
+                <pre class="prettyprint lang-php">
+action('FooController@method', $parameters);
 link_to('foo/bar', $title, $attributes, $secure);
 link_to_asset('img/foo.jpg', $title, $attributes, $secure);
 link_to_route('route.name', $title, $parameters, $attributes);
