@@ -881,44 +881,69 @@ $table->morphs('parent');
                 </pre>
 
                 <h4><a name="input" href="#input">Input</a> <a href="http://laravel.com/docs/requests" title="Input @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
-                <pre class="prettyprint lang-php">Input::get('key');
+                <pre class="prettyprint lang-php">
+Request::input('key');
 // Default if the key is missing
-Input::get('key', 'default');
-Input::has('key');
-Input::all();
+Request::input('key', 'default');
+// Works with forms that contain array inputs
+Request::input('products.*.name');
+// Retrieving Input Via Dynamic Properties
+$name = request()->name;
+// Retrieving JSON Input Values when "Content-Type" header is "application/json"
+Request::input('user.name');
+Request::has('key');
+Request::all();
 // Only retrieve 'foo' and 'bar' when getting input
-Input::only('foo', 'bar');
+Request::only(['foo', 'bar']);
+Request::only('foo', 'bar');
 // Disregard 'foo' when getting input
-Input::except('foo');
-Input::flush();
+Request::except('foo');
+Request::except(['foo']);
+// Flash Input To The Session
+Request::flush();
+// Flash a subset of the request data to the session
+$request->flashOnly(['username', 'email']);
+$request->flashExcept('password');
                 </pre>
 
                 <h6>Session Input (flash)</h6>
                 <pre class="prettyprint lang-php">// Flash input to the session
-Input::flash();
+Request::flash();
 // Flash only some of the input to the session
-Input::flashOnly('foo', 'bar');
+Request::flashOnly('foo', 'bar');
 // Flash only some of the input to the session
-Input::flashExcept('foo', 'baz');
+Request::flashExcept('foo', 'baz');
 // Retrieve an old input item
-Input::old('key','default_value');
+Request::old('key','default_value');
                 </pre>
 
                 <h6>Files</h6>
                 <pre class="prettyprint lang-php">// Use a file that's been uploaded
-Input::file('filename');
+Request::file('filename');
 // Determine if a file was uploaded
-Input::hasFile('filename');
+Request::hasFile('filename');
+// Validating Successful Uploads
+Request::file('photo')->isValid()
 // Access file properties
-Input::file('name')->getRealPath();
-Input::file('name')->getClientOriginalName();
-Input::file('name')->getClientOriginalExtension();
-Input::file('name')->getSize();
-Input::file('name')->getMimeType();
+Request::file('name')->path();
+Request::file('name')->getRealPath();
+Request::file('name')->extension();
+Request::file('name')->getClientOriginalName();
+Request::file('name')->getClientOriginalExtension();
+Request::file('name')->getSize();
+Request::file('name')->getMimeType();
 // Move an uploaded file
-Input::file('name')->move($destinationPath);
+Request::file('name')->move($destinationPath);
 // Move an uploaded file
-Input::file('name')->move($destinationPath, $fileName);
+Request::file('name')->move($destinationPath, $fileName);
+// Stores Uploaded Files
+$path = Request::file('name')->store('store_dir');
+// the name of the disk that should be used to store the file
+$path = $request->photo->store('store_dir', 's3');
+// Stores as the filename
+$path = $request->photo->storeAs('images', 'filename.jpg');
+$path = $request->photo->storeAs('images', 'filename.jpg', 's3');
+
                 </pre>
 
                 <h4><a name="cache" href="#cache">Cache</a> <a href="http://laravel.com/docs/cache" title="Cache @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
@@ -947,12 +972,16 @@ Cache::section('group')->flush();
                 </pre>
 
                 <h4><a name="cookies" href="#cookies">Cookies</a> <a href="http://laravel.com/docs/requests#cookies" title="Cookies @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
-                <pre class="prettyprint lang-php">Cookie::get('key');
+                <pre class="prettyprint lang-php">
+request()->cookie('key');
+Cookie::get('key');
 Cookie::get('key', 'default');
 // Create a cookie that lasts for ever
 Cookie::forever('key', 'value');
 // Create a cookie that lasts N minutes
 Cookie::make('key', 'value', 'minutes');
+// or
+cookie('name', 'value', $minutes);
 // Set a cookie before a response has been created
 Cookie::queue('key', 'value', 'minutes');
 // Forget cookie
@@ -961,6 +990,8 @@ Cookie::forget('key');
 $response = Response::make('Hello World');
 // Add a cookie to the response
 $response->withCookie(Cookie::make('name', 'value', $minutes));
+// or
+response('Hello World')->cookie('name', 'value', $minutes);
                 </pre>
 
                 <h4><a name="sessions" href="#sessions">Sessions</a> <a href="http://laravel.com/docs/session" title="Session @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
@@ -996,18 +1027,20 @@ Session::keep(array('key1', 'key2'));
                 <pre class="prettyprint lang-php">
 // url: http://xx.com/aa/bb
 Request::url();
+// url: http://xx.com/aa/bb?c=d
+Request::fullUrl();
 // path: /aa/bb
 Request::path();
 // getRequestUri: /aa/bb/?c=d
-Request::getRequestUri();
+Request::inputRequestUri();
 // Returns user's IP
-Request::getClientIp();
+Request::inputClientIp();
 // getUri: http://xx.com/aa/bb/?c=d
-Request::getUri();
+Request::inputUri();
 // getQueryString: c=d
-Request::getQueryString();
+Request::inputQueryString();
 // Get the port scheme of the request (e.g., 80, 443, etc.)
-Request::getPort();
+Request::inputPort();
 // Determine if the current request URI matches a pattern
 Request::is('foo/*');
 // Get a segment from the URI (1 based index)
@@ -1040,7 +1073,7 @@ Request::wantsJson();
 return Response::make($contents, 200);
 return Response::json(array('key' => 'value'));
 return Response::json(array('key' => 'value'))
-	->setCallback(Input::get('callback'));
+	->setCallback(Request::input('callback'));
 return Response::download($filepath);
 return Response::download($filepath, $filename, $headers);
 // Create a response and modify a header value
@@ -1055,8 +1088,8 @@ return Response::make($content)
                 <h4><a name="redirects" href="#redirects">Redirects</a> <a href="http://laravel.com/docs/responses#redirects" title="Redirects @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
                 <pre class="prettyprint lang-php">return Redirect::to('foo/bar');
 return Redirect::to('foo/bar')->with('key', 'value');
-return Redirect::to('foo/bar')->withInput(Input::get());
-return Redirect::to('foo/bar')->withInput(Input::except('password'));
+return Redirect::to('foo/bar')->withInput();
+return Redirect::to('foo/bar')->withInput(Request::except('password'));
 return Redirect::to('foo/bar')->withErrors($validator);
 // Create a new redirect response to the previous location
 return Redirect::back();
@@ -1275,7 +1308,7 @@ url
 
                 </pre>
 
-                <h4><a name="Collections" href="#Collections">Collections</a> <a href="http://laravel.com/docs/collections" title="Collections @ Laravel Docs"><i class="icon-file-text"></i></a>
+                <h4><a name="collections" href="#collections">Collections</a> <a href="http://laravel.com/docs/collections" title="Collections @ Laravel Docs"><i class="icon-file-text"></i></a>
                 </h4>
                 <pre class="prettyprint lang-php">
 // Creating Collections
@@ -1998,7 +2031,7 @@ SSH::task($taskName, function($line) // execute
 SSH::putString($string, $remotePath);
                 </pre>
 
-                <h4><a name="Controllers" href="#Controllers">Controllers</a> <a href="http://laravel.com/docs/controllers" title="Controllers @ Laravel Docs"><i class="icon-file-text"></i></a>
+                <h4><a name="controllers" href="#controllers">Controllers</a> <a href="http://laravel.com/docs/controllers" title="Controllers @ Laravel Docs"><i class="icon-file-text"></i></a>
                 </h4>
                 <h6>Single Action Controllers</h6>
                 <pre class="prettyprint lang-php">
