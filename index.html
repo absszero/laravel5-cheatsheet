@@ -105,7 +105,9 @@ php artisan list
 // Interact with your application
 php artisan tinker
 // Put the application into maintenance mode
-php artisan down
+// --message  Display or log a custom message
+// --retry    set Retry-After HTTP header
+php artisan down [--message] [--retry]
 // Bring the application out of maintenance mode
 php artisan up
 // Regenerate framework autoload files
@@ -307,7 +309,8 @@ Route::resource('photo', 'PhotoController',['except' => ['update', 'destroy']]);
                 </pre>
 
                 <h6>Triggering Errors <a href="http://laravel.com/docs/routing#throwing-404-errors" title="throwing-404-errors @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
-                <pre class="prettyprint lang-php">App::abort(404);
+                <pre class="prettyprint lang-php">
+App::abort(404);
 $handler->missing(...) in ErrorServiceProvider::boot();
 throw new NotFoundHttpException;
                 </pre>
@@ -318,28 +321,35 @@ Route::get('foo/{bar?}', function($bar = 'bar'){});
                 </pre>
 
                 <h6>HTTP Verbs</h6>
-                <pre class="prettyprint lang-php">Route::any('foo', function(){});
+                <pre class="prettyprint lang-php">
+Route::any('foo', function(){});
 Route::post('foo', function(){});
 Route::put('foo', function(){});
 Route::patch('foo', function(){});
 Route::delete('foo', function(){});
+Route::options('foo', $callback);
 // RESTful actions
 Route::resource('foo', 'FooController');
 // Registering A Route For Multiple Verbs
 Route::match(['get', 'post'], '/', function(){});
+// Registering A Route For all Verbs
+Route::any('foo', function () {});
                 </pre>
 
                 <h6>Secure Routes(TBD)</h6>
-                <pre class="prettyprint lang-php">Route::get('foo', array('https', function(){}));</pre>
+                <pre class="prettyprint lang-php">
+Route::get('foo', array('https', function(){}));</pre>
 
                 <h6>Route Constraints</h6>
-                <pre class="prettyprint lang-php">Route::get('foo/{bar}', function($bar){})
+                <pre class="prettyprint lang-php">
+Route::get('foo/{bar}', function($bar){})
 	->where('bar', '[0-9]+');
 Route::get('foo/{bar}/{baz}', function($bar, $baz){})
 	->where(array('bar' => '[0-9]+', 'baz' => '[A-Za-z]'))
                 </pre>
-                <pre class="prettyprint lang-php">// Set a pattern to be used across routes
-			Route::pattern('bar', '[0-9]+')
+                <pre class="prettyprint lang-php">
+// Set a pattern to be used across routes
+Route::pattern('bar', '[0-9]+')
                 </pre>
 
                 <h6>HTTP Middleware <a href="http://laravel.com/docs/middleware" title="HTTP Middleware @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
@@ -360,6 +370,8 @@ Route::get('foo/bar', array('as' => 'foobar', function(){}));
 Route::get('user/profile', [
     'as' => 'profile', 'uses' => 'UserController@showProfile'
 ]);
+Route::get('user/profile', function () {})->name('profile');
+Route::get('user/profile', 'UserController@showProfile')->name('profile');
 $url = route('profile');
 $redirect = redirect()->route('profile');
                 </pre>
@@ -374,13 +386,28 @@ Route::group(['prefix' => 'admin'], function()
 });
                 </pre>
 
+                <h6>Route Middleware</h6>
+                <pre class="prettyprint lang-php">
+Route::group(['middleware' => 'auth'], function () {});
+                </pre>
+
                 <h6>Route Namespacing</h6>
-                <pre class="prettyprint lang-php">// This route group will carry the namespace 'Foo\Bar'
+                <pre class="prettyprint lang-php">
+// This route group will carry the namespace 'Foo\Bar'
 Route::group(array('namespace' => 'Foo\Bar'), function(){})
                 </pre>
+
                 <h6>Sub-Domain Routing</h6>
-                <pre class="prettyprint lang-php">// {sub} will be passed to the closure
+                <pre class="prettyprint lang-php">
+// {sub} will be passed to the closure
 Route::group(array('domain' => '{sub}.example.com'), function(){});
+                </pre>
+
+                <h6>Implicit Binding</h6>
+                <pre class="prettyprint lang-php">
+Route::get('api/users/{user}', function (App\User $user) {
+    return $user->email;
+});
                 </pre>
 
                 <h4><a name="app" href="#app">Environment Configuration</a> <a href="http://laravel.com/docs/configuration#environment-configuration" title="Environment Configuration @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
@@ -398,10 +425,15 @@ if ($app->environment('local', 'staging')){}
                 <pre class="prettyprint lang-php">
 // The logger provides the seven logging levels defined in RFC 5424:
 // debug, info, notice, warning, error, critical, and alert.
-Log::info('info');
+Log::info($message);
 Log::info('info',array('context'=>'additional info'));
-Log::error('error');
-Log::warning('warning');
+Log::emergency($message);
+Log::alert($message);
+Log::critical($message);
+Log::error($message);
+Log::warning($message);
+Log::notice($message);
+Log::debug($message);
 // get monolog instance
 Log::getMonolog();
 // add listener
@@ -436,7 +468,8 @@ URL::setRequest($request);
 
 
                 <h4><a name="events" href="#events">Events</a> <a href="http://laravel.com/docs/events" title="Events @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
-                <pre class="prettyprint lang-php">Event::fire('foo.bar', array($bar));
+                <pre class="prettyprint lang-php">
+Event::fire('foo.bar', array($bar));
 // Register an event listener with the dispatcher.
 // void listen(string|array $events, mixed $listener, int $priority)
 Event::listen('App\Events\UserSignup', function($bar){});
@@ -447,6 +480,13 @@ Event::listen('foo.bar', 'BarHandler', 5);
 // You may do so using by returning false from your handler.
 Event::listen('foor.bar', function($event){ return false; });
 Event::subscribe('UserEventHandler');
+                </pre>
+                <h6>Container Events</h6>
+                <pre class="prettyprint lang-php">
+// Called when container resolves object of any type...
+app()->resolving(function ($object, $app) {});
+// Called when container resolves objects of type "HelpSpot\API"...
+app()->resolving(HelpSpot\API::class, function ($api, $app) {});
                 </pre>
 
                 <h4><a name="db" href="#db">Database</a> <a href="http://laravel.com/docs/5.0/database" title="Basic Database Usage @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
@@ -1033,8 +1073,11 @@ return Redirect::intended('foo/bar');
                 </pre>
 
                 <h4><a name="service-container" href="#service-container">Service Container</a> <a href="http://laravel.com/docs/container" title="Service Container @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
-                <pre class="prettyprint lang-php">App::bind('foo', function($app){ return new Foo; });
-App::make('foo');
+                <pre class="prettyprint lang-php">
+App::bind('foo', function($app){ return new Foo; });
+$foo = App::make('foo');
+// if $app variable not accessible
+$foo = resolve('foo');
 // If this class exists, it's returned
 App::make('FooBar');
 // Register a shared binding in the container
@@ -1043,6 +1086,29 @@ App::singleton('foo', function(){ return new Foo; });
 App::instance('foo', new Foo);
 // Register a binding with the container
 App::bind('FooRepositoryInterface', 'BarRepository');
+// Binding Primitives
+app()->when('App\Http\Controllers\UserController')
+          ->needs('$variableName')
+          ->give($value);
+// Contextual Binding
+app()->when(PhotoController::class)
+          ->needs(Filesystem::class)
+          ->give(function () {
+              return Storage::disk('local');
+          });
+
+app()->when(VideoController::class)
+          ->needs(Filesystem::class)
+          ->give(function () {
+              return Storage::disk('s3');
+          });
+// Tagging
+app()->bind('SpeedReport', function () {});
+app()->bind('MemoryReport', function () {});
+app()->tag(['SpeedReport', 'MemoryReport'], 'reports');
+app()->bind('ReportAggregator', function ($app) {
+    return new ReportAggregator($app->tagged('reports'));
+});
 // Register a service provider with the application
 App::register('FooServiceProvider');
 // Listen for object resolution
