@@ -1609,44 +1609,76 @@ url('path', $parameters = array(), $secure = null);
                 </pre>
                 <h6>Miscellaneous</h6>
                 <pre class="prettyprint lang-php">
+// Throws a HTTP exception
 abort(401);
+abort(401, 'Unauthorized.');
+// Throws a HTTP exception if true
 abort_if(! Auth::user()->isAdmin(), 403);
+// Throws a HTTP exception if false
 abort_unless(Auth::user()->isAdmin(), 403);
+// Returns an authenticator instanc
 $user = auth()->user();
-return back();
+// Generates a previous location redirect response
+back();
+// Hashes the given value using Bcrypt
 $password = bcrypt('my-secret-password');
+// Get values from the cache
 $value = cache('key');
 $value = cache('key', 'default');
+// Cache by passing an array of key / value pairs
 cache(['key' => 'value'], 5);
-cache(['key' => 'value'], Carbon::now()->addSeconds(10));
+// Creates a collection instance
 $collection = collect(['taylor', 'abigail']);
+// Gets the value of a configuration variable
 $value = config('app.timezone');
 $value = config('app.timezone', $default);
 csrf_token();
+// Dumps the given variables and ends execution
 dd($value);
-// do not to halt the execution
+// Do not halt the execution
 dump($value);
+// Pushes a new job onto the queue
 dispatch(new App\Jobs\SendEmails);
-// Return a default value if the variable doesn't exist...
-$env = env('APP_ENV', 'production');
+// Gets the value of an environment variable
+$env = env('APP_ENV', 'default');
+// Dispatches the given event to its listeners
 event(new UserRegistered($user));
+// Creates a model factory builder for a given class, name, and amount.
 $user = factory(App\User::class)->make();
+$user = factory(App\User::class)->create();
+$user = factory(App\User::class, $amount)->make();
+$user = factory(App\User::class)->make(['name' => 'foo']);
+// Write information to the log
 info('write information to the log', ['id' => $user->id]);
+// Write a debug level message to the log
 logger('Debug message to the log', ['id' => $user->id]);
+// A logger instance will be returned if no value is passed
 logger()->error('You are not allowed here.');
+// Retrieves an old input value flashed into the session:
 $value = old('value', 'default');
-return redirect('/home');
-return redirect()->route('route.name');
+// Returns a redirect HTTP response
+$response = redirect('/home');
+// Returns the redirector instance
+$response = redirect()->route('route.name');
+// Returns the current request instance
 $request = request();
-$value = request('key', $default = null)
-return response('Hello World', 200, $headers);
-return response()->json(['foo' => 'bar'], 200, $headers);
+// Obtains an input item:
+$value = request('key', 'default')
+// Creates a response instance
+$response = response('Hello World', 200, $headers);
+// Obtains an instance of the response factory:
+$response = response()->json(['foo' => 'bar'], 200, $headers);
+// Gets session values
 $value = session('key');
+// Sets session values
 session(['chairs' => 7, 'instruments' => 3]);
+// Return a default value if the variable doesn't exist...
 value(function(){ return 'bar'; });
-return view('auth.login');
+// Retrieves a view instance:
+$view = view('auth.login');
 // Call the given Closure with the given value then return the value.
 tap($value, $callback)
+// Return the given object. Useful for chaining.
 with(new Foo)->chainedMethod();
                 </pre>
 
