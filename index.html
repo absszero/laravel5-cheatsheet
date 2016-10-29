@@ -13,8 +13,8 @@
     <body>
 
         <a href="#top" id="top-button" title="Top"><i class="icon-arrow-up"></i></a>
-        <div class="fixed">            
-            <nav class="top-bar" data-topbar>                
+        <div class="fixed">
+            <nav class="top-bar" data-topbar>
                 <div class="update-date"><span class="label">Last updated: 2016-10-14</span></div>
                 <ul class="title-area">
                     <li class="name"><h1><a href="http://laravel.com/docs/master/">Laravel 5.3 LTS Cheat Sheet</a></h1></li>
@@ -57,12 +57,12 @@
                 <small id="searchHint">hint: keep tapping the search, it scrolls to the result</small>
             </div>
         </div>
-        
+
         <!--
         <div class="row full-width">
             <div class="columns code-column">
                 <pre class="prettyprint lang-php">
-                
+
                 </pre>
             </div>
         </div>-->
@@ -73,8 +73,8 @@
 
                 <h4><a class="l5update" name="artisan" href="#artisan">Artisan</a> <a href="http://laravel.com/docs/artisan" title="Artisan CLI @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
                 <pre class="prettyprint lang-php">
-// Generating Policies               
-php artisan make:policy PostPolicy                
+// Generating Policies
+php artisan make:policy PostPolicy
 // Displays help for a given command
 php artisan --help OR -h
 // Do not output any message
@@ -168,8 +168,8 @@ php artisan make:command [--handler] [--queued] name
 //  --command     The terminal command that should be assigned. (default: "command:name")
 make:console [--command[="..."]] name
 // Create a new resourceful controller
-// --plain      Generate an empty controller class.
-php artisan make:controller [--plain] name
+// --resource        Generate a resource controller class.
+php artisan make:controller [--resource] name
 php artisan make:controller App\\Admin\\Http\\Controllers\\DashboardController
 // Create a new event class
 php artisan make:event name
@@ -310,6 +310,8 @@ Route::resource('photo', 'PhotoController',['except' => ['update', 'destroy']]);
                 <pre class="prettyprint lang-php">App::abort(404);
 $handler->missing(...) in ErrorServiceProvider::boot();
 throw new NotFoundHttpException;
+abort_unless($item);
+abort_if($item->is_hidden);
                 </pre>
 
                 <h6>Route Parameters <a href="http://laravel.com/docs/routing#route-parameters" title="RESTful Controllers @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
@@ -346,6 +348,8 @@ Route::get('foo/{bar}/{baz}', function($bar, $baz){})
                 <pre class="prettyprint lang-php">
 // Assigning Middleware To Routes
 Route::get('admin/profile', ['middleware' => 'auth', function(){}]);
+// Assigning Multi Middleware
+Route::get('admin/profile')->middleware(['auth', 'subscribed'], ['only' => ['getCandy']]);
                 </pre>
 
                 <h6>Named Routes</h6>
@@ -514,7 +518,7 @@ $users = DB::table('users')
                     ->whereNotIn('id', [1, 2, 3])->get();
 $users = DB::table('users')
                     ->whereNull('updated_at')->get();
-DB::table('name')->whereNotNull('column')->get();                    
+DB::table('name')->whereNotNull('column')->get();
 // Dynamic Where Clauses
 $admin = DB::table('users')->whereId(1)->first();
 $john = DB::table('users')
@@ -531,9 +535,9 @@ $users = DB::table('users')
                     ->get();
 DB::table('name')->orderBy('column')->get();
 DB::table('name')->orderBy('column','desc')->get();
-DB::table('name')->having('count', '>', 100)->get();                    
-// Offset & Limit                    
-$users = DB::table('users')->skip(10)->take(5)->get();     
+DB::table('name')->having('count', '>', 100)->get();
+// Offset & Limit
+$users = DB::table('users')->skip(10)->take(5)->get();
             </pre>
 
             <h6>Joins <a href="http://laravel.com/docs/5.0/queries#joins" title="Joins @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
@@ -593,8 +597,8 @@ DB::table('name')->select(DB::raw('count(*) as count, column2'))->get();
             </pre>
 
             <h6>Inserts / Updates / Deletes / Unions / Pessimistic Locking</h6>
-            <pre class="prettyprint lang-php">       
-// Inserts            
+            <pre class="prettyprint lang-php">
+// Inserts
 DB::table('users')->insert(
     ['email' => 'john@example.com', 'votes' => 0]
 );
@@ -608,7 +612,7 @@ DB::table('users')->insert([
 // Updates
 DB::table('users')
             ->where('id', 1)
-            ->update(['votes' => 1]);            
+            ->update(['votes' => 1]);
 DB::table('users')->increment('votes');
 DB::table('users')->increment('votes', 5);
 DB::table('users')->decrement('votes');
@@ -669,6 +673,10 @@ Model::where('foo', '=', 'bar')->count();
 Model::where('foo', '=', 'bar')->delete();
 //Output raw query
 Model::where('foo', '=', 'bar')->toSql();
+// name = {"en":"name","ar":"nom"};
+Model::where('name->en', 'name')->get();
+// You may dive deep in the JSON string using the `->` operator.
+Model::where('contacts->phone->home', 1234);
 Model::whereRaw('foo = bar and cars = 2', array(20))->get();
 Model::remember(5)->get();
 Model::remember(5, 'cache-key-name')->get();
@@ -1162,21 +1170,27 @@ alpha
 alpha_dash
 alpha_num
 array
+bail
 between:1,10
+boolean
 confirmed
 date
 date_format:YYYY-MM-DD
+dimensions
 different:fieldname
 digits:value
 digits_between:min,max
-boolean
+distinct
 email
 exists:table,column
+file
 image
 in:foo,bar,...
 not_in:foo,bar,...
+in_array
 integer
 numeric
+nullable
 ip
 max:value
 min:value
@@ -1193,6 +1207,7 @@ size:value
 timezone
 unique:table,column,except,idColumn
 url
+
 
                 </pre>
 
@@ -1241,6 +1256,9 @@ View::creator('viewname', function($view){});
 @for
 @endfor
 @foreach
+    @continue($user->type == 1)
+    {{ $user->name }}
+    @break($user->number == 5)
 @endforeach
 @while
 @endwhile
@@ -1248,6 +1266,34 @@ View::creator('viewname', function($view){});
 @forelse($users as $user)
 @empty
 @endforelse
+
+// Echo {{ }} in block
+@verbatim
+Hello, {{ name }}.
+@endverbatim
+
+@can('update', $post)
+@elsecan('delete', $post)
+@endcan
+
+@cannot('update', $post)
+@elsecannot('delete', $post)
+@endcannot
+
+@hasSection('title')
+    @yield('title') - App Name
+@else
+    App Name
+@endif
+
+@php($count = 1)
+@php(++ $count)
+@php
+    $now = new DateTime();
+    $environment = isset($env) ? $env : "testing";
+@enphp
+@unset($count)
+
 // Echo content
 {{ $var }}
 // Echo escaped content
@@ -1362,6 +1408,8 @@ HTML::obfuscate($value);
                 <pre class="prettyprint lang-php">// Transliterate a UTF-8 value to ASCII
 Str::ascii($value)
 Str::camel($value)
+Str::charsArray()
+// Returns the replacements for the ascii method.
 Str::contains($haystack, $needle)
 Str::endsWith($haystack, $needles)
 // Cap a string with a single instance of a given value.
@@ -1372,9 +1420,14 @@ Str::limit($value, $limit = 100, $end = '...')
 Str::lower($value)
 Str::words($value, $words = 100, $end = '...')
 Str::plural($value, $count = 2)
-// Generate a more truly "random" alpha-numeric string.
-Str::random($length = 16)
 // Generate a "random" alpha-numeric string.
+Str::random($length = 16)
+// Replace a given value in the string sequentially with an array.
+Str::replaceArray($search, array $replace, $subject)
+// Replace the first occurrence of a given value in the string.
+Str::replaceFirst($search, $replace, $subject)
+// Replace the last occurrence of a given value in the string.
+Str::replaceLast($search, $replace, $subject)
 Str::quickRandom($length = 16)
 Str::upper($value)
 Str::title($value)
@@ -1451,16 +1504,12 @@ File::cleanDirectory('directory');
                 <h4><a name="helpers" href="#helpers">Helpers</a> <a href="http://laravel.com/docs/helpers" title="Helpers @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
                 <h6>Arrays</h6>
                 <pre class="prettyprint lang-php">array_add($array, 'key', 'value');
-// Build a new array using a callback
-array_build($array, function(){});
 // Divide an array into two arrays. One with keys and the other with values
 array_divide($array);
 // Flatten a multi-dimensional associative array with dots
 array_dot($array);
 // Get all of the given array except for a specified array of items
 array_except($array, array('key'));
-// Fetch a flattened array of a nested array element
-array_fetch($array, 'key');
 // Return the first element in an array passing a given truth test
 array_first($array, function($key, $value){}, $default);
 // Strips keys from the array
@@ -1483,6 +1532,10 @@ array_set($array, 'key', 'value');
 // Dot notation
 array_set($array, 'key.subkey', 'value');
 array_sort($array, function(){});
+// Fill in data where it's missing.
+data_fill(&$target, $key, $value)
+// Set an item on an array or object using dot notation.
+data_set(&$target, $key, $value, $overwrite = true)
 // First element of an array
 head($array);
 // Last element of an array
@@ -1518,6 +1571,8 @@ str_finish('foo/bar', '/');
 str_is('foo*', 'foobar');
 str_plural('car');
 str_random(25);
+str_replace_first($search, $replace, $subject)
+str_replace_last($search, $replace, $subject)
 str_singular('cars');
 // Result: FooBar
 studly_case('foo_bar');
@@ -1543,6 +1598,8 @@ url('path', $parameters = array(), $secure = null);
 csrf_token();
 dd($value);
 value(function(){ return 'bar'; });
+// Call the given Closure with the given value then return the value.
+tap($value, $callback)
 with(new Foo)->chainedMethod();
                 </pre>
 
