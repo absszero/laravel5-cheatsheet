@@ -1072,14 +1072,25 @@ Request::wantsJson();
                 <pre class="prettyprint lang-php">return Response::make($contents);
 return Response::make($contents, 200);
 return Response::json(array('key' => 'value'));
+// Creates a JSONP response
 return Response::json(array('key' => 'value'))
-	->setCallback(Request::input('callback'));
+	->withCallback(Request::input('callback'));
 return Response::download($filepath);
 return Response::download($filepath, $filename, $headers);
+// display a file directly in the user's browser
+return Response::file($pathToFile);
+return Response::file($pathToFile, $headers);
 // Create a response and modify a header value
 $response = Response::make($contents, 200);
 $response->header('Content-Type', 'application/json');
 return $response;
+// specifies an array of headers to be added
+return response($content)
+            ->withHeaders([
+                'Content-Type' => $type,
+                'X-Header-One' => 'Header Value',
+                'X-Header-Two' => 'Header Value',
+            ]);
 // Attach a cookie to a response
 return Response::make($content)
 	->withCookie(Cookie::make('key', 'value'));
@@ -1093,6 +1104,10 @@ return Redirect::to('foo/bar')->withInput(Request::except('password'));
 return Redirect::to('foo/bar')->withErrors($validator);
 // Create a new redirect response to the previous location
 return Redirect::back();
+or
+back();
+// Back with inputs
+return back()->withInput();
 // Create a new redirect response to a named route
 return Redirect::route('foobar');
 return Redirect::route('foobar', array('value'));
@@ -1103,6 +1118,8 @@ return Redirect::action('FooController@baz', array('value'));
 return Redirect::action('FooController@baz', array('key' => 'value'));
 // If intended redirect is not defined, defaults to foo/bar.
 return Redirect::intended('foo/bar');
+// Redirects With Flashed Session Data
+return redirect('dashboard')->with('status', 'Profile updated!');
                 </pre>
 
                 <h4><a name="service-container" href="#service-container">Service Container</a> <a href="http://laravel.com/docs/container" title="Service Container @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
