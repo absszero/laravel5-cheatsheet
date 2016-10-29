@@ -310,8 +310,6 @@ Route::resource('photo', 'PhotoController',['except' => ['update', 'destroy']]);
                 <pre class="prettyprint lang-php">App::abort(404);
 $handler->missing(...) in ErrorServiceProvider::boot();
 throw new NotFoundHttpException;
-abort_unless($item);
-abort_if($item->is_hidden);
                 </pre>
 
                 <h6>Route Parameters <a href="http://laravel.com/docs/routing#route-parameters" title="RESTful Controllers @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
@@ -1305,6 +1303,10 @@ Hello, {{ name }}.
 {{{ $name or 'Default' }}}
 // Displaying Raw Text With Curly Braces
 @{{ This will not be processed by Blade }}
+
+{{ method_field('DELETE') }}
+
+{{ csrf_field() }}
                 </pre>
 
                 <h4><a name="forms" href="#forms">Forms</a> <a href="https://github.com/illuminate/html/" title="Forms & HTML @ GitHub"><i class="icon-file-text"></i></a></h4>
@@ -1521,10 +1523,18 @@ array_forget($array, 'foo.bar');
 // Get an item from an array using "dot" notation
 array_get($array, 'foo', 'default');
 array_get($array, 'foo.bar', 'default');
+// Checks that a given item exists in an array using "dot" notation
+$hasDesk = array_has($array, 'products.desk');
+// Returns the last element of an array passing a given truth test
+$value = array_last($array, function ($value, $key) {
+    return $value >= 150;
+});
 // Get a subset of the items from the given array
 array_only($array, array('key'));
 // Return array of key => values
 array_pluck($array, 'key');
+// Push an item onto the beginning of an array
+$array = array_prepend($array, 'zero');
 // Return and remove 'key' from array
 array_pull($array, 'key');
 // Set an array item to a given value using "dot" notation
@@ -1545,6 +1555,8 @@ last($array);
                 <pre class="prettyprint lang-php">app_path();
 //  Get the path to the public folder
 public_path();
+//  Returns the fully qualified path to the resources directory.
+resource_path();
 // App root path
 base_path();
 // Get the path to the storage folder
@@ -1576,6 +1588,8 @@ str_replace_last($search, $replace, $subject)
 str_singular('cars');
 // Result: FooBar
 studly_case('foo_bar');
+// Result: A Nice Title Uses The Correct Case
+$title = title_case('a nice title uses the correct case');
 trans('foo.bar');
 trans_choice('foo.bar', $count);
                 </pre>
@@ -1595,9 +1609,42 @@ url('path', $parameters = array(), $secure = null);
                 </pre>
                 <h6>Miscellaneous</h6>
                 <pre class="prettyprint lang-php">
+abort(401);
+abort_if(! Auth::user()->isAdmin(), 403);
+abort_unless(Auth::user()->isAdmin(), 403);
+$user = auth()->user();
+return back();
+$password = bcrypt('my-secret-password');
+$value = cache('key');
+$value = cache('key', 'default');
+cache(['key' => 'value'], 5);
+cache(['key' => 'value'], Carbon::now()->addSeconds(10));
+$collection = collect(['taylor', 'abigail']);
+$value = config('app.timezone');
+$value = config('app.timezone', $default);
 csrf_token();
 dd($value);
+// do not to halt the execution
+dump($value);
+dispatch(new App\Jobs\SendEmails);
+// Return a default value if the variable doesn't exist...
+$env = env('APP_ENV', 'production');
+event(new UserRegistered($user));
+$user = factory(App\User::class)->make();
+info('write information to the log', ['id' => $user->id]);
+logger('Debug message to the log', ['id' => $user->id]);
+logger()->error('You are not allowed here.');
+$value = old('value', 'default');
+return redirect('/home');
+return redirect()->route('route.name');
+$request = request();
+$value = request('key', $default = null)
+return response('Hello World', 200, $headers);
+return response()->json(['foo' => 'bar'], 200, $headers);
+$value = session('key');
+session(['chairs' => 7, 'instruments' => 3]);
 value(function(){ return 'bar'; });
+return view('auth.login');
 // Call the given Closure with the given value then return the value.
 tap($value, $callback)
 with(new Foo)->chainedMethod();
@@ -1826,7 +1873,7 @@ $filtered = $collection->whereStrict('price', 100);
 // Filter items by the given key value pair.
 $filtered = $collection->whereIn([1, 3, 5]);
 // Filter items by the given key value pair using strict comparison.
-$filtered = $collection->whereIn([1, 3, 5]);
+$filtered = $collection->whereInStrict([1, 3, 5]);
 // Merges together the values of the given array with the values of the collection:
 $zipped = $collection->zip([100, 200]);
                 </pre>
