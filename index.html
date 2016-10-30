@@ -1270,20 +1270,46 @@ php artisan queue:flush
                 </pre>
 
                 <h4><a name="validation" href="#validation">Validation</a> <a href="http://laravel.com/docs/validation" title="Validation @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
-                <pre class="prettyprint lang-php">Validator::make(
-	array('key' => 'Foo'),
-	array('key' => 'required|in:Foo')
+                <pre class="prettyprint lang-php">
+Validator::make(
+    array('key' => 'Foo'),
+    array('key' => 'required|in:Foo')
 );
 Validator::extend('foo', function($attribute, $value, $params){});
 Validator::extend('foo', 'FooValidator@validate');
 Validator::resolver(function($translator, $data, $rules, $msgs)
 {
-	return new FooValidator($translator, $data, $rules, $msgs);
+    return new FooValidator($translator, $data, $rules, $msgs);
 });
+// Stops On First Validation Failure
+$rules = ['title' => 'bail|required|unique:posts|max:255'];
+// Validates When Present
+$rules =  ['email' => 'sometimes|required|email'];
+// Nested Attributes
+$rules = ['author.description' => 'required'];
+// Validates Arrays
+$rules = [
+    'person.*.email' => 'email|unique:users',
+    'person.*.first_name' => 'required_with:person.*.last_name',
+];
+                </pre>
+
+
+                <h6>Working With Error Messages</h6>
+                <pre class="prettyprint lang-php">
+$errors = $validator->errors();
+echo $errors->first('email');
+foreach ($errors->get('email') as $message) {}
+foreach ($errors->get('attachments.*') as $message) {}
+foreach ($errors->all() as $message) {}
+$errors->has('email')
                 </pre>
 
                 <h6>Rules</h6>
-                <pre class="prettyprint lang-php">accepted
+                <pre class="prettyprint lang-php">
+// yes, on, 1, or true
+accepted
+// must have a valid A or AAAA record
 active_url
 after:YYYY-MM-DD
 before:YYYY-MM-DD
@@ -1297,34 +1323,57 @@ boolean
 confirmed
 date
 date_format:YYYY-MM-DD
+// Available constraints are: min_width, max_width, min_height, max_height, width, height, ratio.
 dimensions
 different:fieldname
 digits:value
 digits_between:min,max
+// arrays must not have any duplicate values
 distinct
 email
 exists:table,column
+// Must be a successfully uploaded file
 file
+// Must not be empty when it is present
+filled
+// Must be an image (jpeg, png, bmp, gif, or svg)
 image
 in:foo,bar,...
 not_in:foo,bar,...
-in_array
+// Must exist in anotherfield's values.
+in_array:anotherfield
 integer
 numeric
 nullable
 ip
+json
 max:value
 min:value
+// Must match one of the given MIME types
+mimetypes:text/plain,...
+// Must have a MIME type corresponding to one of the listed extensions
 mimes:jpeg,png
+nullable
+// Must be present in the input data but can be empty
+present
 regex:[0-9]
 required
-required_if:field,value
+// Must be present and not empty if the anotherfield field is equal to any value.
+required_if:anotherfield,value,...
+// Must be present and not empty unless the anotherfield field is equal to any value.
+required_unless:anotherfield,value,...
+// Must be present and not empty only if any of the other specified fields are present.
 required_with:foo,bar,...
+// Must be present and not empty only if all of the other specified fields are present.
 required_with_all:foo,bar,...
+// Must be present and not empty only when any of the other specified fields are not present.
 required_without:foo,bar,...
+// Must be present and not empty only when all of the other specified fields are not present.
 required_without_all:foo,bar,...
 same:field
 size:value
+sometimes
+string
 timezone
 unique:table,column,except,idColumn
 url
