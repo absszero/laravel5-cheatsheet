@@ -995,7 +995,10 @@ response('Hello World')->cookie('name', 'value', $minutes);
                 </pre>
 
                 <h4><a name="sessions" href="#sessions">Sessions</a> <a href="http://laravel.com/docs/session" title="Session @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
-                <pre class="prettyprint lang-php">Session::get('key');
+                <pre class="prettyprint lang-php">
+Session::get('key');
+or
+session('key');
 // Returns an item from the session
 Session::get('key', 'default');
 Session::get('key', function(){ return 'default'; });
@@ -1005,10 +1008,14 @@ Session::getId();
 Session::put('key', 'value');
 // Push a value into an array in the session
 Session::push('foo.bar','value');
+// Retrieves & Deleting An Item
+Session::pull('key', 'default');
 // Returns all items from the session
 Session::all();
-// Checks if an item is defined
+// Checks if an item is defined but not null
 Session::has('key');
+// Checks if an item is defined
+Session::exists('users');
 // Remove an item from the session
 Session::forget('key');
 // Remove all of the items from the session
