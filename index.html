@@ -1574,26 +1574,35 @@ View::creator('viewname', function($view){});
                 </pre>
 
                 <h4><a name="blade" href="#blade">Blade Templates</a> <a href="http://laravel.com/docs/templates#blade-templating" title="Blade Templating @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
-                <pre class="prettyprint lang-php">@extends('layout.name')
-// Begin a section
-@section('name')
-// End a section
-@stop
-// End a section and yield
+                <pre class="prettyprint lang-php">
+@extends('layout.name')
+// Defines a section
+@section('sidebar')
+This is the master sidebar.
+@endsection
+// Defines a section and yields
+@section('content')
+This is my body content
 @show
-@parent
+// Appends content
+@section('sidebar')
+    @parent
+    This is appended to the master sidebar
+@endsection
 // Show a section in a template
 @yield('name')
 @include('view.name')
-@include('view.name', array('key' => 'value'));
+@include('view.name', ['key' => 'value']);
 @lang('messages.name')
 @choice('messages.name', 1);
+
 @if
 @else
 @elseif
 @endif
 @unless
 @endunless
+
 @for
 @endfor
 @foreach
@@ -1603,15 +1612,14 @@ View::creator('viewname', function($view){});
 @endforeach
 @while
 @endwhile
-//forelse 4.2 feature
+// forelse 4.2 feature
 @forelse($users as $user)
+    {{ $user->name }}
 @empty
+    No users
 @endforelse
-
-// Echo {{ }} in block
-@verbatim
-Hello, {{ name }}.
-@endverbatim
+// Renders Views For Collections
+@each('view.item', $items, 'item', 'view.no-items')
 
 @can('update', $post)
 @elsecan('delete', $post)
@@ -1635,6 +1643,13 @@ Hello, {{ name }}.
 @enphp
 @unset($count)
 
+@push('scripts')
+    &lt;script src=&quot;/example.js&quot;&gt;&lt;/script&gt;
+@endpush
+@stack('scripts')
+
+@inject('metrics', 'App\Services\MetricsService')
+
 // Echo content
 {{ $var }}
 // Echo escaped content
@@ -1642,18 +1657,51 @@ Hello, {{ name }}.
 // Echo unescaped content; 5.0 feature
 {!! $var !!}
 {{-- Blade Comment --}}
-// Echoing Data After Checking For Existence
+// Echoes Data After Checking For Existence
 {{{ $name or 'Default' }}}
-// Displaying Raw Text With Curly Braces
+// Displays Raw Text With Curly Braces
 @{{ This will not be processed by Blade }}
-
+// Echoes Curly Braces without @ prefix
+@verbatim
+Hello, {{ name }}.
+Today is {{ date }}.
+@endverbatim
+// &lt;input type=&quot;hidden&quot; name=&quot;_method&quot; value=&quot;DELETE&quot;&gt;
 {{ method_field('DELETE') }}
-
+// &lt;input type=&quot;hidden&quot; name=&quot;_token&quot; value=&quot;{{ csrf_token() }}&quot;&gt;
 {{ csrf_field() }}
+                </pre>
+                <h6>$loop variable</h6>
+                <pre class="prettyprint lang-php">
+@foreach ($users as $user)
+    @foreach ($user->posts as $post)
+        @if ($loop->parent->first)
+            This is first iteration of the parent loop.
+        @endif
+    @endforeach
+@endforeach
+
+//The index of the current loop iteration (starts at 0).
+$loop->index
+//The current loop iteration (starts at 1).
+$loop->iteration
+//The iteration remaining in the loop.
+$loop->remaining
+//The total number of items in the array being iterated.
+$loop->count
+//Whether this is the first iteration through the loop.
+$loop->first
+//Whether this is the last iteration through the loop.
+$loop->last
+//The nesting level of the current loop.
+$loop->depth
+//When in a nested loop, the parent's loop variable.
+$loop->parent
                 </pre>
 
                 <h4><a name="forms" href="#forms">Forms</a> <a href="https://github.com/illuminate/html/" title="Forms & HTML @ GitHub"><i class="icon-file-text"></i></a></h4>
-                <pre class="prettyprint lang-php">Form::open(array('url' => 'foo/bar', 'method' => 'PUT'));
+                <pre class="prettyprint lang-php">
+Form::open(array('url' => 'foo/bar', 'method' => 'PUT'));
 Form::open(array('route' => 'foo.bar'));
 Form::open(array('route' => array('foo.bar', $parameter)));
 Form::open(array('action' => 'FooController@method'));
