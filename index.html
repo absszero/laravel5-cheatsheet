@@ -2203,6 +2203,72 @@ Route::resource('user', 'AdminUserController', ['parameters' => [
 Route::get('photos/popular', 'PhotoController@method');
 Route::resource('photos', 'PhotoController');
                 </pre>
+
+                <h4><a name="elixir" href="#elixir">Elixir</a> <a href="https://laravel.com/docs/5.3/elixir" title="Elixir @ Laravel Docs"><i class="icon-file-text"></i></a>
+                </h4>
+                <h6>Stylesheets</h6>
+                <pre class="prettyprint lang-php">
+// Less
+elixir(function(mix) { mix.less('app.less');});
+// Sass
+elixir(function(mix) { mix.sass('app.scss'); });
+// Stylus
+elixir(function(mix) { mix.stylus('app.styl'); });
+// Plain CSS
+elixir(function(mix) { mix.styles('normalize.css'); );
+});
+// Combines and customizes the output location
+elixir(function(mix) {
+    mix.sass([
+        'app.scss',
+        'controllers.scss'
+    ], 'public/assets/css');
+});
+// Customizes Paths
+elixir(function(mix) {
+    mix.sass('./app/assets/sass/app.scss');
+});
+// disables source maps generated
+elixir.config.sourcemaps = false;
+                </pre>
+
+                <h6>Scripts</h6>
+                <pre class="prettyprint lang-php">
+// Webpack
+elixir(function(mix) { mix.webpack('app.js'); });
+// Rollup
+elixir(function(mix) { mix.rollup('app.js'); })
+// Scripts
+elixir(function(mix) { mix.scripts('app.js'); })
+// Chooses a different output or base directory
+elixir(function(mix) {
+    mix.rollup(
+        './resources/assets/js/app.js',
+        './public/dist'
+    );
+});
+// Concatenates multiple sets of scripts into different files
+elixir(function(mix) {
+    mix.scripts(['app.js', 'controllers.js'], 'public/js/app.js')
+       .scripts(['forum.js', 'threads.js'], 'public/js/forum.js');
+});
+// Combines all of the scripts in a given directory
+elixir(function(mix) { mix.scriptsIn('public/js/some/directory'); });
+// Copy
+elixir(function(mix) { mix.copy('vendor/foo/bar.css', 'public/css/bar.css'); });
+// Versioning Files
+elixir(function(mix) { mix.version('css/all.css'); });
+elixir(function(mix) {
+    mix.version(['css/all.css', 'js/app.js']);
+});
+// BrowserSync
+elixir(function(mix) {
+    mix.browserSync({
+        proxy: 'project.dev'
+    });
+});
+
+                </pre>
             </div>
 
         </div>
