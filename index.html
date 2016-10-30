@@ -1552,10 +1552,11 @@ $zipped = $collection->zip([100, 200]);
             </div>
             <div class="large-4 columnsi code-column">
                 <h4><a name="views" href="#views">Views</a> <a href="http://laravel.com/docs/views" title="Views @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
-                <pre class="prettyprint lang-php">View::make('path/to/view');
+                <pre class="prettyprint lang-php">
+View::make('path/to/view');
 View::make('foo/bar')->with('key', 'value');
 View::make('foo/bar')->withKey('value');
-View::make('foo/bar', array('key' => 'value'));
+View::make('foo/bar', ['key' => 'value']);
 View::exists('foo/bar');
 // Share a value across all views
 View::share('key', 'value');
@@ -1563,8 +1564,10 @@ View::share('key', 'value');
 View::make('foo/bar')->nest('name', 'foo/baz', $data);
 // Register a view composer
 View::composer('viewname', function($view){});
-//Register multiple views to a composer
-View::composer(array('view1', 'view2'), function($view){});
+// Register multiple views to a composer
+View::composer(['view1', 'view2'], function($view){});
+// Register all views to a composer
+View::composer('*', function ($view) {});
 // Register a composer class
 View::composer('viewname', 'FooComposer');
 View::creator('viewname', function($view){});
