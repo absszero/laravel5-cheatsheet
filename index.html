@@ -1834,13 +1834,17 @@ Str::macro($name, $macro)
                 </pre>
 
                 <h4><a name="localization" href="#localization">Localization</a> <a href="http://laravel.com/docs/localization" title="Localization @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
-                <pre class="prettyprint lang-php">App::setLocale('en');
+                <pre class="prettyprint lang-php">
+App::setLocale('en');
+App::getLocale();
+App::isLocale('en')
 Lang::get('messages.welcome');
-Lang::get('messages.welcome', array('foo' => 'Bar'));
+Lang::get('messages.welcome', ['foo' => 'Bar']);
 Lang::has('messages.welcome');
 Lang::choice('messages.apples', 10);
 // Lang::get alias
 trans('messages.welcome');
+trans_choice('messages.apples', 10);
                 </pre>
 
                 <h4><a name="files" href="#files">Files</a> <a href="http://laravel.com/api/5.0/Illuminate/Filesystem/Filesystem.html" title="Filesystem @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
