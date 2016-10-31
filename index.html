@@ -74,7 +74,8 @@
                 <h4><a class="l5update" name="artisan" href="#artisan">Artisan</a> <a href="http://laravel.com/docs/artisan" title="Artisan CLI @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
                 <pre class="prettyprint lang-php">
 // Generating Policies
-php artisan make:policy PostPolicy
+// --model[=MODEL] The model that the policy applies to.
+php artisan make:policy PostPolicy [-m, --model[=MODEL]]
 // Displays help for a given command
 php artisan --help OR -h
 // Do not output any message
@@ -779,6 +780,39 @@ Paginator::make($items, $totalItems, $perPage);
 // Print page navigators in view
 $variable->links();
                 </pre>
+
+                <h4><a name="authorization" href="#authorization">Authorization</a> <a href="http://laravel.com/docs/authorization" title="Authorization @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+                <pre class="prettyprint lang-php">
+Gate::define('update-post', function ($user, $post) { });
+Gate::allows('update-post', $post);
+// If a particular user is authorized
+Gate::forUser($user)->allows('update-post', $post)
+// Via The User Model
+$user->can('update', $post);
+$user->cant('update', $post);
+$user->can('create', Post::class);
+// Via middleware
+Route::put('/post/{post}', function (Post $post) {})->middleware('can:update,post');
+Route::post('/post', function () {})->middleware('can:create,App\Post');
+// Via Controller Helpers
+class PostController extends Controller {
+    public function update(Request $request, Post $post) {
+        $this->authorize('update', $post);
+        $this->authorize('create', Post::class);
+    }
+}
+// Via Blade Templates
+@can('update', $post)
+@endcan
+@can('update', Post::class)
+@endcan
+
+@cannot('update', $post)
+@endcannot
+@cannot('update', Post::class)
+@endcannot
+                </pre>
+
 
             </div>
 
