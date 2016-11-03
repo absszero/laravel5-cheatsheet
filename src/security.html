@@ -1,0 +1,52 @@
+<h4><a name="security" href="#security">Security</a></h4>
+<h6>Hashing <a href="http://laravel.com/docs/5.3/hashing" title="Hashing @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
+<pre class="prettyprint lang-php">Hash::make('secretpassword');
+Hash::check('secretpassword', $hashedPassword);
+Hash::needsRehash($hashedPassword);
+</pre>
+<h6>Authentication <a href="http://laravel.com/docs/5.3/authentication" title="Authentication @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
+<pre class="prettyprint lang-php">// Determine if the current user is authenticated
+Auth::check();
+// Get the currently authenticated user
+Auth::user();
+// Get the ID of the currently authenticated user
+Auth::id();
+// Attempt to authenticate a user using the given credentials
+Auth::attempt(['email' => $email, 'password' => $password], true);
+// 'Remember me' by passing true to Auth::attempt()
+
+// Accesses Specific Guard Instances
+Auth::guard('admin')->attempt($credentials);
+// Determines if the user was authenticated using the "remember me" cookie
+Auth::viaRemember()
+Auth::attempt($credentials, true);
+// Log in for a single request
+Auth::once($credentials);
+// Log a user into the application
+Auth::login(User::find(1));
+// Login and "remember" the given user
+Auth::login($user, true);
+// Log the given user ID into the application
+Auth::loginUsingId(1);
+// Login and "remember" the given user
+Auth::loginUsingId(1, true);
+// Log the user out of the application
+Auth::logout();
+// Validate a user's credentials
+Auth::validate($credentials);
+// Attempts to authenticate using HTTP Basic Auth
+Auth::basic('username');
+// Performs a stateless HTTP Basic login attempt
+Auth::onceBasic();
+// Defines your own authentication guard
+Auth::extend('jwt', function($app, $name, array $config) {});
+// Sends a password reminder to a user
+Password::remind($credentials, function($message, $user){});
+</pre>
+
+<h6>Encryption</h6>
+<pre class="prettyprint lang-php">Crypt::encrypt('secretstring');
+Crypt::decrypt($encryptedString);
+Crypt::setMode('ctr');
+Crypt::setCipher($cipher);
+</pre>

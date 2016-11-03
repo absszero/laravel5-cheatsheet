@@ -1,0 +1,35 @@
+<h4><a name="str" href="#str">Strings</a> <a href="http://laravel.com/docs/5.3/helpers#strings" title="Strings CLI @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<pre class="prettyprint lang-php">// Transliterate a UTF-8 value to ASCII
+Str::ascii($value)
+Str::camel($value)
+Str::charsArray()
+// Returns the replacements for the ascii method.
+Str::contains($haystack, $needle)
+Str::endsWith($haystack, $needles)
+// Cap a string with a single instance of a given value.
+Str::finish($value, $cap)
+Str::is($pattern, $value)
+Str::length($value)
+Str::limit($value, $limit = 100, $end = '...')
+Str::lower($value)
+Str::words($value, $words = 100, $end = '...')
+Str::plural($value, $count = 2)
+// Generate a "random" alpha-numeric string.
+Str::random($length = 16)
+// Replace a given value in the string sequentially with an array.
+Str::replaceArray($search, array $replace, $subject)
+// Replace the first occurrence of a given value in the string.
+Str::replaceFirst($search, $replace, $subject)
+// Replace the last occurrence of a given value in the string.
+Str::replaceLast($search, $replace, $subject)
+Str::quickRandom($length = 16)
+Str::upper($value)
+Str::title($value)
+Str::singular($value)
+Str::slug($title, $separator = '-')
+Str::snake($value, $delimiter = '_')
+Str::startsWith($haystack, $needles)
+// Convert a value to studly caps case.
+Str::studly($value)
+Str::macro($name, $macro)
+</pre>

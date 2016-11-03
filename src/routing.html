@@ -1,0 +1,114 @@
+<h4><a name="routing" href="#routing">Routing</a> <a href="http://laravel.com/docs/5.3/routing" title="Routing @ Laravel Docs"><i class="icon-file-text"></i></a> <a href="http://laravel.com/docs/5.3/helpers#routing" title="Routing Helpers @ Laravel Docs"><i class="icon-file-text"></i></a> </h4>
+<pre class="prettyprint lang-php">Route::get('foo', function(){});
+Route::get('foo', 'ControllerName@function');
+Route::controller('foo', 'FooController');
+</pre>
+
+<h6>RESTful Controllers <a href="http://laravel.com/docs/5.3/controllers#restful-resource-controllers" title="RESTful Controllers @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
+<pre class="prettyprint lang-php">Route::resource('posts','PostsController');
+//Specify a subset of actions to handle on the route
+Route::resource('photo', 'PhotoController',['only' => ['index', 'show']]);
+Route::resource('photo', 'PhotoController',['except' => ['update', 'destroy']]);
+</pre>
+
+<h6>Triggering Errors <a href="http://laravel.com/docs/5.3/routing#throwing-404-errors" title="throwing-404-errors @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
+<pre class="prettyprint lang-php">
+App::abort(404);
+$handler->missing(...) in ErrorServiceProvider::boot();
+throw new NotFoundHttpException;
+</pre>
+
+<h6>Route Parameters <a href="http://laravel.com/docs/5.3/routing#route-parameters" title="RESTful Controllers @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
+<pre class="prettyprint lang-php">Route::get('foo/{bar}', function($bar){});
+Route::get('foo/{bar?}', function($bar = 'bar'){});
+</pre>
+
+<h6>HTTP Verbs</h6>
+<pre class="prettyprint lang-php">
+Route::any('foo', function(){});
+Route::post('foo', function(){});
+Route::put('foo', function(){});
+Route::patch('foo', function(){});
+Route::delete('foo', function(){});
+Route::options('foo', $callback);
+// RESTful actions
+Route::resource('foo', 'FooController');
+// Registering A Route For Multiple Verbs
+Route::match(['get', 'post'], '/', function(){});
+// Registering A Route For all Verbs
+Route::any('foo', function () {});
+</pre>
+
+<h6>Secure Routes(TBD)</h6>
+<pre class="prettyprint lang-php">
+</pre>
+
+<h6>Route Constraints</h6>
+<pre class="prettyprint lang-php">
+Route::get('foo/{bar}', function($bar){})
+    ->where('bar', '[0-9]+');
+Route::get('foo/{bar}/{baz}', function($bar, $baz){})
+    ->where(array('bar' => '[0-9]+', 'baz' => '[A-Za-z]'))
+</pre>
+<pre class="prettyprint lang-php">
+// Set a pattern to be used across routes
+Route::pattern('bar', '[0-9]+')
+</pre>
+
+<h6>HTTP Middleware <a href="http://laravel.com/docs/5.3/middleware" title="HTTP Middleware @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
+<pre class="prettyprint lang-php">
+// Assigning Middleware To Routes
+Route::get('admin/profile', ['middleware' => 'auth', function(){}]);
+// Assigning Multi Middleware
+Route::get('admin/profile')->middleware(['auth', 'subscribed'], ['only' => ['getCandy']]);
+</pre>
+
+<h6>Named Routes</h6>
+<pre class="prettyprint lang-php">
+$route = Route::current();
+$name = Route::currentRouteName();
+$action = Route::currentRouteAction();
+
+Route::get('foo/bar', array('as' => 'foobar', function(){}));
+Route::get('user/profile', [
+    'as' => 'profile', 'uses' => 'UserController@showProfile'
+]);
+Route::get('user/profile', function () {})->name('profile');
+Route::get('user/profile', 'UserController@showProfile')->name('profile');
+$url = route('profile');
+$redirect = redirect()->route('profile');
+</pre>
+
+<h6>Route Prefixing</h6>
+<pre class="prettyprint lang-php">
+Route::group(['prefix' => 'admin'], function()
+{
+    Route::get('users', function(){
+        return 'Matches The "/admin/users" URL';
+    });
+});
+</pre>
+
+<h6>Route Middleware</h6>
+<pre class="prettyprint lang-php">
+Route::group(['middleware' => 'auth'], function () {});
+</pre>
+
+<h6>Route Namespacing</h6>
+<pre class="prettyprint lang-php">
+// This route group will carry the namespace 'Foo\Bar'
+Route::group(array('namespace' => 'Foo\Bar'), function(){})
+</pre>
+
+<h6>Sub-Domain Routing</h6>
+<pre class="prettyprint lang-php">
+// {sub} will be passed to the closure
+Route::group(array('domain' => '{sub}.example.com'), function(){});
+</pre>
+
+<h6>Implicit Binding</h6>
+<pre class="prettyprint lang-php">
+Route::get('api/users/{user}', function (App\User $user) {
+    return $user->email;
+});
+</pre>

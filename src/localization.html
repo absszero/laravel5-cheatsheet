@@ -1,0 +1,13 @@
+<h4><a name="localization" href="#localization">Localization</a> <a href="http://laravel.com/docs/5.3/localization" title="Localization @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<pre class="prettyprint lang-php">
+App::setLocale('en');
+App::getLocale();
+App::isLocale('en')
+Lang::get('messages.welcome');
+Lang::get('messages.welcome', ['foo' => 'Bar']);
+Lang::has('messages.welcome');
+Lang::choice('messages.apples', 10);
+// Lang::get alias
+trans('messages.welcome');
+trans_choice('messages.apples', 10);
+</pre>

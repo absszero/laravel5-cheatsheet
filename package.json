@@ -1,0 +1,23 @@
+{
+  "name": "laravel5-cheatsheet",
+  "version": "1.0.0",
+  "description": "laravel5-cheatsheet",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/absszero/laravel5-cheatsheet.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/absszero/laravel5-cheatsheet/issues"
+  },
+  "homepage": "https://github.com/absszero/laravel5-cheatsheet#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1"
+    "gulp-tap": "^0.1.3"
+  }
+}

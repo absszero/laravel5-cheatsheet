@@ -1,0 +1,42 @@
+<h4><a name="service-container" href="#service-container">Service Container</a> <a href="http://laravel.com/docs/5.3/container" title="Service Container @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<pre class="prettyprint lang-php">
+App::bind('foo', function($app){ return new Foo; });
+$foo = App::make('foo');
+// if $app variable not accessible
+$foo = resolve('foo');
+// If this class exists, it's returned
+App::make('FooBar');
+// Register a shared binding in the container
+App::singleton('foo', function(){ return new Foo; });
+// Register an existing instance as shared in the container
+App::instance('foo', new Foo);
+// Register a binding with the container
+App::bind('FooRepositoryInterface', 'BarRepository');
+// Binding Primitives
+app()->when('App\Http\Controllers\UserController')
+          ->needs('$variableName')
+          ->give($value);
+// Contextual Binding
+app()->when(PhotoController::class)
+          ->needs(Filesystem::class)
+          ->give(function () {
+              return Storage::disk('local');
+          });
+
+app()->when(VideoController::class)
+          ->needs(Filesystem::class)
+          ->give(function () {
+              return Storage::disk('s3');
+          });
+// Tagging
+app()->bind('SpeedReport', function () {});
+app()->bind('MemoryReport', function () {});
+app()->tag(['SpeedReport', 'MemoryReport'], 'reports');
+app()->bind('ReportAggregator', function ($app) {
+    return new ReportAggregator($app->tagged('reports'));
+});
+// Register a service provider with the application
+App::register('FooServiceProvider');
+// Listen for object resolution
+App::resolving(function($object){});
+</pre>

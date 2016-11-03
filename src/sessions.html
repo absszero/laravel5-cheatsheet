@@ -1,0 +1,35 @@
+<h4><a name="sessions" href="#sessions">Sessions</a> <a href="http://laravel.com/docs/5.3/session" title="Session @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<pre class="prettyprint lang-php">
+Session::get('key');
+or
+session('key');
+// Returns an item from the session
+Session::get('key', 'default');
+Session::get('key', function(){ return 'default'; });
+// Get the session ID
+Session::getId();
+// Put a key / value pair in the session
+Session::put('key', 'value');
+// Push a value into an array in the session
+Session::push('foo.bar','value');
+// Retrieves & Deleting An Item
+Session::pull('key', 'default');
+// Returns all items from the session
+Session::all();
+// Checks if an item is defined but not null
+Session::has('key');
+// Checks if an item is defined
+Session::exists('users');
+// Remove an item from the session
+Session::forget('key');
+// Remove all of the items from the session
+Session::flush();
+// Generate a new session identifier
+Session::regenerate();
+// Flash a key / value pair to the session
+Session::flash('key', 'value');
+// Reflash all of the session flash data
+Session::reflash();
+// Reflash a subset of the current flash data
+Session::keep(array('key1', 'key2'));
+</pre>

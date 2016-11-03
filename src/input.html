@@ -1,0 +1,65 @@
+<h4><a name="input" href="#input">Input</a> <a href="http://laravel.com/docs/5.3/requests" title="Input @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<pre class="prettyprint lang-php">
+Request::input('key');
+// Default if the key is missing
+Request::input('key', 'default');
+// Works with forms that contain array inputs
+Request::input('products.*.name');
+// Retrieving Input Via Dynamic Properties
+$name = request()->name;
+// Retrieving JSON Input Values when "Content-Type" header is "application/json"
+Request::input('user.name');
+Request::has('key');
+Request::all();
+// Only retrieve 'foo' and 'bar' when getting input
+Request::only(['foo', 'bar']);
+Request::only('foo', 'bar');
+// Disregard 'foo' when getting input
+Request::except('foo');
+Request::except(['foo']);
+// Flash Input To The Session
+Request::flush();
+// Flash a subset of the request data to the session
+$request->flashOnly(['username', 'email']);
+$request->flashExcept('password');
+</pre>
+
+<h6>Session Input (flash)</h6>
+<pre class="prettyprint lang-php">// Flash input to the session
+Request::flash();
+// Flash only some of the input to the session
+Request::flashOnly('foo', 'bar');
+// Flash only some of the input to the session
+Request::flashExcept('foo', 'baz');
+// Retrieve an old input item
+Request::old('key','default_value');
+</pre>
+
+<h6>Files</h6>
+<pre class="prettyprint lang-php">// Use a file that's been uploaded
+Request::file('filename');
+// Determine if a file was uploaded
+Request::hasFile('filename');
+// Validating Successful Uploads
+Request::file('photo')->isValid()
+// Access file properties
+Request::file('name')->path();
+Request::file('name')->getRealPath();
+Request::file('name')->extension();
+Request::file('name')->getClientOriginalName();
+Request::file('name')->getClientOriginalExtension();
+Request::file('name')->getSize();
+Request::file('name')->getMimeType();
+// Move an uploaded file
+Request::file('name')->move($destinationPath);
+// Move an uploaded file
+Request::file('name')->move($destinationPath, $fileName);
+// Stores Uploaded Files
+$path = Request::file('name')->store('store_dir');
+// the name of the disk that should be used to store the file
+$path = $request->photo->store('store_dir', 's3');
+// Stores as the filename
+$path = $request->photo->storeAs('images', 'filename.jpg');
+$path = $request->photo->storeAs('images', 'filename.jpg', 's3');
+
+</pre>

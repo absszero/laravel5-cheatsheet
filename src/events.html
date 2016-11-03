@@ -1,0 +1,29 @@
+<h4><a name="events" href="#events">Events</a> <a href="http://laravel.com/docs/5.3/events" title="Events @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<pre class="prettyprint lang-php">
+Event::fire('foo.bar', array($bar));
+// Register an event listener with the dispatcher.
+// void listen(string|array $events, mixed $listener, int $priority)
+Event::listen('App\Events\UserSignup', function($bar){});
+Event::listen('foo.*', function($bar){});
+Event::listen('foo.bar', 'FooHandler', 10);
+Event::listen('foo.bar', 'BarHandler', 5);
+// Stopping The Propagation Of An Event
+// You may do so using by returning false from your handler.
+Event::listen('foor.bar', function($event){ return false; });
+Event::subscribe('UserEventHandler');
+</pre>
+<h6>Container Events</h6>
+<pre class="prettyprint lang-php">
+// Called when container resolves object of any type...
+app()->resolving(function ($object, $app) {});
+// Called when container resolves objects of type "HelpSpot\API"...
+app()->resolving(HelpSpot\API::class, function ($api, $app) {});
+</pre>
+
+<h6>Authentication Events</h6>
+<pre class="prettyprint lang-php">
+Illuminate\Auth\Events\Attempting
+Illuminate\Auth\Events\Login
+Illuminate\Auth\Events\Logout
+Illuminate\Auth\Events\Lockout
+</pre>

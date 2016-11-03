@@ -1,0 +1,17 @@
+<h4><a name="urls" href="#urls">UrlGenerator</a> <a href="http://laravel.com/api/5.0/Illuminate/Routing/UrlGenerator.html" title="UrlGenerator @ Laravel Docs"><i class="icon-file-text"></i></a>&nbsp;<a href="http://laravel.com/docs/5.3/helpers#urls" title="URL helper @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<pre class="prettyprint lang-php">URL::full();
+URL::current();
+URL::previous();
+URL::to('foo/bar', $parameters, $secure);
+URL::action('NewsController@item', ['id'=>123]);
+// need be in appropriate namespace
+URL::action('Auth\AuthController@logout');
+URL::action('FooController@method', $parameters, $absolute);
+URL::route('foo', $parameters, $absolute);
+URL::secure('foo/bar', $parameters);
+URL::asset('css/foo.css', $secure);
+URL::secureAsset('css/foo.css');
+URL::isValidUrl('http://example.com');
+URL::getRequest();
+URL::setRequest($request);
+</pre>

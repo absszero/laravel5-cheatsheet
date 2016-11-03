@@ -1,0 +1,44 @@
+<h4><a name="controllers" href="#controllers">Controllers</a> <a href="http://laravel.com/docs/5.3/controllers" title="Controllers @ Laravel Docs"><i class="icon-file-text"></i></a>
+                </h4>
+<h6>Single Action Controllers</h6>
+<pre class="prettyprint lang-php">
+class ShowProfile extends Controller
+{
+    public function __invoke($id)
+    {
+        return view('user.profile', ['user' => User::findOrFail($id)]);
+    }
+}
+Route::get('user/{id}', 'ShowProfile');
+</pre>
+
+<h6>Partial Resource Routes</h6>
+<pre class="prettyprint lang-php">
+Route::resource('photo', 'PhotoController', ['only' => [
+    'index', 'show'
+]]);
+
+Route::resource('photo', 'PhotoController', ['except' => [
+    'create', 'store', 'update', 'destroy'
+]]);
+</pre>
+<h6>Naming Resource Routes</h6>
+<pre class="prettyprint lang-php">
+Route::resource('photo', 'PhotoController', ['names' => [
+    'create' => 'photo.build'
+]]);
+</pre>
+
+<h6>Naming Resource Route Parameters</h6>
+<pre class="prettyprint lang-php">
+Route::resource('user', 'AdminUserController', ['parameters' => [
+    'user' => 'admin_user'
+]]);
+</pre>
+
+<h6>Supplementing Resource Controllers</h6>
+<pre class="prettyprint lang-php">
+// defines those routes before your call to Route::resource
+Route::get('photos/popular', 'PhotoController@method');
+Route::resource('photos', 'PhotoController');
+</pre>

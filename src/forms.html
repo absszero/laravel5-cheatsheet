@@ -1,0 +1,51 @@
+<h4><a name="forms" href="#forms">Forms</a> <a href="https://github.com/illuminate/html/" title="Forms & HTML @ GitHub"><i class="icon-file-text"></i></a></h4>
+<pre class="prettyprint lang-php">
+Form::open(array('url' => 'foo/bar', 'method' => 'PUT'));
+Form::open(array('route' => 'foo.bar'));
+Form::open(array('route' => array('foo.bar', $parameter)));
+Form::open(array('action' => 'FooController@method'));
+Form::open(array('action' => array('FooController@method', $parameter)));
+Form::open(array('url' => 'foo/bar', 'files' => true));
+Form::close();
+{{ method_field('PUT') }}
+Form::token();
+Form::model($foo, array('route' => array('foo.bar', $foo->bar)));
+
+</pre>
+
+<h6>Form Elements</h6>
+<pre class="prettyprint lang-php">Form::label('id', 'Description');
+Form::label('id', 'Description', array('class' => 'foo'));
+Form::text('name');
+Form::text('name', $value);
+Form::text('name', $value, array('class' => 'name'));
+Form::textarea('name');
+Form::textarea('name', $value);
+Form::textarea('name', $value, array('class' => 'name'));
+Form::hidden('foo', $value);
+Form::number('name', 'value');
+Form::password('password');
+Form::password('password', array('placeholder' => 'Password'));
+Form::email('name', $value, array());
+Form::file('name', array('class' => 'name'));
+Form::checkbox('name', 'value');
+// Generating a checkbox that is checked
+Form::checkbox('name', 'value', true, array('class' => 'name'));
+Form::radio('name', 'value');
+// Generating a radio input that is selected
+Form::radio('name', 'value', true, array('class' => 'name'));
+Form::select('name', array('key' => 'value'));
+Form::select('name', array('key' => 'value'), 'key', array('class' => 'name'));
+Form::selectRange('range', 1, 10);
+Form::selectYear('year', 2011, 2015);
+Form::selectMonth('month');
+// be sure Carbon is installed http://carbon.nesbot.com/#gettingstarted
+Form::date('name', \Carbon\Carbon::now());
+Form::submit('Submit!', array('class' => 'name'));
+Form::button('name', array('class' => 'name'));
+Form::macro('fooField', function()
+{
+    return '&lt;input type="custom"/&gt;';
+});
+Form::fooField();
+</pre>
