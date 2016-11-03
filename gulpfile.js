@@ -23,21 +23,6 @@ gulp.task('write-index', ['load-sources'], function() {
 
     fs.writeFile(destFile, content);
 });
-/*    .pipe(function(){
-        fs.writeFile(destFile, templateContent);
-    });*/
-
-/* return gulp.src(src)
-    .pipe(fs.readFile("path/to/file.something", "utf-8", function(err, _data) {
-      //do something with your data
-    }))
-   .pipe(gulp.dest('destination/path'));
-  });
-*/
-
-/*  return gulp.src(src)
-    .pipe(concat('index.html'))
-    .pipe(gulp.dest('./'));*/
 
 gulp.task('default', function() {
     gulp.watch([templateFile, srcPath], ['write-index']);
