@@ -40,5 +40,5 @@ gulp.task('write-index', ['load-sources'], function() {
     .pipe(gulp.dest('./'));*/
 
 gulp.task('default', function() {
-    gulp.watch(srcPath, ['write-index']);
+    gulp.watch([templateFile, srcPath], ['write-index']);
 });
