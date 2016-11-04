@@ -1,5 +1,8 @@
 <h4><a name="cache" href="#cache">Cache</a> <a href="https://laravel.com/docs/5.3/cache" title="Cache @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
-<pre class="prettyprint lang-php">Cache::put('key', 'value', $minutes);
+<pre class="prettyprint lang-php">
+// Access cache stores
+Cache::store('file');
+Cache::put('key', 'value', $minutes);
 Cache::add('key', 'value', $minutes);
 Cache::forever('key', 'value');
 Cache::remember('key', $minutes, function(){ return 'value' });
@@ -9,11 +12,15 @@ Cache::has('key');
 Cache::get('key');
 Cache::get('key', 'default');
 Cache::get('key', function(){ return 'default'; });
-Cache::tags('my-tag')->put('key','value', $minutes);
-Cache::tags('my-tag')->has('key');
-Cache::tags('my-tag')->get('key');
-Cache::tags('my-tag')->forget('key');
-Cache::tags('my-tag')->flush();
+// Retrieve & Delete
+Cache::pull('key');
+// Clear the entire cache
+Cache::flush();
+Cache::tags(['people', 'artists'])->put('key','value', $minutes);
+Cache::tags(['people', 'artists'])->has('key');
+Cache::tags(['people', 'artists'])->get('key');
+Cache::tags(['people', 'artists'])->forget('key');
+Cache::tags(['people', 'artists'])->flush();
 Cache::increment('key');
 Cache::increment('key', $amount);
 Cache::decrement('key');
@@ -21,4 +28,13 @@ Cache::decrement('key', $amount);
 Cache::section('group')->put('key', $value);
 Cache::section('group')->get('key');
 Cache::section('group')->flush();
+</pre>
+
+<h6>Helper</h6>
+<pre class="prettyprint lang-php">
+// Get value
+$value = cache('key');
+// store values
+cache(['key' => 'value'], $minutes);
+cache(['key' => 'value'], Carbon::now()->addSeconds(10));
 </pre>
