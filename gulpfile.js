@@ -3,9 +3,11 @@ var gulp = require('gulp'),
     path = require("path"),
     tap = require('gulp-tap');
 
-var srcPath = 'src/*.html', templateFile = 'template.html', destFile = 'index.html';
-var sources = {};
+var srcPath = 'src/*.html',
+    templateFile = 'template.html',
+    destFile = 'index.html';
 
+var sources = {};
 
 gulp.task('load-sources', function() {
     return gulp.src(srcPath)
@@ -14,7 +16,7 @@ gulp.task('load-sources', function() {
     }));
 });
 
-gulp.task('write-index', ['load-sources'], function() {
+gulp.task('build', ['load-sources'], function() {
     var content = fs.readFileSync(templateFile, "utf8");
 
     Object.keys(sources).forEach(function(filename){
@@ -25,5 +27,5 @@ gulp.task('write-index', ['load-sources'], function() {
 });
 
 gulp.task('default', function() {
-    gulp.watch([templateFile, srcPath], ['write-index']);
+    gulp.watch([templateFile, srcPath], ['build']);
 });

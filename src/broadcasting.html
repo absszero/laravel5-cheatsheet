@@ -1,0 +1,22 @@
+<h4><a name="broadcasting" href="#broadcasting">Event Broadcasting</a> <a href="https://laravel.com/docs/5.3/broadcasting" title="Event Broadcasting @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<h6>Laravel Echo</h6>
+<pre class="prettyprint lang-php">
+// Listen for event broadcasts
+Echo.channel('orders').listen('OrderShipped', (e) => {});
+// Specify the fully-qualified class name
+Echo.channel('orders').listen('.Namespace.Event.Class', (e) => {});
+// Listen for events on a private channel
+Echo.private('orders').listen(...).listen(...);
+// Leave a channel
+Echo.leave('orders');
+
+// Join and listen a presence channel
+Echo.join('chat.' + roomId)
+    .here((users) => { })
+    .joining((user) => { })
+    .leaving((user) => { });
+    .listen('NewMessage', (e) => { });
+
+Echo.private('App.User.' + userId)
+    .notification((notification) => { });
+</pre>

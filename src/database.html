@@ -1,4 +1,4 @@
-<h4><a name="database" href="#database">Database</a> <a href="http://laravel.com/docs/5.3/database" title="Basic Database Usage @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<h4><a name="database" href="#database">Database</a> <a href="https://laravel.com/docs/5.3/database" title="Basic Database Usage @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
 
 <h6>Basic Database Usage</h6>
 <pre class="prettyprint lang-php">
@@ -21,7 +21,7 @@ DB::rollback();
 DB::commit();
 </pre>
 
-<h6>Query Builder <a href="http://laravel.com/docs/5.3/queries" title="Query Builder @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
+<h6>Query Builder <a href="https://laravel.com/docs/5.3/queries" title="Query Builder @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
 <pre class="prettyprint lang-php">
 // Retrieving All Rows From A Table
 DB::table('name')->get();
@@ -87,7 +87,7 @@ DB::table('name')->having('count', '>', 100)->get();
 $users = DB::table('users')->skip(10)->take(5)->get();
 </pre>
 
-<h6>Joins <a href="http://laravel.com/docs/5.3/queries#joins" title="Joins @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
+<h6>Joins <a href="https://laravel.com/docs/5.3/queries#joins" title="Joins @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
 <pre class="prettyprint lang-php">
 // Basic Join Statement
 DB::table('users')
@@ -110,7 +110,7 @@ DB::table('users')
             ->get();
 </pre>
 
-<h6>Aggregates <a href="http://laravel.com/docs/5.3/queries#aggregates" title="Aggregates @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
+<h6>Aggregates <a href="https://laravel.com/docs/5.3/queries#aggregates" title="Aggregates @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
 <pre class="prettyprint lang-php">
 $users = DB::table('users')->count();
 $price = DB::table('orders')->max('price');
@@ -124,7 +124,7 @@ DB::table('name')->cacheTags('my-key')->remember(5)->get();
 DB::table('name')->cacheTags(array('my-first-key','my-second-key'))->remember(5)->get();
 </pre>
 
-<h6>Raw Expressions <a href="http://laravel.com/docs/5.3/queries#raw-expressions" title="Raw Expressions @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
+<h6>Raw Expressions <a href="https://laravel.com/docs/5.3/queries#raw-expressions" title="Raw Expressions @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
 <pre class="prettyprint lang-php">
 $users = DB::table('users')
                      ->select(DB::raw('count(*) as user_count, status'))

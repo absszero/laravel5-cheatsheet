@@ -1,24 +1,24 @@
-<h4><a name="routing" href="#routing">Routing</a> <a href="http://laravel.com/docs/5.3/routing" title="Routing @ Laravel Docs"><i class="icon-file-text"></i></a> <a href="http://laravel.com/docs/5.3/helpers#routing" title="Routing Helpers @ Laravel Docs"><i class="icon-file-text"></i></a> </h4>
+<h4><a name="routing" href="#routing">Routing</a> <a href="https://laravel.com/docs/5.3/routing" title="Routing @ Laravel Docs"><i class="icon-file-text"></i></a> <a href="https://laravel.com/docs/5.3/helpers#routing" title="Routing Helpers @ Laravel Docs"><i class="icon-file-text"></i></a> </h4>
 <pre class="prettyprint lang-php">Route::get('foo', function(){});
 Route::get('foo', 'ControllerName@function');
 Route::controller('foo', 'FooController');
 </pre>
 
-<h6>RESTful Controllers <a href="http://laravel.com/docs/5.3/controllers#restful-resource-controllers" title="RESTful Controllers @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
+<h6>RESTful Controllers <a href="https://laravel.com/docs/5.3/controllers#restful-resource-controllers" title="RESTful Controllers @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
 <pre class="prettyprint lang-php">Route::resource('posts','PostsController');
 //Specify a subset of actions to handle on the route
 Route::resource('photo', 'PhotoController',['only' => ['index', 'show']]);
 Route::resource('photo', 'PhotoController',['except' => ['update', 'destroy']]);
 </pre>
 
-<h6>Triggering Errors <a href="http://laravel.com/docs/5.3/routing#throwing-404-errors" title="throwing-404-errors @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
+<h6>Triggering Errors <a href="https://laravel.com/docs/5.3/routing#throwing-404-errors" title="throwing-404-errors @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
 <pre class="prettyprint lang-php">
 App::abort(404);
 $handler->missing(...) in ErrorServiceProvider::boot();
 throw new NotFoundHttpException;
 </pre>
 
-<h6>Route Parameters <a href="http://laravel.com/docs/5.3/routing#route-parameters" title="RESTful Controllers @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
+<h6>Route Parameters <a href="https://laravel.com/docs/5.3/routing#route-parameters" title="RESTful Controllers @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
 <pre class="prettyprint lang-php">Route::get('foo/{bar}', function($bar){});
 Route::get('foo/{bar?}', function($bar = 'bar'){});
 </pre>
@@ -55,7 +55,7 @@ Route::get('foo/{bar}/{baz}', function($bar, $baz){})
 Route::pattern('bar', '[0-9]+')
 </pre>
 
-<h6>HTTP Middleware <a href="http://laravel.com/docs/5.3/middleware" title="HTTP Middleware @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
+<h6>HTTP Middleware <a href="https://laravel.com/docs/5.3/middleware" title="HTTP Middleware @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
 <pre class="prettyprint lang-php">
 // Assigning Middleware To Routes
 Route::get('admin/profile', ['middleware' => 'auth', function(){}]);
