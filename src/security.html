@@ -49,4 +49,10 @@ Password::remind($credentials, function($message, $user){});
 Crypt::decrypt($encryptedString);
 Crypt::setMode('ctr');
 Crypt::setCipher($cipher);
+
+$encryptedValue = encrypt($request->secret);
+try {
+    $decrypted = decrypt($encryptedValue);
+} catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+}
 </pre>
