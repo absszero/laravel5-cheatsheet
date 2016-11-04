@@ -152,6 +152,19 @@ php artisan migrate:rollback [--database[="..."]] [--force] [--pretend]
 // Show a list of migrations up/down
 php artisan migrate:status
 
+// Create encryption keys
+php artisan passport:install
+// Create a client
+php artisan passport:client
+// Create a password grant client
+php artisan passport:client --password
+// Create a personal access client
+php artisan passport:client --personal
+
+
+
+
+
 // Create a migration for the queue jobs database table
 php artisan queue:table
 // Listen to a given queue

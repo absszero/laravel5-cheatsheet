@@ -1,0 +1,62 @@
+<h4><a name="passport" href="#passport">API Authentication (Passport)</a> <a href="http://laravel.com/docs/5.3/passport" title="Passport @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<pre class="prettyprint lang-php">
+// Register Passport routes
+Passport::routes();
+// Set lifetime for access tokens
+Passport::tokensExpireIn(Carbon::now()->addDays(15));
+// Set lifetime for refresh token
+Passport::refreshTokensExpireIn(Carbon::now()->addDays(30));
+// Delete revoked access tokens from the database
+Passport::pruneRevokedTokens();
+// Define Scopes
+Passport::tokensCan([
+    'place-orders' => 'Place orders',
+    'check-status' => 'Check order status',
+]);
+
+// Create a token without scopes
+$token = $user->createToken('Token Name')->accessToken;
+// Create a token with scopes
+$token = $user->createToken('My Token', ['place-orders'])->accessToken;
+
+// Check Scopes On A Token Instance
+$request->user()->tokenCan('place-orders');
+</pre>
+
+<h6>Routes</h6>
+<pre class="prettyprint lang-php">
+// Return all of the clients for the authenticated user
+GET /oauth/clients
+// Create new clients
+// data = {name: 'Client Name',redirect: 'http://example.com/callback'};
+POST /oauth/clients
+// Update clients
+PUT /oauth/clients/{client-id}
+// Delete clients
+DELETE /oauth/clients/{client-id}
+// Return all of the scopes defined for your application
+GET /oauth/scopes
+// Return all of the personal access tokens
+GET /oauth/personal-access-tokens
+// Create creates new personal access tokens
+POST /oauth/personal-access-tokens
+// Delete personal access tokens:
+DELETE /oauth/personal-access-tokens/{token-id}
+// Redirect For Authorization
+GET /oauth/authorize
+// Get Access Tokens or Refresh Tokens
+POST /oauth/token
+</pre>
+
+<h6>Middleware</h6>
+<pre class="prettyprint lang-php">
+'scopes' => \Laravel\Passport\Http\Middleware\CheckScopes::class,
+'scope' => \Laravel\Passport\Http\Middleware\CheckForAnyScope::class,
+// attach a laravel_token cookie to your outgoing response
+\Laravel\Passport\Http\Middleware\CreateFreshApiToken::class,
+
+// Check For All Scopes
+// Access token has both "check-status" and "place-orders" scopes...
+Route::get('/orders', function () {})
+->middleware('scopes:check-status,place-orders');
+</pre>
