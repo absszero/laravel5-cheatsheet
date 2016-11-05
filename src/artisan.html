@@ -146,14 +146,23 @@ php artisan migrate:install [--database[="..."]]
 // --table      The table to migrate.
 php artisan make:migration [--create[="..."]] [--table[="..."]] name
 // Reset and re-run all migrations
-// --seed       Indicates if the seed task should be re-run.
-// --seeder     The class name of the root seeder.
-php artisan migrate:refresh [--database[="..."]] [--force] [--seed] [--seeder[="..."]]
+// --database[=DATABASE]  The database connection to use.
+// --force                Force the operation to run when in production.
+// --path[=PATH]          The path of migrations files to be executed.
+// --seed                 Indicates if the seed task should be re-run.
+// --seeder[=SEEDER]      The class name of the root seeder.
+// --step[=STEP]          The number of migrations to be reverted & re-run.
+php artisan migrate:refresh
 // Rollback all database migrations
 // --pretend    Dump the SQL queries that would be run.
 php artisan migrate:reset [--database[="..."]] [--force] [--pretend]
 // Rollback the last database migration
-php artisan migrate:rollback [--database[="..."]] [--force] [--pretend]
+// --database[=DATABASE]  The database connection to use.
+// --force                Force the operation to run when in production.
+// --path[=PATH]          The path of migrations files to be executed.
+// --pretend              Dump the SQL queries that would be run.
+// --step[=STEP]          The number of migrations to be reverted.
+php artisan migrate:rollback
 // Show a list of migrations up/down
 php artisan migrate:status
 

@@ -25,8 +25,8 @@ $table->renameColumn('from', 'to');
 $table->dropColumn(string|array);
 // The storage engine that should be used for the table
 $table->engine = 'InnoDB';
-// Only work on MySQL
-$table->string('name')->after('email');
+// Modify an existing column
+$table->string('name', 50)->nullable()->change();
 </pre>
 
 <h6>Indexes</h6>
@@ -56,12 +56,20 @@ $table->foreign('user_id')->references('id')->on('users');
 $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'|'restrict'|'set null'|'no action');
 $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade'|'restrict'|'set null'|'no action');
 $table->dropForeign('posts_user_id_foreign');
+
+Schema::enableForeignKeyConstraints();
+Schema::disableForeignKeyConstraints();
 </pre>
 
 <h6>Column Types</h6>
-<pre class="prettyprint lang-php">// Increments
+<pre class="prettyprint lang-php">
+// Increments
+// UNSIGNED SMALL INTEGER
+$table->smallIncrements('id');
 $table->increments('id');
 $table->bigIncrements('id');
+// UNSIGNED MEDIUM INTEGER
+$table->mediumIncrements('id');
 
 // Numbers
 $table->integer('votes');
@@ -72,6 +80,11 @@ $table->bigInteger('votes');
 $table->float('amount');
 $table->double('column', 15, 8);
 $table->decimal('amount', 5, 2);
+$table->unsignedBigInteger('votes');
+$table->unsignedInteger('votes');
+$table->unsignedMediumInteger('votes');
+$table->unsignedSmallInteger('votes');
+$table->unsignedTinyInteger('votes');
 
 //String and Text
 $table->char('name', 4);
@@ -84,10 +97,14 @@ $table->longText('description');
 //Date and Time
 $table->date('created_at');
 $table->dateTime('created_at');
+$table->dateTimeTz('created_at');
 $table->time('sunrise');
+$table->timeTz('sunrise');
 $table->timestamp('added_on');
+$table->timestampTz('added_on');
 // Adds created_at and updated_at columns
 $table->timestamps();
+$table->timestampsTz();
 $table->nullableTimestamps();
 
 // Others
@@ -95,12 +112,34 @@ $table->binary('data');
 $table->boolean('confirmed');
 // Adds deleted_at column for soft deletes
 $table->softDeletes();
+$table->ipAddress('visitor');
+$table->json('options');
+$table->jsonb('options');
+$table->macAddress('device');
 $table->enum('choices', array('foo', 'bar'));
+$table->uuid('id');
 // Adds remember_token as VARCHAR(100) NULL
 $table->rememberToken();
 // Adds INTEGER parent_id and STRING parent_type
 $table->morphs('parent');
-->nullable()
+</pre>
+
+<h6>Column Modifiers</h6>
+<pre class="prettyprint lang-php">
+// Place the column "after" another column (MySQL Only)
+->after('column')
+// Add a comment to a column
+->comment('my comment')
+// Specify a "default" value for the column
 ->default($value)
+// Place the column "first" in the table (MySQL Only)
+->first()
+// Allow NULL values to be inserted into the column
+->nullable()
+// Create a stored generated column (MySQL Only)
+->storedAs($expression)
+// Set integer columns to UNSIGNED
 ->unsigned()
+// Create a virtual generated column (MySQL Only)
+->virtualAs($expression)
 </pre>
