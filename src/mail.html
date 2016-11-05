@@ -1,11 +1,33 @@
 <h4><a name="mail" href="#mail">Mail</a> <a href="https://laravel.com/docs/5.3/mail" title="Mail @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
-<pre class="prettyprint lang-php">Mail::send('email.view', $data, function($message){});
+<h6>Mailable</h6>
+<pre class="prettyprint lang-php">
+// Configure the sender of the email
+Mailable::from('example@example.com');
+// Specify the template when rendering the email's contents
+Mailable::view('emails.orders.shipped');
+// Specify a plain-text template
+Mailable::text('emails.orders.shipped_plain');
+// Add a attachment to an email
+Mailable::attach('/path/to/file');
+Mailable::attachattach('/path/to/file',
+['as' => 'name.pdf', 'mime' => 'application/pdf']);
+// Attach a raw string of bytes as an attachment
+Mailable::attachData($this->pdf, 'name.pdf', ['mime' => 'application/pdf']);
+</pre>
+
+<pre class="prettyprint lang-php">
+Mail::send('email.view', $data, function($message){});
 Mail::send(array('html.view', 'text.view'), $data, $callback);
 Mail::queue('email.view', $data, function($message){});
 Mail::queueOn('queue-name', 'email.view', $data, $callback);
 Mail::later(5, 'email.view', $data, function($message){});
 // Write all email to logs instead of sending
 Mail::pretend();
+
+Mail::to($request->user())
+    ->cc($moreUsers)
+    ->bcc($evenMoreUsers)
+    ->send(new Mailable($order));
 </pre>
 
 <h6>Messages</h6>
