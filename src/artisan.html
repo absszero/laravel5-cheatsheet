@@ -108,6 +108,8 @@ php artisan make:controller [--resource] name
 php artisan make:controller Namespace\\DashboardController
 // Create a new event class
 php artisan make:event name
+// Create a queued job
+php artisan make:job name
 // Create a new middleware class
 php artisan make:middleware name
 // Create a new migration file
@@ -183,12 +185,14 @@ php artisan queue:failed
 php artisan queue:failed-table
 // Flush all of the failed queue jobs
 php artisan queue:flush
-// Delete a failed queue job
-php artisan queue:forget
+// Delete a failed queue job(id: The ID of the failed job)
+php artisan queue:forget id
 // Restart queue worker daemons after their current job
 php artisan queue:restart
 // Retry a failed queue job(id: The ID of the failed job)
 php artisan queue:retry id
+// Retry all
+php artisan queue:retry all
 // Subscribe a URL to an Iron.io push queue
 // queue: The name of Iron.io queue.
 // url: The URL to be subscribed.
