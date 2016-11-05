@@ -1,18 +1,38 @@
 <h4><a name="eloquent" href="#eloquent">Eloquent ORM</a> <a href="https://laravel.com/docs/5.3/eloquent" title="Eloquent @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
 <h6>Basic Usage <a href="https://laravel.com/docs/5.3/eloquent#basic-usage" title="Basic Usage @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
 <pre class="prettyprint lang-php">
-// Defining An Eloquent Model
+// Define an eloquent model
 class User extends Model {}
-// generate Eloquent models
+// Generate an Eloquent model
 php artisan make:model User
-// specify a custom table name
+
+// Customize an eloquent model
 class User extends Model {
-    protected $table = 'my_users';
+// Customize the names of the columns used to store the timestamps
+const CREATED_AT = 'creation_date';
+const UPDATED_AT = 'last_update';
+// Indicate the model should be timestamped
+public $timestamps = false;
+// The table associated with the model
+protected $table = 'my_users';
+// The storage format of the model's date columns
+protected $dateFormat = 'U';
+// The connection name for the model
+protected $connection = 'connection-name';
+// Make mass assignable
+protected $fillable = ['name'];
+// Make not mass assignable
+protected $guarded = ['price'];
+
+// Soft Deleting columns
+protected $dates = ['deleted_at'];
+
 }
 </pre>
 
 <h6>More</h6>
-<pre class="prettyprint lang-php">Model::create(array('key' => 'value'));
+<pre class="prettyprint lang-php">
+Model::create(array('key' => 'value'));
 // Find first matching record by attributes or create
 Model::firstOrCreate(array('key' => 'value'));
 // Find first record by attributes or instantiate
@@ -21,7 +41,10 @@ Model::firstOrNew(array('key' => 'value'));
 Model::updateOrCreate(array('search_key' => 'search_value'), array('key' => 'value'));
 // Fill a model with an array of attributes, beware of mass assignment!
 Model::fill($attributes);
+// Delete An Existing Model By Key
 Model::destroy(1);
+Model::destroy([1, 2, 3]);
+Model::destroy(1, 2, 3);
 Model::all();
 Model::find(1);
 // Find using dual primary key
@@ -56,20 +79,27 @@ Model::all()->skip(10);
 // Default Eloquent sort is ascendant
 Model::all()->orderBy('column');
 Model::all()->orderBy('column','desc');
+// Iterate through your database records using a cursor
+foreach (Flight::where('foo', 'bar')->cursor() as $flight) {}
 </pre>
 
 <h6>Soft Delete <a href="https://laravel.com/docs/5.3/eloquent#soft-deleting" title="Soft Deleting @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
 <pre class="prettyprint lang-php">
+// Determine if a given model instance has been soft deleted
+$model->trashed()
+// Restore a soft deleted model
+$model->restore();
+// Permanently delete a model
+$model->forceDelete();
+// Including soft deleted models
 Model::withTrashed()->where('cars', 2)->get();
-// Include the soft deleted models in the results
-Model::withTrashed()->where('cars', 2)->restore();
-Model::where('cars', 2)->forceDelete();
 // Force the result set to only included soft deletes
 Model::onlyTrashed()->where('cars', 2)->get();
 </pre>
 
 <h6>Events</h6>
-<pre class="prettyprint lang-php">Model::creating(function($model){});
+<pre class="prettyprint lang-php">
+Model::creating(function($model){});
 Model::created(function($model){});
 Model::updating(function($model){});
 Model::updated(function($model){});
@@ -79,9 +109,40 @@ Model::deleting(function($model){});
 Model::deleted(function($model){});
 Model::observe(new FooObserver);
 </pre>
+
 <h6>Eloquent Configuration</h6>
-<pre class="prettyprint lang-php">// Disables mass assignment exceptions from being thrown from model inserts and updates
+<pre class="prettyprint lang-php">
+// Disables mass assignment exceptions from being thrown from model inserts and updates
 Eloquent::unguard();
 // Renables any ability to throw mass assignment exceptions
 Eloquent::reguard();
+</pre>
+
+<h6>Query Scopes</h6>
+<pre class="prettyprint lang-php">
+// Apply a global scope
+Model::addGlobalScope(new AgeScope);
+// Apply an anonymous global scope
+Model::addGlobalScope('age', function(Builder $builder) {
+    $builder->where('age', '>', 200);
+});
+// Remove Global Scopes
+Model::withoutGlobalScope('age');
+Model::withoutGlobalScope(AgeScope::class);
+// Remove some of the global scopes
+Model::withoutGlobalScopes([FirstScope::class, SecondScope::class]);
+// Remove all of the global scopes...
+Model::withoutGlobalScopes();
+
+// Local scopes
+public function scopePopular($query)
+{
+    return $query->where('votes', 1);
+}
+
+public function scopeOfType($query, $type)
+{
+    return $query->where('type', $type);
+}
+Model::popular()->ofType('admin')->get();
 </pre>
