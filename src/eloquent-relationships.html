@@ -1,0 +1,165 @@
+<h4><a name="eloquent-relationships" href="#eloquent-relationships">Eloquent: Relationships</a> <a href="https://laravel.com/docs/5.3/eloquent-relationships" title="Eloquent: Relationships @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<pre class="prettyprint lang-php">
+// One to one
+$user->hasOne('App\Phone');
+$user->hasOne('App\Phone', 'foreign_key');
+$user->hasOne('App\Phone', 'foreign_key', 'local_key');
+// Define the inverse
+$phone->belongsTo('App\User');
+$phone->belongsTo('App\User', 'foreign_key');
+$phone->belongsTo('App\User', 'foreign_key', 'other_key');
+
+// One to many
+$post->hasMany('App\Comment');
+$post->hasMany('App\Comment', 'foreign_key');
+$post->hasMany('App\Comment', 'foreign_key', 'local_key');
+// Define the inverse
+$comment->belongsTo('App\Post');
+$comment->belongsTo('App\Post', 'foreign_key');
+$comment->belongsTo('App\Post', 'foreign_key', 'other_key');
+
+// Many to many
+$user->belongsToMany('App\Role');
+$user->belongsToMany('App\Role', 'role_user');
+$user->belongsToMany('App\Role', 'role_user', 'user_id', 'role_id');
+// Define the inverse
+$role->belongsToMany('App\User');
+
+// Specify pivot table columns when defining the relationship
+$user->belongsToMany('App\Role')->withPivot('column1', 'column2');
+// Filter relationships via intermediate table columns
+$user->belongsToMany('App\Role')->wherePivot('approved', 1);
+$user->belongsToMany('App\Role')->wherePivotIn('priority', [1, 2]);
+// Retrieve Intermediate Table Columns
+foreach ($user->roles as $role) {
+    echo $role->pivot->created_at;
+}
+
+// Has many through
+$country->hasManyThrough('App\Post', 'App\User');
+$country->hasManyThrough(
+    'App\Post', 'App\User',
+    'country_id', 'user_id', 'id'
+);
+
+// Polymorphic relations
+// function commentable()
+$comment->morphTo();
+// function comments()
+$post->morphMany('App\Comment', 'commentable');
+// function comments()
+$video->morphMany('App\Comment', 'commentable');
+
+// Retrieve polymorphic relations
+$commentable = $comment->commentable;
+foreach ($post->comments as $comment) {}
+foreach ($video->comments as $comment) {}
+
+// Custom polymorphic types
+use Illuminate\Database\Eloquent\Relations\Relation;
+Relation::morphMap([
+    'posts' => App\Post::class,
+    'videos' => App\Video::class,
+]);
+
+// Many to many polymorphic relations
+// function tags()
+$post->morphToMany('App\Tag', 'taggable');
+// function posts()
+$tag->morphedByMany('App\Post', 'taggable');
+// function videos()
+$tag->morphedByMany('App\Video', 'taggable');
+
+// Retrieve The Relationship
+foreach ($post->tags as $tag) {}
+foreach ($tag->videos as $video) {}
+</pre>
+
+<h6>Querying Relations</h6>
+<pre class="prettyprint lang-php">
+// Retrieve all posts that have at least one comment
+Post::has('comments')->get();
+// Don't have any comments
+App\Post::doesntHave('comments')->get();
+// Retrieve all posts that have three or more comments
+Post::has('comments', '>=', 3)->get();
+// Retrieve all posts that have at least one comment with votes
+Post::has('comments.votes')->get();
+// Retrieve all posts with at least one comment containing words like foo%
+Post::whereHas('comments', function ($query) {
+    $query->where('content', 'like', 'foo%');
+})->get();
+Post::whereDoesntHave('comments', function ($query) {
+    $query->where('content', 'like', 'foo%');
+})->get();
+
+// Count related models
+$posts = Post::withCount('comments')->get();
+foreach ($posts as $post) {
+    echo $post->comments_count;
+}
+// Retrieve the "counts" for multiple relations
+$posts = Post::withCount(['votes', 'comments' => function ($query) {
+    $query->where('content', 'like', 'foo%');
+}])->get();
+</pre>
+
+<h6>Eager Loading</h6>
+<pre class="prettyprint lang-php">
+Book::with('author')->get();
+// Eager loading multiple relationships
+Book::with('author', 'publisher')->get();
+// Nested eager loading
+Book::with('author.contacts')->get();
+// Specify additional query constraints
+User::with(['posts' => function ($query) {
+    $query->where('title', 'like', '%first%')
+          ->orderBy('created_at', 'desc');
+}])->get();
+
+// Eager loading after parent model has already been retrieved
+if (true) { $books->load('author', 'publisher'); }
+// Set additional query constraints
+$books->load(['author' => function ($query) {
+    $query->orderBy('published_date', 'asc');
+}]);
+</pre>
+
+<h6>Inserting & Updating Related Models</h6>
+<pre class="prettyprint lang-php">
+// Add a new model to relationships
+$post->comments()->save($comment);
+// Save multiple related models
+$post->comments()->saveMany([
+    new App\Comment(['message' => 'A new comment.']),
+    new App\Comment(['message' => 'Another comment.']),
+]);
+// Creates a model
+$comment = $post->comments()->create([
+    'message' => 'A new comment.',
+]);
+
+// Update a belongsTo relationship
+$user->account()->associate($account);
+$user->save();
+
+// Many To Many, Insert a record in the intermediate table
+$user->roles()->attach($roleId);
+// Inserted into the intermediate table with additional data
+$user->roles()->attach($roleId, ['expires' => $expires]);
+// Detach roles from the user
+$user->roles()->detach($roleId);
+$user->roles()->detach([1, 2, 3]);
+// Detach all roles from the user
+$user->roles()->detach();
+// Only the IDs in the given array will exist in the intermediate table
+$user->roles()->sync([1, 2, 3]);
+$user->roles()->sync([1 => ['expires' => true], 2, 3]);
+$user->roles()->syncWithoutDetaching([1, 2, 3]);
+// Save additional data on a pivot table
+$user->roles()->save($roleId, ['expires' => $expires]);
+// Update a record on a pivot table
+$user->roles()->updateExistingPivot($roleId, $attributes);
+
+
+</pre>
