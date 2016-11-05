@@ -8,5 +8,27 @@ Model::where('cars', 2)->simplePaginate(15);
 // Manual Paginator
 Paginator::make($items, $totalItems, $perPage);
 // Print page navigators in view
-$variable->links();
+$paginator->links();
+// Customize The Paginator URI
+$paginator->setPath('custom/url');
+// Append to the query string of pagination links
+$paginator->appends(['sort' => 'votes']);
+// Append a "hash fragment" to the paginator's URLs
+$paginator->fragment('foo');
+</pre>
+<h6>Paginator Instance Methods</h6>
+<pre class="prettyprint lang-php">
+$results->count()
+$results->currentPage()
+$results->firstItem()
+$results->hasMorePages()
+$results->lastItem()
+// (Not available when using simplePaginate)
+$results->lastPage()
+$results->nextPageUrl()
+$results->perPage()
+$results->previousPageUrl()
+// (Not available when using simplePaginate)
+$results->total()
+$results->url($page)
 </pre>
