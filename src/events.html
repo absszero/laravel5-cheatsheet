@@ -20,6 +20,17 @@ app()->resolving(function ($object, $app) {});
 app()->resolving(HelpSpot\API::class, function ($api, $app) {});
 </pre>
 
+<h6>Database Events</h6>
+<pre class="prettyprint lang-php">
+DB::listen(function ($query) {
+            // $query->sql
+            // $query->bindings
+            // $query->time
+        });
+</pre>
+
+
+
 <h6>Authentication Events</h6>
 <pre class="prettyprint lang-php">
 Illuminate\Auth\Events\Attempting

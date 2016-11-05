@@ -4,8 +4,8 @@
 <pre class="prettyprint lang-php">
 DB::connection('connection_name');
 // Running A Select Query
-$results = DB::select('select * from users where id = ?', [1]);
-$results = DB::select('select * from users where id = :id', ['id' => 1]);
+DB::select('select * from users where id = ?', [1]);
+DB::select('select * from users where id = :id', ['id' => 1]);
 // Running A General Statement
 DB::statement('drop table users');
 // Listening For Query Events
@@ -28,91 +28,140 @@ DB::table('name')->get();
 // Chunking Results From A Table
 DB::table('users')->chunk(100, function($users)
 {
-    foreach ($users as $user)
-    {
-        //
-    }
+    foreach ($users as $user) { }
 });
 // Retrieving A Single Row From A Table
-$user = DB::table('users')->where('name', 'John')->first();
+DB::table('users')->where('name', 'John')->first();
 DB::table('name')->first();
 // Retrieving A Single Column From A Row
-$name = DB::table('users')->where('name', 'John')->pluck('name');
+DB::table('users')->where('name', 'John')->pluck('name');
 DB::table('name')->pluck('column');
 // Retrieving A List Of Column Values
-$roles = DB::table('roles')->lists('title');
-$roles = DB::table('roles')->lists('title', 'name');
+DB::table('roles')->pluck('title');
+DB::table('roles')->pluck('title', 'name');
 // Specifying A Select Clause
-$users = DB::table('users')->select('name', 'email')->get();
-$users = DB::table('users')->distinct()->get();
-$users = DB::table('users')->select('name as user_name')->get();
+DB::table('users')->select('name', 'email')->get();
+DB::table('users')->distinct()->get();
+DB::table('users')->select('name as user_name')->get();
 // Adding A Select Clause To An Existing Query
 $query = DB::table('users')->select('name');
-$users = $query->addSelect('age')->get();
-// Using Where Operators
-$users = DB::table('users')->where('votes', '>', 100)->get();
-$users = DB::table('users')
-                    ->where('votes', '>', 100)
-                    ->orWhere('name', 'John')
-                    ->get();
-$users = DB::table('users')
-                    ->whereBetween('votes', [1, 100])->get();
-$users = DB::table('users')
-                    ->whereNotBetween('votes', [1, 100])->get();
-$users = DB::table('users')
-                    ->whereIn('id', [1, 2, 3])->get();
-$users = DB::table('users')
-                    ->whereNotIn('id', [1, 2, 3])->get();
-$users = DB::table('users')
-                    ->whereNull('updated_at')->get();
+$query->addSelect('age')->get();
+</pre>
+<h6>Where Clauses</h6>
+<pre class="prettyprint lang-php">
+DB::table('users')->where('votes', '>', 100)->get();
+DB::table('users')->where([
+    ['status', '=', '1'],
+    ['subscribed', '<>', '1'],
+])
+DB::table('users')
+    ->where('votes', '>', 100)
+    ->orWhere('name', 'John')
+    ->get();
+DB::table('users')->whereBetween('votes', [1, 100])->get();
+DB::table('users')->whereNotBetween('votes', [1, 100])->get();
+DB::table('users')->whereIn('id', [1, 2, 3])->get();
+DB::table('users')->whereNotIn('id', [1, 2, 3])->get();
+DB::table('users')->whereNull('updated_at')->get();
 DB::table('name')->whereNotNull('column')->get();
+// Compare a column's value against a date
+DB::table('users')->whereDate('created_at', '2016-12-31');
+// Compare a column's value against a specific month of a year
+DB::table('users')->whereMonth('created_at', '12');
+// Column's value against a specific day of a month
+DB::table('users')->whereDay('created_at', '31');
+// Compare a column's value against a specific year
+DB::table('users')->whereYear('created_at', '2016');
+// Verify that two columns are equal
+DB::table('users')->whereColumn('first_name', 'last_name');
+// Pass a comparison operator
+DB::table('users')->whereColumn('updated_at', '>', 'created_at');
+DB::table('users')->whereColumn([
+    ['first_name', '=', 'last_name'],
+    ['updated_at', '>', 'created_at']
+]);
+// select * from users where name = 'John' or (votes > 100 and title <> 'Admin')
+DB::table('users')
+    ->where('name', '=', 'John')
+    ->orWhere(function($query)
+    {
+        $query->where('votes', '>', 100)
+              ->where('title', '<>', 'Admin');
+    });
+// select * from users where exists (
+//    select 1 from orders where orders.user_id = users.id
+// )
+DB::table('users')
+    ->whereExists(function ($query) {
+        $query->select(DB::raw(1))
+            ->from('orders')
+            ->whereRaw('orders.user_id = users.id');
+    });
+// JSON Where Clauses
+DB::table('users')->where('preferences->dining->meal', 'salad');
+</pre>
+
+<h6>Ordering, Grouping, Limit, & Offset</h6>
+<pre class="prettyprint lang-php">
 // Dynamic Where Clauses
 $admin = DB::table('users')->whereId(1)->first();
-$john = DB::table('users')
-                    ->whereIdAndEmail(2, 'john@doe.com')
-                    ->first();
-$jane = DB::table('users')
-                    ->whereNameOrAge('Jane', 22)
-                    ->first();
-// Order By, Group By, And Having
-$users = DB::table('users')
-                    ->orderBy('name', 'desc')
-                    ->groupBy('count')
-                    ->having('count', '>', 100)
-                    ->get();
-DB::table('name')->orderBy('column')->get();
-DB::table('name')->orderBy('column','desc')->get();
-DB::table('name')->having('count', '>', 100)->get();
+$john = DB::table('users')->whereIdAndEmail(2, 'john@doe.com');
+$jane = DB::table('users')->whereNameOrAge('Jane', 22);
+// Sort the query results randomly
+DB::table('users')->inRandomOrder();
+DB::table('name')->orderBy('column','desc');
+DB::table('orders')->groupBy('department')->having('price', '>', 100);
+DB::table('orders')->groupBy('department')->havingRaw('SUM(price) > 2500');
 // Offset & Limit
-$users = DB::table('users')->skip(10)->take(5)->get();
+DB::table('users')->skip(10)->take(5);
+</pre>
+
+<h6>Conditional Clauses</h6>
+<pre class="prettyprint lang-php">
+// Apply a where statement if a given input value is present and true
+DB::table('users')
+    ->when($role, function ($query) use ($role) {
+        return $query->where('role_id', $role);
+    });
+
+DB::table('users')
+    ->when(
+        $sortBy,
+        function ($query) {},
+        function ($query) {
+            $run_if_when_is_false;
+        });
+    });
 </pre>
 
 <h6>Joins <a href="https://laravel.com/docs/5.3/queries#joins" title="Joins @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
 <pre class="prettyprint lang-php">
 // Basic Join Statement
 DB::table('users')
-            ->join('contacts', 'users.id', '=', 'contacts.user_id')
-            ->join('orders', 'users.id', '=', 'orders.user_id')
-            ->select('users.id', 'contacts.phone', 'orders.price')
-            ->get();
+    ->join('contacts', 'users.id', '=', 'contacts.user_id')
+    ->join('orders', 'users.id', '=', 'orders.user_id')
+    ->select('users.id', 'contacts.phone', 'orders.price')
+    ->get();
 // Left Join Statement
+DB::table('users')->leftJoin('posts', 'users.id', '=', 'posts.user_id');
+// Cross Join Clause
+DB::table('sizes')->crossJoin('colours');
+// Advanced Join Clauses
 DB::table('users')
-        ->leftJoin('posts', 'users.id', '=', 'posts.user_id')
-        ->get();
-// select * from users where name = 'John' or (votes > 100 and title <> 'Admin')
+    ->join('contacts', function ($join) {
+        $join->on('users.id', '=', 'contacts.user_id')->orOn(...);
+    });
+// "where" style clause on your joins
 DB::table('users')
-            ->where('name', '=', 'John')
-            ->orWhere(function($query)
-            {
-                $query->where('votes', '>', 100)
-                      ->where('title', '<>', 'Admin');
-            })
-            ->get();
+    ->join('contacts', function ($join) {
+        $join->on('users.id', '=', 'contacts.user_id')
+             ->where('contacts.user_id', '>', 5);
+    });
 </pre>
 
 <h6>Aggregates <a href="https://laravel.com/docs/5.3/queries#aggregates" title="Aggregates @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
 <pre class="prettyprint lang-php">
-$users = DB::table('users')->count();
+DB::table('users')->count();
 $price = DB::table('orders')->max('price');
 $price = DB::table('orders')->min('price');
 $price = DB::table('orders')->avg('price');
@@ -126,11 +175,11 @@ DB::table('name')->cacheTags(array('my-first-key','my-second-key'))->remember(5)
 
 <h6>Raw Expressions <a href="https://laravel.com/docs/5.3/queries#raw-expressions" title="Raw Expressions @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
 <pre class="prettyprint lang-php">
-$users = DB::table('users')
-                     ->select(DB::raw('count(*) as user_count, status'))
-                     ->where('status', '<>', 1)
-                     ->groupBy('status')
-                     ->get();
+DB::table('users')
+    ->select(DB::raw('count(*) as user_count, status'))
+    ->where('status', '<>', 1)
+    ->groupBy('status')
+    ->get();
 // return rows
 DB::select('select * from users where id = ?', array('value'));
 // return nr affected rows
@@ -140,7 +189,7 @@ DB::delete('delete from bar');
 // returns void
 DB::statement('update foo set bar=2');
 // raw expression inside a statement
-DB::table('name')->select(DB::raw('count(*) as count, column2'))->get();
+DB::table('name')->select(DB::raw('count(*) as count, column2'));
 </pre>
 
 <h6>Inserts / Updates / Deletes / Unions / Pessimistic Locking</h6>
@@ -156,10 +205,10 @@ DB::table('users')->insert([
     ['email' => 'taylor@example.com', 'votes' => 0],
     ['email' => 'dayle@example.com', 'votes' => 0]
 ]);
-// Updates
-DB::table('users')
-            ->where('id', 1)
-            ->update(['votes' => 1]);
+// Update
+DB::table('users')->where('id', 1)->update(['votes' => 1]);
+// Update JSON Columns
+DB::table('users')->where('id', 1)->update(['options->enabled' => true]);
 DB::table('users')->increment('votes');
 DB::table('users')->increment('votes', 5);
 DB::table('users')->decrement('votes');
@@ -172,8 +221,8 @@ DB::table('users')->truncate();
 // Unions
 // The unionAll() method is also available, and has the same method signature as union.
 $first = DB::table('users')->whereNull('first_name');
-$users = DB::table('users')->whereNull('last_name')->union($first)->get();
+DB::table('users')->whereNull('last_name')->union($first);
 // Pessimistic Locking
-DB::table('users')->where('votes', '>', 100)->sharedLock()->get();
-DB::table('users')->where('votes', '>', 100)->lockForUpdate()->get();
+DB::table('users')->where('votes', '>', 100)->sharedLock();
+DB::table('users')->where('votes', '>', 100)->lockForUpdate();
 </pre>
