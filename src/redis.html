@@ -1,0 +1,24 @@
+<h4><a name="redis" href="#redis">Redis</a> <a href="https://laravel.com/docs/5.3/redis" title="Redis @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<pre class="prettyprint lang-php">
+// Call the Redis GET command
+Redis::get('user:profile:'.$id);
+Redis::set('name', 'Taylor');
+Redis::lrange('names', 5, 10);
+Redis::command('lrange', ['name', 5, 10]);
+// Get a Redis instance
+Redis::connection();
+// Get a specific server
+Redis::connection('other');
+// Send many commands to the server in one operation
+Redis::pipeline(function ($pipe) {
+    for ($i = 0; $i < 1000; $i++) {
+        $pipe->set("key:$i", $i);
+    }
+});
+// Listen for messages on a given "channel"
+Redis::subscribe(['test-channel'], function($message) { });
+// Publish messages to the channel
+Redis::publish('test-channel', json_encode(['foo' => 'bar']));
+// Subscribe to a wildcard channel
+Redis::psubscribe(['*'], function($message, $channel) { })
+</pre>
