@@ -1,0 +1,30 @@
+<h4><a name="notifications" href="#notifications">Notifications</a> <a href="https://laravel.com/docs/5.3/notifications" title="Notifications @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<pre class="prettyprint lang-php">
+// Sent a notification
+Notification::send($users, new InvoicePaid($invoice));
+// Use the notifiable trait
+$user->notify(new InvoicePaid($invoice));
+// Delay the deliver of the notification
+$when = Carbon::now()->addMinutes(10);
+$user->notify((new InvoicePaid($invoice))->delay($when));
+</pre>
+
+<h6>Database Notifications</h6>
+<pre class="prettyprint lang-php">
+// Mark a notification as read
+$user->notifications[0]->markAsRead();
+// Mark all
+$user->notifications->markAsRead();
+// Mark all without retrieving them from the database
+$user->notifications()->update(['read_at' => Carbon::now()]);
+// Remove all
+$user->notifications()->delete();
+</pre>
+
+<h6>MailMessage</h6>
+<pre class="prettyprint lang-php">
+MailMessage::line($message);
+MailMessage::action('View Invoice', $url);
+MailMessage::subject('Notification Subject');
+MailMessage::error();
+</pre>
