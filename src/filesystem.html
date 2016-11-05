@@ -1,0 +1,62 @@
+<h4><a name="filesystem" href="#filesystem">Filesystem / Cloud Storage</a> <a href="https://laravel.com/docs/5.3/filesystem" title="Filesystem / Cloud Storage @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<pre class="prettyprint lang-php">
+// Obtain the disk instance
+Storage::disk('s3');
+// Retrieve a file
+Storage::get('file.jpg');
+// Determine if a file exists
+Storage::disk('s3')->exists('file.jpg');
+// Get the URL for the given file
+Storage::url('file1.jpg');
+// Get the size of the file in bytes
+Storage::size('file1.jpg');
+// Returns the UNIX timestamp of the last time the file was modified
+Storage::lastModified('file1.jpg');
+// Store the file
+Storage::put('file.jpg', $contents);
+// Store with a PHP resource
+Storage::put('file.jpg', $resource);
+// use Illuminate\Http\File or Illuminate\Http\UploadedFile;
+Storage::putFile($dir, new File('/path/to/photo'));
+// specify the "visibility" of the stored file
+Storage::putFile($dir, new File('/path/to/photo'), 'public');
+// Manually specify a file name...
+Storage::putFileAs($dir, new File('/path/to/photo'), 'photo.jpg');
+// Write to the beginning of a file
+Storage::prepend('file.log', 'Prepended Text');
+// Write to the end of a file
+Storage::append('file.log', 'Appended Text');
+// Copy an existing file to a new location
+Storage::copy('old/file1.jpg', 'new/file1.jpg');
+// Rename or move an existing file to a new location
+Storage::move('old/file1.jpg', 'new/file1.jpg');
+
+// Store uploaded files
+$request->file('avatar')->store($dir);
+// Manually specify a file name...
+$request->file('avatar')->storeAs($dir, $filename);
+// Manually specify a storage
+$request->file('avatar')->store($dir .'/'. $filename, 's3');
+
+// Retrieve the visibility of a file
+Storage::getVisibility('file.jpg');
+// Set the visibility of a file
+Storage::setVisibility('file.jpg', 'private');
+
+// Delete files
+Storage::delete('file.jpg');
+Storage::delete(['file1.jpg', 'file2.jpg']);
+
+// Get all files within a directory
+Storage::files($directory);
+// Include all sub-directories
+Storage::allFiles($directory);
+// Get all directories within a directory
+Storage::directories($directory);
+// Recursive...
+Storage::allDirectories($directory);
+// Create a directory
+Storage::makeDirectory($directory);
+// Delete a directory
+Storage::deleteDirectory($directory);
+</pre>
