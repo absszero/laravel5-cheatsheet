@@ -1,0 +1,130 @@
+<h4><a name="application-testing" href="#application-testing">Application Testing</a> <a href="https://laravel.com/docs/5.3/application-testing" title="Unit Application Testing @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+
+<pre class="prettyprint lang-php">
+// Make a GET request to /profile
+// should see the text 'Laravel 5'
+// should not see the text 'Rails'
+ $this->visit('/profile')
+    ->see('Laravel 5')
+    ->dontSee('Rails');
+// Make a GET request via a named route
+$this->visitRoute('profile');
+$this->visitRoute('profile', ['user' => 1]);
+
+// Click &lt;a href=&quot;/about-us&quot;&gt;About Us&lt;/a&gt;
+// should at the location '/about-us'
+ $this->visit('/')
+    ->click('About Us')
+    ->seePageIs('/about-us');
+// or named route
+->seeRouteIs('about-us', ['user' => 1])
+</pre>
+
+<h6>Interacting With Forms</h6>
+<pre class="prettyprint lang-php">
+// Complete a form and inspect the result
+// &lt;input type=&quot;text&quot; name=&quot;name&quot; value=&quot;Taylor&quot;&gt;
+// &lt;input type=&quot;checkbox&quot; value=&quot;1&quot; name=&quot;terms&quot; checked&gt;
+// &lt;input type=&quot;submit&quot; value=&quot;Register&quot;&gt;
+$this->visit('/register')
+    ->type('Taylor', 'name')
+    ->check('terms')
+    ->press('Register')
+    ->seePageIs('/dashboard');
+
+// Methods
+// "Type" text into a given field.
+$this->type($text, $elementName)
+// "Select" a radio button or drop-down field.
+$this->select($value, $elementName)
+// "Check" a checkbox field.
+$this->check($elementName)
+// "Uncheck" a checkbox field.
+$this->uncheck($elementName)
+// "Attach" a file to the form.
+$this->attach($pathToFile, $elementName)
+// "Press" a button with the given text or name.
+$this->press($buttonTextOrElementName)
+</pre>
+
+<h6>Testing JSON APIs</h6>
+<pre class="prettyprint lang-php">
+// Verify the array is partial matched
+$this->json('POST', '/user', ['name' => 'Sally'])
+     ->seeJson(['created' => true]);
+// Verify the array is exactly matched
+$this->json('POST', '/user', ['name' => 'Sally'])
+     ->seeJsonEquals(['created' => true]);
+// Verify structural match
+$this->get('/user/1')
+     ->seeJsonStructure(['name', 'pet' => ['name', 'age']]);
+// The list has at least an id, name and email attribute
+$this->get('/users')
+     ->seeJsonStructure(['*' => ['id', 'name', 'email']]);
+// Nest the * notation
+$this->get('/users')
+     ->seeJsonStructure(['*' => ['pets' => ['*' => [...]]]]);
+</pre>
+
+<h6>Sessions / Authentication</h6>
+<pre class="prettyprint lang-php">
+// Set the session data to a given array
+$this->withSession(['foo' => 'bar'])->visit('/');
+// Flush all of the current session data
+$this->flushSession();
+// Authenticate a given user as the current user
+$this->actingAs($user)->visit('/');
+// Specify the guard
+$this->actingAs($user, 'api');
+</pre>
+
+<h6>Disabling Middleware</h6>
+<pre class="prettyprint lang-php">
+use Illuminate\Foundation\Testing\WithoutMiddleware;
+class ExampleTest extends TestCase {
+    use WithoutMiddleware;
+}
+// Disable middleware for a test method
+class ExampleTest extends TestCase {
+    public function testBasicExample() {
+        $this->withoutMiddleware();
+    }
+}
+</pre>
+
+<h6>Custom HTTP Requests</h6>
+<pre class="prettyprint lang-php">
+$response = $this->call($method, $uri, $parameters, $files, $server, $content);
+$response = $this->callSecure('GET', 'foo/bar');
+</pre>
+
+<h6>PHPUnit Assertions</h6>
+<pre class="prettyprint lang-php">
+// Assert that the client response has an OK status code.
+->assertResponseOk();
+// Assert that the client response has a given code.
+->assertResponseStatus($code);
+// Assert that the response view has a given piece of bound data.
+->assertViewHas($key, $value = null);
+// Assert that the view has a given list of bound data.
+->assertViewHasAll(array $bindings);
+// Assert that the response view is missing a piece of bound data.
+->assertViewMissing($key);
+// Assert whether the client was redirected to a given URI.
+->assertRedirectedTo($uri, $with = []);
+// Assert whether the client was redirected to a given route.
+->assertRedirectedToRoute($name, $parameters = [], $with = []);
+// Assert whether the client was redirected to a given action.
+->assertRedirectedToAction($name, $parameters = [], $with = []);
+// Assert that the session has a given value.
+->assertSessionHas($key, $value = null);
+// Assert that the session has a given list of values.
+->assertSessionHasAll(array $bindings);
+// Assert that the session has errors bound.
+->assertSessionHasErrors($bindings = [], $format = null);
+// Assert that the session has old input.
+->assertHasOldInput();
+// Assert that the session is missing a given key.
+->assertSessionMissing($key);
+</pre>
+
