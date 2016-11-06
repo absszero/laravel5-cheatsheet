@@ -1,0 +1,33 @@
+<h4><a name="eloquent-mutators" href="#eloquent-mutators">Eloquent: Mutators</a> <a href="https://laravel.com/docs/5.3/eloquent-mutators" title="Eloquent: Mutators @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<pre class="prettyprint lang-php">
+// Define an accessor & mutator
+class User extends Model {
+    public function getFirstNameAttribute($value) {
+        return ucfirst($value);
+    }
+
+    public function setFirstNameAttribute($value) {
+        $this->attributes['first_name'] = strtolower($value);
+    }
+}
+// $user->first_name = 'sally';
+$user->first_name = 'Sally';
+// $firstName = 'Sally';
+$firstName = $user->first_name;
+
+// Define date mutators
+class User extends Model {
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at'
+    ];
+}
+
+// Automatically be stored to the date's value
+$user->deleted_at = Carbon::now();
+$user->deleted_at = date('Y-m-d');
+// Automatically be cast to a Carbon instance
+$carbon = $user->deleted_at->getTimestamp();
+
+</pre>

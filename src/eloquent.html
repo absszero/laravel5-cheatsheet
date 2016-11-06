@@ -24,11 +24,28 @@ protected $fillable = ['name'];
 // Make not mass assignable
 protected $guarded = ['price'];
 
-// Soft Deleting columns
-protected $dates = ['deleted_at'];
+// Define date mutators
+protected $dates = [
+    'created_at',
+    'updated_at',
+    'deleted_at'
+];
 
 // All of the relationships to be touched
 protected $touches = ['post'];
+
+// Convert attributes to common data types
+// Suport types: integer, real, float, double, string, boolean,
+// object, array, collection, date, datetime, and timestamp
+protected $casts = [
+    'is_admin' => 'boolean',
+];
+
+// Receive a custom collection when Eloquent returns a Collection instance
+public function newCollection(array $models = [])
+{
+    return new CustomCollection($models);
+}
 
 }
 </pre>
