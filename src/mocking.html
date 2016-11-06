@@ -1,0 +1,80 @@
+<h4><a name="mocking" href="#mocking">Mocking</a> <a href="https://laravel.com/docs/5.3/mocking" title="Mocking @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<h6>Events</h6>
+<pre class="prettyprint lang-php">
+// Verify the expected event is fired
+$this->expectsEvents(UserRegistered::class);
+// Or not...
+$this->doesntExpectEvents(OrderFailedToShip::class);
+// All listeners for all events will be mocked
+$this->withoutEvents();
+
+// fake method prevents all event listeners from executing
+// Assertions are made after the code under test is executed
+class ExampleTest extends TestCase {
+    public function testOrderShipping() {
+        Event::fake();
+
+        Event::assertFired(OrderShipped::class, Closure);
+        Event::assertNotFired(OrderFailedToShip::class);
+    }
+}
+</pre>
+
+<h6>Jobs</h6>
+<pre class="prettyprint lang-php">
+// Verify that the expected job is dispatched
+$this->expectsJobs(ShipOrder::class);
+// Or not...
+$this->doesntExpectJobs(ShipOrder::class);
+// All jobs that are dispatched during that test will be discarded
+$this->withoutJobs();
+
+// fake method prevents jobs from being queued
+class ExampleTest extends TestCase {
+    public function testOrderShipping() {
+        Queue::fake();
+
+        Queue::assertPushed(ShipOrder::class, Closure);
+        Queue::assertPushedOn('queue-name', ShipOrder::class);
+        Queue::assertNotPushed(AnotherJob::class);
+    }
+}
+</pre>
+
+<h6>Mail Fakes</h6>
+<pre class="prettyprint lang-php">
+// fake method prevents mail from being sent
+class ExampleTest extends TestCase {
+    public function testOrderShipping() {
+        Mail::fake();
+
+        Mail::assertSent(ShipOrder::class, Closure);
+        Mail::assertSentTo([$user], OrderShipped::class);
+        Mail::assertNotSent(AnotherMailable::class);
+    }
+}
+</pre>
+
+<h6>Notification Fakes</h6>
+<pre class="prettyprint lang-php">
+// fake method prevents mail from being sent
+class ExampleTest extends TestCase {
+    public function testOrderShipping() {
+        Notification::fake();
+
+        Mail::assertSentTo($user, ShipOrder::class, Closure);
+        Mail::assertSentTo([$user], OrderShipped::class);
+        Mail::assertNotSentTo([$user], AnotherMailable::class);
+    }
+}
+</pre>
+
+<h6>Facades</h6>
+<pre class="prettyprint lang-php">
+Cache::shouldReceive('get')
+    ->once()
+    ->with('key')
+    ->andReturn('value');
+
+$value = Cache::get('key');
+</pre>
