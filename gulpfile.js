@@ -18,8 +18,11 @@ gulp.task('load-sources', function() {
 
 gulp.task('build', ['load-sources'], function() {
     var content = fs.readFileSync(templateFile, "utf8");
+    var filenames = Object.keys(sources).sort(function(a, b){
+            return b.length - a.length;
+        });
 
-    Object.keys(sources).forEach(function(filename){
+    filenames.forEach(function(filename){
         content = content.replace(filename, sources[filename]);
     });
 
