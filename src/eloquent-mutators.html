@@ -30,4 +30,17 @@ $user->deleted_at = date('Y-m-d');
 // Automatically be cast to a Carbon instance
 $carbon = $user->deleted_at->getTimestamp();
 
+// Append values to json
+class User extends Model {
+    protected $appends = ['is_admin'];
+
+    public function getIsAdminAttribute() {
+        return $this->attributes['admin'] == 'yes';
+    }
+}
+
+// "{"admin":"yes","is_admin":true}
+$user->toJson();
+// ["admin"=>"yes", "is_admin"=>true]
+$user->toArray();
 </pre>

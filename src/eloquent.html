@@ -23,31 +23,37 @@ protected $connection = 'connection-name';
 protected $fillable = ['name'];
 // Make not mass assignable
 protected $guarded = ['price'];
-
+// Should be hidden for arrays
+protected $hidden = ['password'];
+// Should be visible in arrays
+protected $visible = ['first_name', 'last_name'];
 // Define date mutators
 protected $dates = [
     'created_at',
     'updated_at',
     'deleted_at'
 ];
-
 // All of the relationships to be touched
 protected $touches = ['post'];
-
 // Convert attributes to common data types
 // Suport types: integer, real, float, double, string, boolean,
 // object, array, collection, date, datetime, and timestamp
 protected $casts = [
     'is_admin' => 'boolean',
 ];
-
 // Receive a custom collection when Eloquent returns a Collection instance
-public function newCollection(array $models = [])
-{
+public function newCollection(array $models = []) {
     return new CustomCollection($models);
 }
 
 }
+</pre>
+
+<h6>Hiding Attributes From JSON</h6>
+<pre class="prettyprint lang-php">
+// Temporarily modifying attribute visibility
+$user->makeVisible('attribute')->toArray();
+$user->makeHidden('attribute')->toArray();
 </pre>
 
 <h6>More</h6>
@@ -75,7 +81,7 @@ Model::findOrFail(1);
 Model::findOrFail(array('first', 'last'));
 Model::where('foo', '=', 'bar')->get();
 Model::where('foo', '=', 'bar')->first();
-// dynamic
+// Dynamic
 Model::whereFoo('bar')->first();
 // Throw an exception if the lookup fails
 Model::where('foo', '=', 'bar')->firstOrFail();
@@ -83,15 +89,11 @@ Model::where('foo', '=', 'bar')->count();
 Model::where('foo', '=', 'bar')->delete();
 //Output raw query
 Model::where('foo', '=', 'bar')->toSql();
-// name = {"en":"name","ar":"nom"};
+// name = {"en":"name"};
 Model::where('name->en', 'name')->get();
 // You may dive deep in the JSON string using the `->` operator.
 Model::where('contacts->phone->home', 1234);
 Model::whereRaw('foo = bar and cars = 2', array(20))->get();
-Model::remember(5)->get();
-Model::remember(5, 'cache-key-name')->get();
-Model::cacheTags('my-tag')->remember(5)->get();
-Model::cacheTags(array('my-first-key','my-second-key'))->remember(5)->get();
 Model::on('connection-name')->find(1);
 Model::with('relation')->get();
 Model::all()->take(10);

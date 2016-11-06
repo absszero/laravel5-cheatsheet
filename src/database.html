@@ -166,11 +166,6 @@ $price = DB::table('orders')->max('price');
 $price = DB::table('orders')->min('price');
 $price = DB::table('orders')->avg('price');
 $total = DB::table('users')->sum('votes');
-
-DB::table('name')->remember(5)->get();
-DB::table('name')->remember(5, 'cache-key-name')->get();
-DB::table('name')->cacheTags('my-key')->remember(5)->get();
-DB::table('name')->cacheTags(array('my-first-key','my-second-key'))->remember(5)->get();
 </pre>
 
 <h6>Raw Expressions <a href="https://laravel.com/docs/5.3/queries#raw-expressions" title="Raw Expressions @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
