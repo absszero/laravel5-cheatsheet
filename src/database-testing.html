@@ -1,0 +1,61 @@
+<h4><a name="database-testing" href="#database-testing">Database Testing</a> <a href="https://laravel.com/docs/5.3/database-testing" title="Database Testing @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<pre class="prettyprint lang-php">
+// Assert that data exists in the database
+$this->seeInDatabase('users', ['email' => 'sally@example.com']);
+
+// Reset the database after each test
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+class ExampleTest extends TestCase {
+    use DatabaseMigrations;
+}
+// Reset the database using transaction
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+class ExampleTest extends TestCase {
+    use DatabaseTransactions;
+}
+</pre>
+
+<h6>Writing Factories</h6>
+<pre class="prettyprint lang-php">
+// database/factories/ModelFactory.php
+$factory->define(User::class, function (Faker\Generator $faker) {
+    return ['column' => $faker->name];
+});
+
+// Define a state
+$factory->state(User::class, 'delinquent', function ($faker) {
+    return ['account_status' => 'delinquent'];
+});
+
+// Define a relationship
+$factory->define(App\Post::class, function ($faker) {
+    return ['user_id' => function () {
+        return factory(App\User::class)->create()->id;
+    }];
+});
+
+// Create a User instance
+$user = factory(User::class)->make();
+// Create three User instances...
+$users = factory(User::class, 3)->make();
+// Create an "admin" User instance...
+$user = factory(User::class, 'admin')->make();
+// Create three "admin" User instances...
+$users = factory(User::class, 'admin', 3)->make();
+// Overriding Attributes
+$user = factory(App\User::class)->make([
+    'name' => 'Abigail',
+]);
+
+// Create and save to the database
+$user = factory(User::class)->create();
+
+// Apply a state
+$users = factory(User::class)->states('deliquent')->make();
+
+// Attach a relation to a created model
+$users = factory(App\User::class)->create()
+    ->each(function ($u) {
+        $u->posts()->save(factory(App\Post::class)->make());
+    });
+</pre>
