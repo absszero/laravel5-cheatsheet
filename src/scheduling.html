@@ -1,0 +1,96 @@
+<h4><a name="scheduling" href="#scheduling">Task Scheduling</a> <a href="https://laravel.com/docs/5.3/scheduling" title="Task Scheduling @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<pre class="prettyprint lang-sh">
+# Start the scheduler
+* * * * * php /path/to/artisan schedule:run >> /dev/null 2>&1
+
+# Defining Schedules
+/app/Console/Kernel.php
+</pre>
+
+<pre class="prettyprint lang-php">
+// Schedule a Closure to be called
+$schedule->call(function () {})->daily();
+// Schedule an Artisan command using command's name
+$schedule->command('emails:send --force')->daily();
+// Schedule an Artisan command using command's class
+$schedule->command(EmailsCommand::class, ['--force'])->daily();
+// Issue a command to the operating system
+$schedule->exec('node /home/forge/script.js')->daily();
+
+// Prevent the previous instance of the task is still running
+$schedule->command('emails:send')->withoutOverlapping();
+// Force a task to run even in maintenance mode
+$schedule->command('emails:send')->evenInMaintenanceMode();
+// Send the output to a file
+$schedule->command('emails:send')->sendOutputTo($filePath);
+// Append the output to a given file
+$schedule->command('emails:send')->appendOutputTo($filePath);
+// E-mail the output
+$schedule->command('foo')
+         ->sendOutputTo($filePath)
+         ->emailOutputTo('foo@example.com');
+
+// Specify code to be executed before and after the scheduled task
+$schedule->command('emails:send')->before(Closure)->after(Closure);
+// Ping a given URL before or after a task is complete
+$schedule->command('emails:send')->pingBefore($url)->thenPing($url);
+</pre>
+
+<h6>Schedule Frequency Options</h6>
+<pre class="prettyprint lang-php">
+// Run the task on a custom Cron schedule
+->cron('* * * * * *');
+// Run the task every minute
+->everyMinute();
+// Run the task every five minutes
+->everyFiveMinutes();
+// Run the task every ten minutes
+->everyTenMinutes();
+// Run the task every thirty minutes
+->everyThirtyMinutes();
+// Run the task every hour
+->hourly();
+// Run the task every day at midnight
+->daily();
+// Run the task every day at 13:00
+->dailyAt('13:00');
+// Run the task daily at 1:00 & 13:00
+->twiceDaily(1, 13);
+// Run the task every week
+->weekly();
+// Run the task every month
+->monthly();
+// Run the task every month on the 4th at 15:00
+->monthlyOn(4, '15:00');
+// Run the task every quarter
+->quarterly();
+// Run the task every year
+->yearly();
+// Set the timezone
+->timezone('America/New_York');
+
+// Limit the task to weekdays
+->weekdays();
+// Limit the task to Sunday
+->sundays();
+// Limit the task to Monday
+->mondays();
+// Limit the task to Tuesday
+->tuesdays();
+// Limit the task to Wednesday
+->wednesdays();
+//Limit the task to Thursday
+->thursdays();
+// Limit the task to Friday
+->fridays();
+// Limit the task to Saturday
+->saturdays();
+// Limit the task to run between start and end times
+->between($start, $end);
+// Exclude the execution of a task for a period of time
+->unlessBetwee($start, $end);
+// Limit the task based on a truth test
+->when(Closure);
+// The inverse of when
+->skip(Closure);
+</pre>
