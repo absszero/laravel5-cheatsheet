@@ -1,0 +1,54 @@
+<h4><a name="envoy" href="#envoy">Envoy Task Runner</a> <a href="https://laravel.com/docs/5.3/envoy" title="Envoy Task Runner @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<pre class="prettyprint lang-php">
+// Envoy.blade.php
+@servers(['web' => ['user@192.168.1.1']])
+@task('deploy', ['on' => ['web']])
+@endtask
+// Multiple servers
+@servers(['web-1' => '192.168.1.1', 'web-2' => '192.168.1.2'])
+@task('deploy', ['on' => ['web-1', 'web-2']])
+@endtask
+// Parallel execution
+@task('deploy', ['on' => ['web-1', 'web-2'], 'parallel' => true])
+@endtask
+// Confirme before running a given task
+@task('deploy', ['on' => 'web', 'confirm' => true])
+
+// Require a PHP file
+@include('vendor/autoload.php')
+
+// execute some PHP code before executing
+@setup
+    $now = new DateTime();
+    $environment = isset($env) ? $env : "testing";
+@endsetup
+
+// Send notifications to Slack after each task
+@after
+    @slack('webhook-url', '#bots')
+@endafter
+
+// echo a variable
+@task('deploy', ['on' => 'web'])
+    git pull origin {{ $branch }}
+@endtask
+
+// Story: group a set of tasks
+@story('deploy')
+    git
+    composer
+@endstory
+@task('git')
+@endtask
+@task('composer')
+@endtask
+</pre>
+
+<pre class="prettyprint lang-sh">
+# Pass a option value into Envoy
+envoy run deploy --branch=master
+
+# Run a story or task
+envoy run task-name
+envoy run story-name
+</pre>
