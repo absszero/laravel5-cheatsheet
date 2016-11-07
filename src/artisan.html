@@ -231,6 +231,12 @@ php artisan route:list
 // Run the scheduled commands
 php artisan schedule:run
 
+// Import the given model into the search index
+php artisan scout:import model
+// Flush all of the model's records from the index
+php artisan scout:flush model
+
+
 // Create a migration for the session database table
 php artisan session:table
 
