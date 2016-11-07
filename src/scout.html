@@ -1,0 +1,53 @@
+<h4><a name="scout" href="#scout">Laravel Scout</a> <a href="https://laravel.com/docs/5.3/scout" title="Laravel Scout @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<pre class="prettyprint lang-php">
+// Configure indexes and searchable data
+use Laravel\Scout\Searchable;
+class Post extends Model {
+    use Searchable;
+
+    public function searchableAs() {
+        return 'posts_index';
+    }
+
+    public function toSearchableArray() {
+        return $this->toArray();
+    }
+}
+</pre>
+
+<h6>Indexing</h6>
+<pre class="prettyprint lang-php">
+// Add or update a model to search index
+$model->save();
+// Via Eloquent query
+Model::where('price', '>', 100)->searchable();
+// Via relationships
+$user->orders()->searchable();
+// Via collections
+$models->searchable();
+
+// Remove a record from index
+$model->delete();
+// Via Eloquent query
+Model::where('price', '>', 100)->unsearchable();
+// Via relationships
+$user->orders()->unsearchable();
+// Via collections
+$models->unsearchable();
+
+// Pause Indexing
+App\Order::withoutSyncingToSearch(function () {
+//  Perform model actions...
+});
+</pre>
+
+<h6>Searching</h6>
+<pre class="prettyprint lang-php">
+// Search your model
+Model::search('Star Trek')->get();
+// Add a basic numeric equality checking
+Model::search('Star Trek')
+     ->where('user_id', 1)->get();
+// Paginate search results
+Model::search('Star Trek')->paginate($per_page = null);
+</pre>
