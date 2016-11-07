@@ -1,0 +1,102 @@
+<h4><a name="billing" href="#billing">Laravel Cashier</a> <a href="https://laravel.com/docs/5.3/billing" title="Laravel Cashier @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<h6>Billable Model</h6>
+<pre class="prettyprint lang-php">
+use Laravel\Cashier\Billable;
+class User extends Authenticatable {
+    use Billable;
+}
+</pre>
+
+<h6>Currency Configuration</h6>
+<pre class="prettyprint lang-php">
+use Laravel\Cashier\Cashier;
+Cashier::useCurrency('eur', '€');
+</pre>
+
+<h6>Subscriptions</h6>
+<pre class="prettyprint lang-php">
+// Create a subscription
+$user->newSubscription('main', 'monthly')
+     ->create($creditCardToken, ['email' => $email]);
+// Apply a coupon
+$user->newSubscription('main', 'monthly')
+     ->withCoupon('code')
+     ->create($creditCardToken);
+// Offer trial periods
+$user->newSubscription('main', 'monthly')
+     ->trialDays(10)
+     ->create($creditCardToken);
+
+// Check user's subscription status
+$user->subscribed('main');
+// Is still within their trial period
+$user->subscription('main')->onTrial();
+// Or
+$user->onTrial('main')
+// In "generic" trial period and has not created an actual subscription
+$user->onGenericTrial();
+// Determine if subscribed to a given plan
+$user->subscribedToPlan('monthly', 'main');
+// Is cancelled
+$user->subscription('main')->cancelled();
+// Cancelled but still on their "grace period"
+$user->subscription('main')->onGracePeriod();
+
+// Change to a new subscription plan
+$user->subscription('main')->swap('provider-plan-id');
+// Swap plans and cancel any trial period
+$user->subscription('main')
+     ->skipTrial()
+     ->swap('provider-plan-id');
+
+// Increment the subscription quantity
+$user->subscription('main')->incrementQuantity();
+// Add five to the subscription's current quantity
+$user->subscription('main')->incrementQuantity(5);
+// Decrement subscription quantities
+$user->subscription('main')->decrementQuantity();
+$user->subscription('main')->decrementQuantity(5);
+// Set a specific quantity
+$user->subscription('main')->updateQuantity(10);
+
+// Cancel a subscription
+$user->subscription('main')->cancel();
+// Candel and still on their "grace period"
+$user->subscription('main')->onGracePeriod();
+// Cancel a subscription immediately
+$user->subscription('main')->cancelNow();
+// Resume from grace period
+$user->subscription('main')->resume();
+
+// Update a customer's credit card information
+$user->updateCard($creditCardToken);
+</pre>
+
+<h6>Single Charges</h6>
+<pre class="prettyprint lang-php">
+// Stripe Accepts Charges In Cents
+$user->charge(100);
+// Braintree Accepts Charges In Dollars
+$user->charge(1);
+$user->charge(100, ['custom_option' => $value]);
+// throw an exception if the charge fails
+try {
+    $response = $user->charge(100);
+} catch (Exception $e) {
+}
+
+// Invoice $5.00 for a "One Time Fee" using Stripe
+$user->invoiceFor('One Time Fee', 500);
+$user->invoiceFor('One Time Fee', 500, [
+    'custom-option' => $value,
+]);
+// Retrieve an array of a billable model's invoices
+$user->invoices();
+// Include pending invoices in the results
+$user->invoicesIncludingPending();
+// Generate a PDF download
+$user->downloadInvoice($invoiceId, [
+    'vendor'  => 'Your Company',
+    'product' => 'Your Product',
+]);
+</pre>
