@@ -1,43 +1,103 @@
 <h4><a name="requests" href="#requests">Requests</a> <a href="https://laravel.com/docs/5.3/requests" title="Requests @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
 <pre class="prettyprint lang-php">
 // url: http://xx.com/aa/bb
-Request::url();
+$request->url();
 // url: http://xx.com/aa/bb?c=d
-Request::fullUrl();
+$request->fullUrl();
 // path: /aa/bb
-Request::path();
+$request->path();
+// Verify request path matches a given pattern
+$request->is('admin/*'))
 // getRequestUri: /aa/bb/?c=d
-Request::inputRequestUri();
+$request->inputRequestUri();
 // Returns user's IP
-Request::inputClientIp();
+$request->inputClientIp();
 // getUri: http://xx.com/aa/bb/?c=d
-Request::inputUri();
+$request->inputUri();
 // getQueryString: c=d
-Request::inputQueryString();
+$request->inputQueryString();
 // Get the port scheme of the request (e.g., 80, 443, etc.)
-Request::inputPort();
+$request->inputPort();
 // Determine if the current request URI matches a pattern
-Request::is('foo/*');
+$request->is('foo/*');
 // Get a segment from the URI (1 based index)
-Request::segment(1);
+$request->segment(1);
 // Retrieve a header from the request
-Request::header('Content-Type');
+$request->header('Content-Type');
 // Retrieve a server variable from the request
-Request::server('PATH_INFO');
+$request->server('PATH_INFO');
 // Determine if the request is the result of an AJAX call
-Request::ajax();
+$request->ajax();
 // Determine if the request is over HTTPS
-Request::secure();
+$request->secure();
 // Get the request method
-Request::method();
+$request->method();
 // Checks if the request method is of specified type
-Request::isMethod('post');
+$request->isMethod('post');
 // Get raw POST data
-Request::instance()->getContent();
+$request->instance()->getContent();
 // Get requested response format
-Request::format();
+$request->format();
 // true if HTTP Content-Type header contains */json
-Request::isJson();
+$request->isJson();
 // true if HTTP Accept header is application/json
-Request::wantsJson();
+$request->wantsJson();
+</pre>
+
+<h6>Retrieving Input</h6>
+<pre class="prettyprint lang-php">
+$request->input('key');
+// Default if the key is missing
+$request->input('key', 'default');
+// Works with forms that contain array inputs
+$request->input('products.0.name');
+$request->input('products.*.name');
+// Retrieve input via dynamic properties
+$name = request()->name;
+// Retrieve json input values when "content-type" header is "application/json"
+$request->input('user.name');
+$request->has('key');
+$request->all();
+// Only retrieve 'foo' and 'bar' when getting input
+$request->only(['foo', 'bar']);
+$request->only('foo', 'bar');
+// Disregard 'foo' when getting input
+$request->except('foo');
+$request->except(['foo']);
+// Flash Input To The Session
+$request->flash();
+// Flash a subset of the request data to the session
+$request->flashOnly(['username', 'email']);
+$request->flashExcept('password');
+// Retrieve an old input item
+$request->old('key','default_value');
+</pre>
+
+<h6>Files</h6>
+<pre class="prettyprint lang-php">
+// Use a file that's been uploaded
+$request->file('filename');
+// Determine if a file was uploaded
+$request->hasFile('filename');
+// validate a successful upload
+$request->file('photo')->isValid()
+// Access file properties
+$request->file('name')->path();
+$request->file('name')->getRealPath();
+$request->file('name')->extension();
+$request->file('name')->getClientOriginalName();
+$request->file('name')->getClientOriginalExtension();
+$request->file('name')->getSize();
+$request->file('name')->getMimeType();
+// Move an uploaded file
+$request->file('name')->move($destinationPath);
+// Move an uploaded file
+$request->file('name')->move($destinationPath, $fileName);
+// Store a uploaded file
+$request->file('name')->store('store_dir');
+// the name of the disk that should be used to store the file
+$request->photo->store('store_dir', 's3');
+// Store as the filename
+$request->photo->storeAs('images', 'filename.jpg');
+$request->photo->storeAs('images', 'filename.jpg', 's3');
 </pre>
