@@ -1,45 +1,86 @@
-<h4><a name="html" href="#html">HTML Builder</a></h4>
-<pre class="prettyprint lang-php">HTML::macro('name', function(){});
-// Convert an HTML string to entities
-HTML::entities($value);
-// Convert entities to HTML characters
-HTML::decode($value);
-// Generate a link to a JavaScript file
-HTML::script($url, $attributes);
-// Generate a link to a CSS file
-HTML::style($url, $attributes);
-// Generate an HTML image element
-HTML::image($url, $alt, $attributes);
-// Generate a HTML link
-HTML::link($url, 'title', $attributes, $secure);
-// Generate a HTTPS HTML link
-HTML::secureLink($url, 'title', $attributes);
-// Generate a HTML link to an asset
-HTML::linkAsset($url, 'title', $attributes, $secure);
-// Generate a HTTPS HTML link to an asset
-HTML::linkSecureAsset($url, 'title', $attributes);
-// Generate a HTML link to a named route
-HTML::linkRoute($name, 'title', $parameters, $attributes);
-// Generate a HTML link to a controller action
-HTML::linkAction($action, 'title', $parameters, $attributes);
-// Generate a HTML link to an email address
-HTML::mailto($email, 'title', $attributes);
-// Obfuscate an e-mail address to prevent spam-bots from sniffing it
-HTML::email($email);
-// Generate an ordered list of items
-HTML::ol($list, $attributes);
-// Generate an un-ordered list of items
-HTML::ul($list, $attributes);
-// Create a listing HTML element
-HTML::listing($type, $list, $attributes);
-// Create the HTML for a listing element
-HTML::listingElement($key, $type, $value);
-// Create the HTML for a nested listing attribute
-HTML::nestedListing($key, $type, $value);
-// Build an HTML attribute string from an array
-HTML::attributes($attributes);
-// Build a single attribute element
-HTML::attributeElement($key, $value);
-// Obfuscate a string to prevent spam-bots from sniffing it
-HTML::obfuscate($value);
+<h4><a name="html" href="#html">HTML Builder</a>
+<a href="https://laravelcollective.com/docs/5.3/html" title="Filesystem @ Laravel Docs"><i class="icon-file-text"></i></a>
+</h4>
+<pre class="prettyprint lang-php">
+// Open A Form
+Form::open(['url' => 'foo/bar'])
+Form::close()
+// Open a form that point to a named route
+Form::open(['route' => 'route.name'])
+Form::open(['route' => ['route.name', $user->id]])
+// Open a form that point to a controller action
+Form::open(['action' => 'Controller@method'])
+Form::open(['action' => ['Controller@method', $user->id]])
+// Accept file uploads
+Form::open(['url' => 'foo/bar', 'files' => true])
+
+// Populate a form based on the contents of a model
+Form::model($user, ['route' => ['user.update', $user->id]])
+Form::close()
+// Use form accessors
+use Collective\Html\Eloquent\FormAccessible;
+class User extends Model {
+    use FormAccessible;
+}
+
+// Generate the html for the hidden CSRF field
+Form::token();
+// Generate a label element
+Form::label('email', 'E-Mail Address', ['class' => 'awesome']);
+// Generate a text input with defaut value
+Form::text('email', 'example@gmail.com');
+// Generate a password input
+Form::password('password', ['class' => 'awesome']);
+// Generate other inputs
+Form::email($name, $value = null, $attributes = []);
+Form::file($name, $attributes = []);
+Form::number('name', 'value');
+Form::date('name', \Carbon\Carbon::now());
+// Generate a checkbox or radio input
+Form::checkbox('name', 'value', $checked);
+Form::radio('name', 'value', $checked);
+// Generate a drop-down list
+Form::select('size', ['L'=>'Large', 'S'=>'Small'], $selected);
+// generate a grouped list
+Form::select('animal', [
+    'Cats' => ['leopard' => 'Leopard'],
+    'Dogs' => ['spaniel' => 'Spaniel'],
+]);
+// Generate a drop-down list with a range
+Form::selectRange('number', 10, 20);
+// Generate a list with month names
+Form::selectMonth('month');
+// Generate a submit button
+Form::submit('Click Me!');
+</pre>
+
+<h6>Custom</h6>
+<pre class="prettyprint lang-php">
+// Register a form macro
+Form::macro('myField', function() {
+    return '&lt;input type="awesome"&gt;';
+});
+Form::myField();
+
+// Register a custom component
+Form::component('bsText', 'components.form.text', ['name', 'value', 'attributes']);
+// resources/views/components/form/text.blade.php
+&lt;div class="form-group"&gt;
+    {{ Form::label($name, null, ['class' => 'control-label']) }}
+    {{ Form::text($name, $value, array_merge(['class' => 'form-control'], $attributes)) }}
+&lt;/div&gt;
+// Call it
+Form::bsText('first_name');
+</pre>
+
+<h6>Generating URLs</h6>
+<pre class="prettyprint lang-php">
+// Generate a HTML link to the given URL
+link_to('foo/bar', $title = null, $attributes = [], $secure = null);
+// Generate a HTML link to the given asset
+link_to_asset('foo/bar.zip', $title = null, $attributes = [], $secure = null);
+// Generate a HTML link to the given named route
+link_to_route('route.name', $title = null, $parameters = [], $attributes = []);
+// Generate a HTML link to the given controller action
+link_to_action('HomeController@getIndex', $title = null, $parameters = [], $attributes = []);
 </pre>
