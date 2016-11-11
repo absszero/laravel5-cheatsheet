@@ -250,31 +250,45 @@ php artisan vendor:publish [--force] [--provider[="..."]] [--tag[="..."]]
                 </pre>
                 <h6>Command Structure</h6>
                 <pre class="prettyprint lang-php">
-// Required argument: user
-protected $signature = 'email:send {user}';
-// Optional argument...
-protected $signature = 'email:send {user?}';
-// Optional argument with default value...
-protected $signature = 'email:send {user=foo}';
-// php artisan email:send 1 --queue
-protected $signature = 'email:send {user} {--queue}';
-// php artisan email:send 1 --queue=foo
-protected $signature = 'email:send {user} {--queue=}';
-// Default value
-protected $signature = 'email:send {user} {--queue=default}';
-// Option Shortcuts
-protected $signature = 'email:send {user} {--Q|queue}';
-// Input Arrays: php artisan email:send foo bar
-protected $signature = 'email:send {user*}';
-// php artisan email:send --id=1 --id=2
-protected $signature = 'email:send {--id=*}';
-// Input Descriptions
-protected $signature = 'email:send
-                        {user : The ID of the user}
-                        {--queue= : Whether the job should be queued}';
-                        </pre>
-                        <h6>Command I/O</h6>
-                        <pre class="prettyprint lang-php">
+use Illuminate\Console\Command;
+class SendEmails extends Command {
+//  Required argument: user
+&nbsp;&nbsp;&nbsp;
+    protected $signature = 'email:send {user}';
+//  Optional argument
+&nbsp;&nbsp;&nbsp;
+    protected $signature = 'email:send {user?}';
+//  Optional argument with default value...
+&nbsp;&nbsp;&nbsp;
+    protected $signature = 'email:send {user=foo}';
+//  php artisan email:send 1 --queue
+&nbsp;&nbsp;&nbsp;
+    protected $signature = 'email:send {user} {--queue}';
+//  php artisan email:send 1 --queue=foo
+&nbsp;&nbsp;&nbsp;
+    protected $signature = 'email:send {user} {--queue=}';
+//  Default value
+&nbsp;&nbsp;&nbsp;
+    protected $signature = 'email:send {user} {--queue=default}';
+//  Option Shortcuts
+&nbsp;&nbsp;&nbsp;
+    protected $signature = 'email:send {user} {--Q|queue}';
+//  Input Arrays: php artisan email:send foo bar
+&nbsp;&nbsp;&nbsp;
+    protected $signature = 'email:send {user*}';
+//  php artisan email:send --id=1 --id=2
+&nbsp;&nbsp;&nbsp;
+    protected $signature = 'email:send {--id=*}';
+//  Input Descriptions
+&nbsp;&nbsp;&nbsp;
+    protected $signature = 'email:send
+                            {user : The ID of the user}
+                            {--queue= : Whether the job should be queued}';
+}
+</pre>
+
+<h6>Command I/O</h6>
+<pre class="prettyprint lang-php">
 $this->argument('user');
 $this->arguments();
 $this->option('queue');

@@ -12,52 +12,226 @@
     </head>
     <body>
 
-        <a href="#top" id="top-button" title="Top"><i class="icon-arrow-up"></i></a>
-        <div class="fixed">
-            <nav class="top-bar" data-topbar>
-                <ul class="title-area">
-                    <li class="name"><h1><a href="http://laravel.com/docs/5.3/">Laravel 5.3 Cheat Sheet</a></h1></li>
-                    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-                </ul>
-                <section class="top-bar-section">
-                    <ul class="left">
-                        <li class="larajobs-text">Inspired By</li>
-                        <li><a class="larajobs-link" href="http://github.com/jesseobrien/laravel-cheatsheet">JesseObrien/laravel-cheatsheet</a></li>
-                    </ul>
-                    <ul class="right">
-                        <li class="comments-toggle"><a href="#"><i class="icon-comments"></i> Toggle Code Comments</a></li>
-                        <!-- <li><a href="/Laravel-5-Cheatsheet.pdf"><i class="icon-download"></i> PDF Version</a></li> -->
-                        <!-- <li><a href="https://github.com/mclxly/laravel5-cheatsheet" target="_blank"><i class="icon-github"></i> Github</a></li> -->
-                        <li class="has-dropdown">
-                            <a href="#">Laravel Docs</a>
-                            <ul class="dropdown">
-                                <li>
-                                    <a href="http://laravel.com/docs/5.3" target="_blank"><i class="icon-file-text"></i> Laravel 5 Docs</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </section>
+        <div class="off-canvas-wrap" data-offcanvas>
+          <div class="inner-wrap">
+            <nav class="tab-bar">
+              <div  class="left-small">
+                <a class="left-off-canvas-toggle menu-icon" href="#"><span></span></a>
+              </div>
+
+              <div class="right tab-bar-section">
+                  <h1 class="title"><a href="index.html">Laravel 5.3 Cheat Sheet</a></h1>
+              </div>
             </nav>
-        </div>
 
-        <a name="top" id="top-anchor"></a>
-
-        <div class="row" id="search-box">
-            <div class="small-10 small-offset-1 large-6 large-offset-3 columns">
-                <div class="row collapse">
-                    <div class="small-10 columns">
-                        <input type="text" placeholder="Start typing to search..." id="search" name="search" />
+            <div class="row" id="search-box">
+                <div class="small-10 small-offset-1 large-6 large-offset-3 columns">
+                    <div class="row collapse">
+                        <div class="small-10 columns">
+                            <input type="text" placeholder="Start typing to search..." id="search" name="search" />
+                        </div>
+                        <div class="small-2 columns">
+                            <button class="button postfix searchable" id="search-button"><i class="icon-search"></i></button>
+                        </div>
                     </div>
-                    <div class="small-2 columns">
-                        <button class="button postfix" id="search-button"><i class="icon-search"></i></button>
-                    </div>
+                    <small id="searchHint">hint: keep tapping the search, it scrolls to the result</small>
                 </div>
-                <small id="searchHint">hint: keep tapping the search, it scrolls to the result</small>
             </div>
-        </div>
-        <div class="large-4 columns code-column">
-<h4><a name="artisan" href="#artisan">Artisan</a> <a href="http://laravel.com/docs/5.3/artisan" title="Artisan CLI @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+
+
+            <!-- Off Canvas Menu -->
+            <aside class="left-off-canvas-menu">
+                <ul class="off-canvas-list" >
+<li><a id="comments-toggle" href="#"><i class="icon-comments"></i> Toggle Code Comments</a></li>
+<li><a href="#application-testing">Application Testing</a></li>
+<li><a href="#artisan">Artisan</a></li>
+<li><a href="#authorization">Authorization</a></li>
+<li><a href="#billing">Billing</a></li>
+<li><a href="#blade">Blade</a></li>
+<li><a href="#broadcasting">Broadcasting</a></li>
+<li><a href="#cache">Cache</a></li>
+<li><a href="#configuration">Configuration</a></li>
+<li><a href="#collections">Collections</a></li>
+<li><a href="#configuration">Configuration</a></li>
+<li><a href="#controllers">Controllers</a></li>
+<li><a href="#cookies">Cookies</a></li>
+<li><a href="#database-testing">Database Testing</a></li>
+<li><a href="#database">Database</a></li>
+<li><a href="#elixir">Elixir</a></li>
+<li><a href="#eloquent-mutators">Eloquent Mutators</a></li>
+<li><a href="#eloquent-relationships">Eloquent Relationships</a></li>
+<li><a href="#eloquent">Eloquent</a></li>
+<li><a href="#envoy">Envoy</a></li>
+<li><a href="#events">Events</a></li>
+<li><a href="#files">Files</a></li>
+<li><a href="#filesystem">Filesystem</a></li>
+<li><a href="#forms">Forms</a></li>
+<li><a href="#helpers">Helpers</a></li>
+<li><a href="#html">Html</a></li>
+<li><a href="#input">Input</a></li>
+<li><a href="#localization">Localization</a></li>
+<li><a href="#log">Log</a></li>
+<li><a href="#mail">Mail</a></li>
+<li><a href="#mocking">Mocking</a></li>
+<li><a href="#notifications">Notifications</a></li>
+<li><a href="#packages">Packages</a></li>
+<li><a href="#pagination">Pagination</a></li>
+<li><a href="#passport">Passport</a></li>
+<li><a href="#queues">Queues</a></li>
+<li><a href="#redirects">Redirects</a></li>
+<li><a href="#redis">Redis</a></li>
+<li><a href="#requests">Requests</a></li>
+<li><a href="#responses">Responses</a></li>
+<li><a href="#routing">Routing</a></li>
+<li><a href="#scheduling">Scheduling</a></li>
+<li><a href="#schema">Schema</a></li>
+<li><a href="#scout">Scout</a></li>
+<li><a href="#security">Security</a></li>
+<li><a href="#service-container">Service Container</a></li>
+<li><a href="#sessions">Sessions</a></li>
+<li><a href="#str">Str</a></li>
+<li><a href="#urls">Urls</a></li>
+<li><a href="#validation">Validation</a></li>
+<li><a href="#views">Views</a></li>
+                </ul>
+            </aside>
+
+            <a name="top" id="top-anchor"></a>
+            <section class="main-section">
+                <div class="row full-width">
+                    <div class="large-4 columns code-column">
+<h4><a name="application-testing" href="#application-testing">Application Testing</a> <a href="https://laravel.com/docs/5.3/application-testing" title="Unit Application Testing @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+
+<pre class="prettyprint lang-php">
+// Make a GET request to /profile
+// should see the text 'Laravel 5'
+// should not see the text 'Rails'
+ $this->visit('/profile')
+    ->see('Laravel 5')
+    ->dontSee('Rails');
+// Make a GET request via a named route
+$this->visitRoute('profile');
+$this->visitRoute('profile', ['user' => 1]);
+
+// Click &lt;a href=&quot;/about-us&quot;&gt;About Us&lt;/a&gt;
+// should at the location '/about-us'
+ $this->visit('/')
+    ->click('About Us')
+    ->seePageIs('/about-us');
+// or named route
+->seeRouteIs('about-us', ['user' => 1])
+</pre>
+
+<h6>Interacting With Forms</h6>
+<pre class="prettyprint lang-php">
+// Complete a form and inspect the result
+// &lt;input type=&quot;text&quot; name=&quot;name&quot; value=&quot;Taylor&quot;&gt;
+// &lt;input type=&quot;checkbox&quot; value=&quot;1&quot; name=&quot;terms&quot; checked&gt;
+// &lt;input type=&quot;submit&quot; value=&quot;Register&quot;&gt;
+$this->visit('/register')
+    ->type('Taylor', 'name')
+    ->check('terms')
+    ->press('Register')
+    ->seePageIs('/dashboard');
+
+// Methods
+// "Type" text into a given field.
+$this->type($text, $elementName)
+// "Select" a radio button or drop-down field.
+$this->select($value, $elementName)
+// "Check" a checkbox field.
+$this->check($elementName)
+// "Uncheck" a checkbox field.
+$this->uncheck($elementName)
+// "Attach" a file to the form.
+$this->attach($pathToFile, $elementName)
+// "Press" a button with the given text or name.
+$this->press($buttonTextOrElementName)
+</pre>
+
+<h6>Testing JSON APIs</h6>
+<pre class="prettyprint lang-php">
+// Verify the array is partial matched
+$this->json('POST', '/user', ['name' => 'Sally'])
+     ->seeJson(['created' => true]);
+// Verify the array is exactly matched
+$this->json('POST', '/user', ['name' => 'Sally'])
+     ->seeJsonEquals(['created' => true]);
+// Verify structural match
+$this->get('/user/1')
+     ->seeJsonStructure(['name', 'pet' => ['name', 'age']]);
+// The list has at least an id, name and email attribute
+$this->get('/users')
+     ->seeJsonStructure(['*' => ['id', 'name', 'email']]);
+// Nest the * notation
+$this->get('/users')
+     ->seeJsonStructure(['*' => ['pets' => ['*' => [...]]]]);
+</pre>
+
+<h6>Sessions / Authentication</h6>
+<pre class="prettyprint lang-php">
+// Set the session data to a given array
+$this->withSession(['foo' => 'bar'])->visit('/');
+// Flush all of the current session data
+$this->flushSession();
+// Authenticate a given user as the current user
+$this->actingAs($user)->visit('/');
+// Specify the guard
+$this->actingAs($user, 'api');
+</pre>
+
+<h6>Disabling Middleware</h6>
+<pre class="prettyprint lang-php">
+use Illuminate\Foundation\Testing\WithoutMiddleware;
+class ExampleTest extends TestCase {
+    use WithoutMiddleware;
+}
+// Disable middleware for a test method
+class ExampleTest extends TestCase {
+    public function testBasicExample() {
+        $this->withoutMiddleware();
+    }
+}
+</pre>
+
+<h6>Custom HTTP Requests</h6>
+<pre class="prettyprint lang-php">
+$response = $this->call($method, $uri, $parameters, $files, $server, $content);
+$response = $this->callSecure('GET', 'foo/bar');
+</pre>
+
+<h6>PHPUnit Assertions</h6>
+<pre class="prettyprint lang-php">
+// Assert that the client response has an OK status code.
+->assertResponseOk();
+// Assert that the client response has a given code.
+->assertResponseStatus($code);
+// Assert that the response view has a given piece of bound data.
+->assertViewHas($key, $value = null);
+// Assert that the view has a given list of bound data.
+->assertViewHasAll(array $bindings);
+// Assert that the response view is missing a piece of bound data.
+->assertViewMissing($key);
+// Assert whether the client was redirected to a given URI.
+->assertRedirectedTo($uri, $with = []);
+// Assert whether the client was redirected to a given route.
+->assertRedirectedToRoute($name, $parameters = [], $with = []);
+// Assert whether the client was redirected to a given action.
+->assertRedirectedToAction($name, $parameters = [], $with = []);
+// Assert that the session has a given value.
+->assertSessionHas($key, $value = null);
+// Assert that the session has a given list of values.
+->assertSessionHasAll(array $bindings);
+// Assert that the session has errors bound.
+->assertSessionHasErrors($bindings = [], $format = null);
+// Assert that the session has old input.
+->assertHasOldInput();
+// Assert that the session is missing a given key.
+->assertSessionMissing($key);
+</pre>
+
+
+<h4><a name="artisan" href="#artisan">Artisan</a> <a href="https://laravel.com/docs/5.3/artisan" title="Artisan CLI @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
 <pre class="prettyprint lang-php">
 // Display help for a given command
 php artisan --help OR -h
@@ -153,6 +327,9 @@ php artisan handler:event [--event="..."] [--queued] name
 // Set the application key
 php artisan key:generate
 
+// Generate a mailable class
+php artisan make:mail name
+
 // Scaffold basic login and registration views and routes
 php artisan make:auth
 // Create a new Artisan command
@@ -164,6 +341,8 @@ php artisan make:controller [--resource] name
 php artisan make:controller Namespace\\DashboardController
 // Create a new event class
 php artisan make:event name
+// Create a queued job
+php artisan make:job name
 // Create a new middleware class
 php artisan make:middleware name
 // Create a new migration file
@@ -171,6 +350,9 @@ php artisan make:middleware name
 // --table      The table to migrate.
 php artisan make:migration [--create[="..."]] [--table[="..."]] name
 // Create a new Eloquent model class
+// -m, --migration       Create a new migration file for the model.
+// -c, --controller      Create a new controller for the model.
+// -r, --resource        Indicates if the generated controller should be a resource controller
 php artisan make:model name
 // Create a new service provider class
 php artisan make:provider name
@@ -200,16 +382,37 @@ php artisan migrate:install [--database[="..."]]
 // --table      The table to migrate.
 php artisan make:migration [--create[="..."]] [--table[="..."]] name
 // Reset and re-run all migrations
-// --seed       Indicates if the seed task should be re-run.
-// --seeder     The class name of the root seeder.
-php artisan migrate:refresh [--database[="..."]] [--force] [--seed] [--seeder[="..."]]
+// --database[=DATABASE]  The database connection to use.
+// --force                Force the operation to run when in production.
+// --path[=PATH]          The path of migrations files to be executed.
+// --seed                 Indicates if the seed task should be re-run.
+// --seeder[=SEEDER]      The class name of the root seeder.
+// --step[=STEP]          The number of migrations to be reverted & re-run.
+php artisan migrate:refresh
 // Rollback all database migrations
 // --pretend    Dump the SQL queries that would be run.
 php artisan migrate:reset [--database[="..."]] [--force] [--pretend]
 // Rollback the last database migration
-php artisan migrate:rollback [--database[="..."]] [--force] [--pretend]
+// --database[=DATABASE]  The database connection to use.
+// --force                Force the operation to run when in production.
+// --path[=PATH]          The path of migrations files to be executed.
+// --pretend              Dump the SQL queries that would be run.
+// --step[=STEP]          The number of migrations to be reverted.
+php artisan migrate:rollback
 // Show a list of migrations up/down
 php artisan migrate:status
+
+// generate a migration with the database notifications schema
+php artisan notifications:table
+
+// Create encryption keys
+php artisan passport:install
+// Create a client
+php artisan passport:client
+// Create a password grant client
+php artisan passport:client --password
+// Create a personal access client
+php artisan passport:client --personal
 
 // Create a migration for the queue jobs database table
 php artisan queue:table
@@ -227,12 +430,14 @@ php artisan queue:failed
 php artisan queue:failed-table
 // Flush all of the failed queue jobs
 php artisan queue:flush
-// Delete a failed queue job
-php artisan queue:forget
+// Delete a failed queue job(id: The ID of the failed job)
+php artisan queue:forget id
 // Restart queue worker daemons after their current job
 php artisan queue:restart
 // Retry a failed queue job(id: The ID of the failed job)
 php artisan queue:retry id
+// Retry all
+php artisan queue:retry all
 // Subscribe a URL to an Iron.io push queue
 // queue: The name of Iron.io queue.
 // url: The URL to be subscribed.
@@ -259,6 +464,11 @@ php artisan route:list
 // Run the scheduled commands
 php artisan schedule:run
 
+// Import the given model into the search index
+php artisan scout:import model
+// Flush all of the model's records from the index
+php artisan scout:flush model
+
 // Create a migration for the session database table
 php artisan session:table
 
@@ -273,31 +483,45 @@ php artisan vendor:publish [--force] [--provider[="..."]] [--tag[="..."]]
                 </pre>
                 <h6>Command Structure</h6>
                 <pre class="prettyprint lang-php">
-// Required argument: user
-protected $signature = 'email:send {user}';
-// Optional argument...
-protected $signature = 'email:send {user?}';
-// Optional argument with default value...
-protected $signature = 'email:send {user=foo}';
-// php artisan email:send 1 --queue
-protected $signature = 'email:send {user} {--queue}';
-// php artisan email:send 1 --queue=foo
-protected $signature = 'email:send {user} {--queue=}';
-// Default value
-protected $signature = 'email:send {user} {--queue=default}';
-// Option Shortcuts
-protected $signature = 'email:send {user} {--Q|queue}';
-// Input Arrays: php artisan email:send foo bar
-protected $signature = 'email:send {user*}';
-// php artisan email:send --id=1 --id=2
-protected $signature = 'email:send {--id=*}';
-// Input Descriptions
-protected $signature = 'email:send
-                        {user : The ID of the user}
-                        {--queue= : Whether the job should be queued}';
-                        </pre>
-                        <h6>Command I/O</h6>
-                        <pre class="prettyprint lang-php">
+use Illuminate\Console\Command;
+class SendEmails extends Command {
+//  Required argument: user
+&nbsp;&nbsp;&nbsp;
+    protected $signature = 'email:send {user}';
+//  Optional argument
+&nbsp;&nbsp;&nbsp;
+    protected $signature = 'email:send {user?}';
+//  Optional argument with default value...
+&nbsp;&nbsp;&nbsp;
+    protected $signature = 'email:send {user=foo}';
+//  php artisan email:send 1 --queue
+&nbsp;&nbsp;&nbsp;
+    protected $signature = 'email:send {user} {--queue}';
+//  php artisan email:send 1 --queue=foo
+&nbsp;&nbsp;&nbsp;
+    protected $signature = 'email:send {user} {--queue=}';
+//  Default value
+&nbsp;&nbsp;&nbsp;
+    protected $signature = 'email:send {user} {--queue=default}';
+//  Option Shortcuts
+&nbsp;&nbsp;&nbsp;
+    protected $signature = 'email:send {user} {--Q|queue}';
+//  Input Arrays: php artisan email:send foo bar
+&nbsp;&nbsp;&nbsp;
+    protected $signature = 'email:send {user*}';
+//  php artisan email:send --id=1 --id=2
+&nbsp;&nbsp;&nbsp;
+    protected $signature = 'email:send {--id=*}';
+//  Input Descriptions
+&nbsp;&nbsp;&nbsp;
+    protected $signature = 'email:send
+                            {user : The ID of the user}
+                            {--queue= : Whether the job should be queued}';
+}
+</pre>
+
+<h6>Command I/O</h6>
+<pre class="prettyprint lang-php">
 $this->argument('user');
 $this->arguments();
 $this->option('queue');
@@ -332,7 +556,7 @@ $exitCode = Artisan::call('email:send', ['user' => 1, '--queue' => 'default']);
 // Queue Artisan commands
 Artisan::queue('email:send', ['user' => 1, '--queue' => 'default']);
 </pre>
-<h4><a name="authorization" href="#authorization">Authorization</a> <a href="http://laravel.com/docs/5.3/authorization" title="Authorization @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<h4><a name="authorization" href="#authorization">Authorization</a> <a href="https://laravel.com/docs/5.3/authorization" title="Authorization @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
 <pre class="prettyprint lang-php">
 Gate::define('update-post', function ($user, $post) { });
 Gate::allows('update-post', $post);
@@ -363,7 +587,109 @@ class PostController extends Controller {
 @cannot('update', Post::class)
 @endcannot
 </pre>
-<h4><a name="blade" href="#blade">Blade Templates</a> <a href="http://laravel.com/docs/5.3/templates#blade-templating" title="Blade Templating @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<h4><a name="billing" href="#billing">Laravel Cashier</a> <a href="https://laravel.com/docs/5.3/billing" title="Laravel Cashier @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<h6>Billable Model</h6>
+<pre class="prettyprint lang-php">
+use Laravel\Cashier\Billable;
+class User extends Authenticatable {
+    use Billable;
+}
+</pre>
+
+<h6>Currency Configuration</h6>
+<pre class="prettyprint lang-php">
+use Laravel\Cashier\Cashier;
+Cashier::useCurrency('eur', '€');
+</pre>
+
+<h6>Subscriptions</h6>
+<pre class="prettyprint lang-php">
+// Create a subscription
+$user->newSubscription('main', 'monthly')
+     ->create($creditCardToken, ['email' => $email]);
+// Apply a coupon
+$user->newSubscription('main', 'monthly')
+     ->withCoupon('code')
+     ->create($creditCardToken);
+// Offer trial periods
+$user->newSubscription('main', 'monthly')
+     ->trialDays(10)
+     ->create($creditCardToken);
+
+// Check user's subscription status
+$user->subscribed('main');
+// Is still within their trial period
+$user->subscription('main')->onTrial();
+// Or
+$user->onTrial('main')
+// In "generic" trial period and has not created an actual subscription
+$user->onGenericTrial();
+// Determine if subscribed to a given plan
+$user->subscribedToPlan('monthly', 'main');
+// Is cancelled
+$user->subscription('main')->cancelled();
+// Cancelled but still on their "grace period"
+$user->subscription('main')->onGracePeriod();
+
+// Change to a new subscription plan
+$user->subscription('main')->swap('provider-plan-id');
+// Swap plans and cancel any trial period
+$user->subscription('main')
+     ->skipTrial()
+     ->swap('provider-plan-id');
+
+// Increment the subscription quantity
+$user->subscription('main')->incrementQuantity();
+// Add five to the subscription's current quantity
+$user->subscription('main')->incrementQuantity(5);
+// Decrement subscription quantities
+$user->subscription('main')->decrementQuantity();
+$user->subscription('main')->decrementQuantity(5);
+// Set a specific quantity
+$user->subscription('main')->updateQuantity(10);
+
+// Cancel a subscription
+$user->subscription('main')->cancel();
+// Candel and still on their "grace period"
+$user->subscription('main')->onGracePeriod();
+// Cancel a subscription immediately
+$user->subscription('main')->cancelNow();
+// Resume from grace period
+$user->subscription('main')->resume();
+
+// Update a customer's credit card information
+$user->updateCard($creditCardToken);
+</pre>
+
+<h6>Single Charges</h6>
+<pre class="prettyprint lang-php">
+// Stripe Accepts Charges In Cents
+$user->charge(100);
+// Braintree Accepts Charges In Dollars
+$user->charge(1);
+$user->charge(100, ['custom_option' => $value]);
+// throw an exception if the charge fails
+try {
+    $response = $user->charge(100);
+} catch (Exception $e) {
+}
+
+// Invoice $5.00 for a "One Time Fee" using Stripe
+$user->invoiceFor('One Time Fee', 500);
+$user->invoiceFor('One Time Fee', 500, [
+    'custom-option' => $value,
+]);
+// Retrieve an array of a billable model's invoices
+$user->invoices();
+// Include pending invoices in the results
+$user->invoicesIncludingPending();
+// Generate a PDF download
+$user->downloadInvoice($invoiceId, [
+    'vendor'  => 'Your Company',
+    'product' => 'Your Product',
+]);
+</pre>
+<h4><a name="blade" href="#blade">Blade Templates</a> <a href="https://laravel.com/docs/5.3/templates#blade-templating" title="Blade Templating @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
 <pre class="prettyprint lang-php">
 @extends('layout.name')
 // Defines a section
@@ -488,8 +814,33 @@ $loop->depth
 //When in a nested loop, the parent's loop variable.
 $loop->parent
 </pre>
-<h4><a name="cache" href="#cache">Cache</a> <a href="http://laravel.com/docs/5.3/cache" title="Cache @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
-<pre class="prettyprint lang-php">Cache::put('key', 'value', $minutes);
+<h4><a name="broadcasting" href="#broadcasting">Event Broadcasting</a> <a href="https://laravel.com/docs/5.3/broadcasting" title="Event Broadcasting @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<h6>Laravel Echo</h6>
+<pre class="prettyprint lang-php">
+// Listen for event broadcasts
+Echo.channel('orders').listen('OrderShipped', (e) => {});
+// Specify the fully-qualified class name
+Echo.channel('orders').listen('.Namespace.Event.Class', (e) => {});
+// Listen for events on a private channel
+Echo.private('orders').listen(...).listen(...);
+// Leave a channel
+Echo.leave('orders');
+
+// Join and listen a presence channel
+Echo.join('chat.' + roomId)
+    .here((users) => { })
+    .joining((user) => { })
+    .leaving((user) => { });
+    .listen('NewMessage', (e) => { });
+
+Echo.private('App.User.' + userId)
+    .notification((notification) => { });
+</pre>
+<h4><a name="cache" href="#cache">Cache</a> <a href="https://laravel.com/docs/5.3/cache" title="Cache @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<pre class="prettyprint lang-php">
+// Access cache stores
+Cache::store('file');
+Cache::put('key', 'value', $minutes);
 Cache::add('key', 'value', $minutes);
 Cache::forever('key', 'value');
 Cache::remember('key', $minutes, function(){ return 'value' });
@@ -499,11 +850,15 @@ Cache::has('key');
 Cache::get('key');
 Cache::get('key', 'default');
 Cache::get('key', function(){ return 'default'; });
-Cache::tags('my-tag')->put('key','value', $minutes);
-Cache::tags('my-tag')->has('key');
-Cache::tags('my-tag')->get('key');
-Cache::tags('my-tag')->forget('key');
-Cache::tags('my-tag')->flush();
+// Retrieve & Delete
+Cache::pull('key');
+// Clear the entire cache
+Cache::flush();
+Cache::tags(['people', 'artists'])->put('key','value', $minutes);
+Cache::tags(['people', 'artists'])->has('key');
+Cache::tags(['people', 'artists'])->get('key');
+Cache::tags(['people', 'artists'])->forget('key');
+Cache::tags(['people', 'artists'])->flush();
 Cache::increment('key');
 Cache::increment('key', $amount);
 Cache::decrement('key');
@@ -512,191 +867,354 @@ Cache::section('group')->put('key', $value);
 Cache::section('group')->get('key');
 Cache::section('group')->flush();
 </pre>
-<h4><a name="collections" href="#collections">Collections</a> <a href="http://laravel.com/docs/5.3/collections" title="Collections @ Laravel Docs"><i class="icon-file-text"></i></a>
+
+<h6>Helper</h6>
+<pre class="prettyprint lang-php">
+// Get value
+$value = cache('key');
+// store values
+cache(['key' => 'value'], $minutes);
+cache(['key' => 'value'], Carbon::now()->addSeconds(10));
+</pre>
+<h4><a name="configuration" href="#configuration">Configuration</a> <a href="https://laravel.com/docs/5.3/configuration" title="Configuration @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<pre class="prettyprint lang-php">
+// Access configuration values
+$value = config('app.timezone');
+// Set configuration values at runtime
+config(['app.timezone' => 'America/Chicago']);
+//  retrieve value from $_ENV PHP super-global
+env('APP_DEBUG', $deafult);
+// Current application environment
+App::environment();
+// Check if local
+App::environment('local');
+// Check if local OR staging
+App::environment('local', 'staging');
+</pre>
+<h4><a name="collections" href="#collections">Collections</a> <a href="https://laravel.com/docs/5.3/collections" title="Collections @ Laravel Docs"><i class="icon-file-text"></i></a>
                 </h4>
 <pre class="prettyprint lang-php">
-// Creating Collections
+// Create a Collection
 collect([1, 2, 3]);
-// Simply returns the underlying array represented by the collection:
-$collection->all();
-// Returns the average of all items in the collection:
-$collection->avg();
-// Breaks the collection into multiple, smaller collections of a given size:
-$collection->chunk(4);
-// Collapses a collection of arrays into a flat collection:
-$collection->collapse();
-// Create a collection by using this collection for keys and another for its values.
-$combined = $collection->combine(['George', 29]);
-// Determines whether the collection contains a given item:
-$collection->contains('New York');
-// Determine if an item exists in the collection using strict comparison.
-$collection->containsStrict('New York')
-// Returns the total number of items in the collection:
-$collection->count();
-// Iterates over the items in the collection and passes each item to a given callback:
-$collection = $collection->each(function ($item, $key) {
+// [1, 2, 3]
+collect([1, 2, 3])->all();
+// 3
+collect([1, 2, 3, 4, 5])->avg();
+// array([1, 2, 3, 4], [5, 6])
+collect([1, 2, 3, 4, 5, 6])->chunk(4);
+// [1, 2, 3, 4, 5, 6]
+collect(array(
+    [1, 2, 3],
+    [4, 5, 6],
+))->collapse();
+// ['name'=>'George', 'age'=>29]
+collect(['name', 'age'])->combine(['George', 29]);
+
+// Determine if the given item exists
+collect(['Desk'])->contains('Desk');
+// Determine if the given pair exists
+collect(array(['name'=>'Desk']))->contains('name', 'Desk');
+// Pass a callback
+$collection->contains(function ($item, $key) { });
+// Use "strict" comparisons
+$collection->containsStrict('New York');
+
+// 4
+collect([1, 2, 3, 4])->count();
+// return false to stop, result: A  B
+collect(['A ', ' B', 3, 4])->each(function($item, $key){
+    if(3 === $item) return false;
+    echo $item;
 });
-// Get the items in the collection whose keys are not present in the given items.
-$collection->diffKeys($items)
-// Create a new collection consisting of every n-th element:
-$collection->every(4);
-// Pass offset as the second argument:
-$collection->every(4, 1);
-// Returns all items in the collection except for those with the specified keys:
-$collection->except(['price', 'discount']);
-// Filters the collection by a given callback:
-$filtered = $collection->filter(function ($item) {
-    return $item > 2;
+// ['one'=>1]
+collect(['one'=>1, 'two'=>2])->diffKeys(['two'=>20]);
+
+// [a, d]
+collect(['a', 'b', 'c', 'd', 'e', 'f'])->every(3);
+// [b, e]
+collect(['a', 'b', 'c', 'd', 'e', 'f'])->every(3, $offset = 1);
+
+// ['a'=>1]
+collect(['a'=>1, 'b'=>100, 'c'=>false])
+->except(['b', 'c']);
+// [1=>3]
+collect([4, 3, 2, 1])->filter(function($item, $key){
+    return 3 == $item;
 });
-// Returns the first element in the collection that passes a given truth test:
-collect([1, 2, 3, 4])->first(function ($key, $value) {
-    return $value > 2;
+// 2
+collect([1, 2, 3, 4])->first(function($item, $key){
+    return $item > 1;
 });
-// Flattens a multi-dimensional collection into a single dimension:
-$flattened = $collection->flatten();
-// Swaps the collection's keys with their corresponding values:
-$flipped = $collection->flip();
-// Removes an item from the collection by its key:
-$collection->forget('name');
-// Returns a new collection containing the items:
-$chunk = $collection->forPage(2, 3);
-// Returns the item at a given key. If the key does not exist, null is returned:
-$value = $collection->get('name');
-// Groups the collection's items by a given key:
-$grouped = $collection->groupBy('account_id');
-// Determines if a given key exists in the collection:
-$collection->has('email');
-// Joins the items in a collection:
-$collection->implode('product', ', ');
-// Removes any values that are not present in the given array or collection:
-$intersect = $collection->intersect(['Desk', 'Chair', 'Bookcase']);
-// Returns true if the collection is empty:
+
+// ['a', true, 'd']
+collect([ 'a', 'b'=>true, 'c'=>['d'] ])->flatten();
+// array(['a.2'], ['b.2'])
+collect(array(
+    'a'=>array(['a.2']),
+    'b'=>array(['b.2']),
+))->flatten(1);
+// ['a.2', 'b.2']
+collect(array(
+    'a'=>array(['a.2']),
+    'b'=>array(['b.2']),
+))->flatten(2);
+
+// ['Jack'=>'name']
+collect(['name'=>'Jack'])->flip();
+// []
+collect(['name'=>'Jack'])->forget('name');
+// [3=>5, 4=>5, 5=>5]
+collect([4,4,4,  5,5,5,  6,6,6])->forPage($page = 2, $perPage = 3);
+// 'Jack'
+collect(['name'=>'Jack'])->get('name', 'default-value');
+collect(['name'=>'Jack'])->get('name', Closure);
+
+/* [
+     'big'=>[
+         ['size'=>'big', 'toy'=>'Car'],
+         ['size'=>'big', 'toy'=>'Train'],
+     ],
+     'small'=>[
+         ['size'=>'small', 'toy'=>'Doll'],
+     ]
+ ] */
+collect([
+    ['size'=>'big', 'toy'=>'Car'],
+    ['size'=>'big', 'toy'=>'Train'],
+    ['size'=>'small', 'toy'=>'Doll'],
+])->groupBy('size');
+// Return the value you wish to key the group by
+$collection->groupBy(function ($item, $key) {
+    return substr($item['account_id'], -3);
+});
+
+// Determine if a given key exists in the collection
+collect(['name'=>'Jack'])->has('name');
+
+// Jack::Rose
+collect(array(['name'=>'Jack'], ['name'=>'Rose']))
+    ->implode('name', '::');
+// 1-2-3-4-5
+collect([1, 2, 3, 4, 5])->implode('-');
+
+// [1=>6, 2=>7]
+collect([5, 6, 7])->intersect([7, 6]);
+// Return true if the collection is empty
 collect([])->isEmpty();
-// Keys the collection by the given key:
-$keyed = $collection->keyBy('product_id');
-// Pass a callback, which should return the value to key the collection by:
-$keyed = $collection->keyBy(function ($item) {
-    return strtoupper($item['product_id']);
+
+/* [
+    '100'=>['id'=>'100', 'name'=>'desk'],
+    '200'=>['id'=>'200', 'name'=>'chair'],
+] */
+collect(array(
+    ['id'=>'100', 'name'=>'desk'],
+    ['id'=>'200', 'name'=>'chair'],
+))->keyBy('id');
+/* [
+    'desk'=>['id'=>'100', 'name'=>'desk'],
+    'chair'=>['id'=>'200', 'name'=>'chair'],
+] */
+collect(array(
+    ['id'=>'100', 'name'=>'desk'],
+    ['id'=>'200', 'name'=>'chair'],
+))->keyBy(function($item) {
+    return $item['name'];
 });
-// Returns all of the collection's keys:
-$keys = $collection->keys();
-// Returns the last element in the collection:
-$collection->last();
-// Iterates through the collection and passes each value to the given callback:
-$multiplied = $collection->map(function ($item, $key) {
+
+// ['a', 'b']
+collect(array(
+    'a'=>[],
+    'b'=>[],
+))->keys();
+// 4
+collect([1, 2, 3, 4])->last(function($item, $key){
+    return $item > 1;
+});
+// 4
+collect([1, 2, 3, 4])->last();
+// [2, 4, 6, 8, 10]
+collect([1, 2, 3, 4, 5])->map(function ($item, $key) {
     return $item * 2;
 });
-// Run an associative map over each of the items.
-$multiplied = $collection->mapWithKeys(function ($item, $key) {
-    return $item * 2;
+// ["one"=>1, "two"=>2];
+collect(array(
+    'one'=>['id'=>1],
+    'two'=>['id'=>2]
+))->mapWithKeys(function ($item, $key) {
+    return [$key=>$item['id']];
 });
-// Return the maximum value of a given key:
-$max = collect([['foo' => 10], ['foo' => 20]])->max('foo');
-$max = collect([1, 2, 3, 4, 5])->max();
-// Get the median of a given key.
-$median = $collection->median($key = null);
-// Get the mode of a given key.
-$mode = $collection->mode($key = null);
-// Merges the given array into the collection:
-$merged = $collection->merge(['price' => 100, 'discount' => false]);
-// Return the minimum value of a given key:
-$min = collect([['foo' => 10], ['foo' => 20]])->min('foo');
-$min = collect([1, 2, 3, 4, 5])->min();
-// Returns the items in the collection with the specified keys:
-$filtered = $collection->only(['product_id', 'name']);
-// Pass the collection to the given callback and return the result.
-$collection->pipe(callable $callback)
-// Retrieves all of the collection values for a given key:
-$plucked = $collection->pluck('name');
-// Removes and returns the last item from the collection:
-$collection->pop();
-// Adds an item to the beginning of the collection:
-$collection->prepend(0);
-// Pass a second argument to set the key of the prepended item:
-$collection->prepend(0, 'zero');
-// Removes and returns an item from the collection by its key:
-$collection->pull('name');
-// Appends an item to the end of the collection:
-$collection->push(5);
-// Sets the given key and value in the collection:
-$collection->put('price', 100);
-// Returns a random item from the collection:
-$collection->random();
-// Pass an integer to random. If that integer is more than 1, a collection of items is returned:
-$random = $collection->random(3);
-// Reduces the collection to a single value:
-$total = $collection->reduce(function ($carry, $item) {
+
+// 5
+collect([1, 2, 3, 4, 5])->max();
+// 20
+collect(array(
+    ['foo'=>10],
+    ['foo'=>20]
+))->max('foo');
+// ['a'=>1, 'b'=>200, 'c'=>3]
+collect(['a'=>1, 'b'=>2])->merge(['b'=>200, 'c'=>3]);
+// 1
+collect([1, 2, 3, 4, 5])->min();
+// 10
+collect(array(
+    ['foo'=>10],
+    ['foo'=>20]
+))->min('foo');
+// ['b'=>'2', 'c'=>'3']
+collect(['a'=>'1', 'b'=>'2', 'c'=> '3'])->only(['b','c']);
+// 6
+collect([1, 2, 3])->pipe(function ($collection) {
+    return $collection->sum();
+})
+// ['Jack', 'Rose']
+collect(array(
+    ['id'=>5, 'name'=>'Jack'],
+    ['id'=>6, 'name'=>'Rose'],
+))->pluck('name');
+// [5=>'Jack', 6=>'Rose']
+collect(array(
+    ['id'=>5, 'name'=>'Jack'],
+    ['id'=>6, 'name'=>'Rose']
+))->pluck ('name', $key = 'id');
+
+// 5
+collect([1, 2, 3, 4, 5])->pop();
+// [0, 1, 2, 3, 4, 5]
+collect([1, 2, 3, 4, 5])->prepend(0);
+// ['zero'=>0, 'one'=>1, 'two',=>2]
+collect(['one'=>1, 'two',=>2])->prepend(0, 'zero');
+// Desk
+collect(['id'=>'100', 'name'=>'Desk'])->pull('name');
+// [1, 2, 3, 4, 5]
+collect([1, 2, 3, 4])->push(5);
+// ['id'=>1, 'name'=>'Desk', 'price'=>100]
+collect(['id'=>1, 'name'=>'Desk'])->put('price', 100);
+
+// 4 - (retrieved randomly)
+collect([1, 2, 3, 4, 5])->random();
+// [2, 4, 5] - (retrieved randomly)
+collect([1, 2, 3, 4, 5])->random(3);
+
+// 6
+collect([1, 2, 3])->reduce(function ($carry, $item) {
     return $carry + $item;
 });
-// Filters the collection using the given callback:
-$filtered = $collection->reject(function ($item) {
-    return $item > 2;
+// 10
+collect([1, 2, 3])->reduce(function ($carry, $item) {
+    return $carry + $item;
+}, initial = 4);
+
+// [1, 2]
+collect([1, 2, 3, 4])->reject(function ($value, $key) {
+    return $value > 2;
 });
-// Reverses the order of the collection's items:
-$reversed = $collection->reverse();
-// Searches the collection for the given value and returns its key if found:
-$collection->search(4);
-// Removes and returns the first item from the collection:
-$collection->shift();
-// Randomly shuffles the items in the collection:
-$shuffled = $collection->shuffle();
-// Returns a slice of the collection starting at the given index:
-$slice = $collection->slice(4);
-// Sorts the collection:
-$sorted = $collection->sort();
-// Sorts the collection by the given key:
-$sorted = $collection->sortBy('price');
-// Removes and returns a slice of items starting at the specified index:
-$chunk = $collection->splice(2);
-// Returns the sum of all items in the collection:
+// [5, 4, 3, 2, 1]
+collect([1, 2, 3, 4, 5]);
+
+// two
+collect(['one'=>true, 'two'=>false])->search(0);
+// not found!
+collect(['one'=>true, 'two'=>false])->search(0, $strict = true);
+// Pass a callback
+$collection->search(function ($item, $key) {
+    return $item > 5;
+});
+
+// 1
+collect([1, 2, 3, 4, 5])->shift();
+// [3, 2, 5, 1, 4] // (generated randomly)
+collect([1, 2, 3, 4, 5])->shuffle();
+
+// [3, 4, 5], $collection = [1, 2, 3, 4, 5]
+$collection = collect([1, 2, 3, 4, 5]);
+$collection->slice(2);
+// [3, 4], $collection = [1, 2, 3, 4, 5]
+$collection = collect([1, 2, 3, 4, 5]);
+$collection->slice(2, 2);
+
+// [1, 2, 3, 4, 5]
+collect([5, 3, 1, 2, 4])->sort();
+collect([5, 3, 1, 2, 4])->sort(Closure);
+
+/* [
+    ['price'=>100],
+    ['price'=>150],
+    ['price'=>200],
+] */
+collect([
+    ['price'=>200],
+    ['price'=>100],
+    ['price'=>150],
+])->sortBy('price');
+$collection->sort(Closure);
+$collection->sortByDesc();
+$collection->sortByDesc(Closure);
+
+// [3, 4, 5], $collection = [1, 2]
+$collection = collect([1, 2, 3, 4, 5]);
+$collection->splice(2);
+// [3] , $collection = [1, 2, 4, 5]
+$collection = collect([1, 2, 3, 4, 5]);
+collect([1, 2, 3, 4, 5])->splice(2, 1);
+
+// 15
 collect([1, 2, 3, 4, 5])->sum();
-// Returns a new collection with the specified number of items:
-$chunk = $collection->take(3);
-// Converts the collection into a plain PHP array:
-$collection->toArray();
-// Converts the collection into JSON:
-$collection->toJson();
-// Iterates over the collection:
-$collection->transform(function ($item, $key) {
+// 1272
+$collection = collect(array(
+    ['pages'=>176],
+    ['pages'=>1096],
+))->sum('pages');
+$collection->sum(Closure);
+
+// [0, 1, 2]
+collect([0, 1, 2, 3, 4, 5])->take(3);
+// [4, 5]
+collect([0, 1, 2, 3, 4, 5])->take(-2);
+
+// ['a'=>'1', 'b'=>2]
+collect(['a'=>'1', 'b'=>2])->toArray();
+// {"a":"1","b":2}
+collect(['a'=>'1', 'b'=>2])->toJson();
+// [2, 4, 6, 8, 10]
+collect([1, 2, 3, 4, 5])->transform(function ($item, $key) {
     return $item * 2;
 });
-// Returns all of the unique items in the collection:
-$unique = $collection->unique();
-// Return only unique items from the collection array using strict comparison.
-$unique = $collection->uniqueStrict();
-// Union the collection with the given items.
-$union = $collection->union([3 => ['c'], 1 => ['b']]);
-// Returns a new collection with the keys reset to consecutive integers:
-$values = $collection->values();
-// Filters the collection by a given key / value pair:
-$filtered = $collection->where('price', 100);
-// Filter items by the given key value pair using strict comparison.
-$filtered = $collection->whereStrict('price', 100);
-// Filter items by the given key value pair.
-$filtered = $collection->whereIn([1, 3, 5]);
-// Filter items by the given key value pair using strict comparison.
-$filtered = $collection->whereInStrict([1, 3, 5]);
-// Merges together the values of the given array with the values of the collection:
-$zipped = $collection->zip([100, 200]);
-</pre>
- <h4><a name="composer" href="#composer">Composer</a> <a href="http://getcomposer.org/doc/03-cli.md" title="Composer CLI Docs"><i class="icon-file-text"></i></a></h4>
+// [1=>'a', 2=>'b', 3=>'c']
+collect([1=>'a', 2=>'b'])->union([3=>'c', 1=>'d']);
 
-<pre class="prettyprint lang-php">
-composer create-project laravel/laravel folder_name
-composer install
-composer update
-composer dump-autoload [--optimize]
-composer self-update
+// [1, 2, 3, 4]
+collect([1, 1, 2, 2, 3, 4, 2])->unique();
+// [ ['id'=>1, 'size'=>'big'] ]
+collect(array(
+    ['id'=>1, 'size'=>'big'],
+    ['id'=>2, 'size'=>'big'],
+))->unique('size');
+$collection->unique(Closure);
+
+// [1, 2]
+collect(['a'=>1, 'b'=>2])->values();
+
+// [ ['id'=>2, 'size'=>'big'] ]
+collect(array(
+    ['id'=>1, 'size'=>'big'],
+    ['id'=>2, 'size'=>'big'],
+))->where('id', 2);
+// Strict...
+$collection->whereStrict('id', 2);
+
+// [ ['id'=>2, 'size'=>'big'] ]
+collect(array(
+    ['id'=>6, 'size'=>'big'],
+    ['id'=>2, 'size'=>'big'],
+))->whereIn('id', [2, 3]);
+// Strict...
+$collection->whereInStrict('id', 2);
+
+// [['Chair', 100], ['Desk', 200]]
+collect(['Chair', 'Desk'])->zip([100, 200]);
 </pre>
-<h4><a name="Configuration" href="#Configuration">Configuration</a> <a href="http://laravel.com/docs/5.3/configuration" title="Configuration Docs"><i class="icon-file-text"></i></a></h4>
-<pre class="prettyprint lang-php">
-Config::get('app.timezone');
-//get with Default value
-Config::get('app.timezone', 'UTC');
-//set Configuration
-Config::set('database.default', 'sqlite');
-</pre>
-<h4><a name="controllers" href="#controllers">Controllers</a> <a href="http://laravel.com/docs/5.3/controllers" title="Controllers @ Laravel Docs"><i class="icon-file-text"></i></a>
+configuration.html
+<h4><a name="controllers" href="#controllers">Controllers</a> <a href="https://laravel.com/docs/5.3/controllers" title="Controllers @ Laravel Docs"><i class="icon-file-text"></i></a>
                 </h4>
 <h6>Single Action Controllers</h6>
 <pre class="prettyprint lang-php">
@@ -740,7 +1258,7 @@ Route::resource('user', 'AdminUserController', ['parameters' => [
 Route::get('photos/popular', 'PhotoController@method');
 Route::resource('photos', 'PhotoController');
 </pre>
-<h4><a name="cookies" href="#cookies">Cookies</a> <a href="http://laravel.com/docs/5.3/requests#cookies" title="Cookies @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<h4><a name="cookies" href="#cookies">Cookies</a> <a href="https://laravel.com/docs/5.3/requests#cookies" title="Cookies @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
 <pre class="prettyprint lang-php">
 request()->cookie('key');
 Cookie::get('key');
@@ -762,14 +1280,78 @@ $response->withCookie(Cookie::make('name', 'value', $minutes));
 // or
 response('Hello World')->cookie('name', 'value', $minutes);
 </pre>
-<h4><a name="database" href="#database">Database</a> <a href="http://laravel.com/docs/5.3/database" title="Basic Database Usage @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+                    </div>
+                    <div class="large-4 columns code-column">
+<h4><a name="database-testing" href="#database-testing">Database Testing</a> <a href="https://laravel.com/docs/5.3/database-testing" title="Database Testing @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<pre class="prettyprint lang-php">
+// Assert that data exists in the database
+$this->seeInDatabase('users', ['email' => 'sally@example.com']);
+
+// Reset the database after each test
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+class ExampleTest extends TestCase {
+    use DatabaseMigrations;
+}
+// Reset the database using transaction
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+class ExampleTest extends TestCase {
+    use DatabaseTransactions;
+}
+</pre>
+
+<h6>Writing Factories</h6>
+<pre class="prettyprint lang-php">
+// database/factories/ModelFactory.php
+$factory->define(User::class, function (Faker\Generator $faker) {
+    return ['column' => $faker->name];
+});
+
+// Define a state
+$factory->state(User::class, 'delinquent', function ($faker) {
+    return ['account_status' => 'delinquent'];
+});
+
+// Define a relationship
+$factory->define(App\Post::class, function ($faker) {
+    return ['user_id' => function () {
+        return factory(App\User::class)->create()->id;
+    }];
+});
+
+// Create a User instance
+$user = factory(User::class)->make();
+// Create three User instances...
+$users = factory(User::class, 3)->make();
+// Create an "admin" User instance...
+$user = factory(User::class, 'admin')->make();
+// Create three "admin" User instances...
+$users = factory(User::class, 'admin', 3)->make();
+// Overriding Attributes
+$user = factory(App\User::class)->make([
+    'name' => 'Abigail',
+]);
+
+// Create and save to the database
+$user = factory(User::class)->create();
+
+// Apply a state
+$users = factory(User::class)->states('deliquent')->make();
+
+// Attach a relation to a created model
+$users = factory(App\User::class)->create()
+    ->each(function ($u) {
+        $u->posts()->save(factory(App\Post::class)->make());
+    });
+</pre>
+
+<h4><a name="database" href="#database">Database</a> <a href="https://laravel.com/docs/5.3/database" title="Basic Database Usage @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
 
 <h6>Basic Database Usage</h6>
 <pre class="prettyprint lang-php">
 DB::connection('connection_name');
 // Running A Select Query
-$results = DB::select('select * from users where id = ?', [1]);
-$results = DB::select('select * from users where id = :id', ['id' => 1]);
+DB::select('select * from users where id = ?', [1]);
+DB::select('select * from users where id = :id', ['id' => 1]);
 // Running A General Statement
 DB::statement('drop table users');
 // Listening For Query Events
@@ -785,116 +1367,160 @@ DB::rollback();
 DB::commit();
 </pre>
 
-<h6>Query Builder <a href="http://laravel.com/docs/5.3/queries" title="Query Builder @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
+<h6>Query Builder <a href="https://laravel.com/docs/5.3/queries" title="Query Builder @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
 <pre class="prettyprint lang-php">
 // Retrieving All Rows From A Table
 DB::table('name')->get();
 // Chunking Results From A Table
 DB::table('users')->chunk(100, function($users)
 {
-    foreach ($users as $user)
-    {
-        //
-    }
+    foreach ($users as $user) { }
 });
 // Retrieving A Single Row From A Table
-$user = DB::table('users')->where('name', 'John')->first();
+DB::table('users')->where('name', 'John')->first();
 DB::table('name')->first();
 // Retrieving A Single Column From A Row
-$name = DB::table('users')->where('name', 'John')->pluck('name');
+DB::table('users')->where('name', 'John')->pluck('name');
 DB::table('name')->pluck('column');
 // Retrieving A List Of Column Values
-$roles = DB::table('roles')->lists('title');
-$roles = DB::table('roles')->lists('title', 'name');
+DB::table('roles')->pluck('title');
+DB::table('roles')->pluck('title', 'name');
 // Specifying A Select Clause
-$users = DB::table('users')->select('name', 'email')->get();
-$users = DB::table('users')->distinct()->get();
-$users = DB::table('users')->select('name as user_name')->get();
+DB::table('users')->select('name', 'email')->get();
+DB::table('users')->distinct()->get();
+DB::table('users')->select('name as user_name')->get();
 // Adding A Select Clause To An Existing Query
 $query = DB::table('users')->select('name');
-$users = $query->addSelect('age')->get();
-// Using Where Operators
-$users = DB::table('users')->where('votes', '>', 100)->get();
-$users = DB::table('users')
-                    ->where('votes', '>', 100)
-                    ->orWhere('name', 'John')
-                    ->get();
-$users = DB::table('users')
-                    ->whereBetween('votes', [1, 100])->get();
-$users = DB::table('users')
-                    ->whereNotBetween('votes', [1, 100])->get();
-$users = DB::table('users')
-                    ->whereIn('id', [1, 2, 3])->get();
-$users = DB::table('users')
-                    ->whereNotIn('id', [1, 2, 3])->get();
-$users = DB::table('users')
-                    ->whereNull('updated_at')->get();
+$query->addSelect('age')->get();
+</pre>
+<h6>Where Clauses</h6>
+<pre class="prettyprint lang-php">
+DB::table('users')->where('votes', '>', 100)->get();
+DB::table('users')->where([
+    ['status', '=', '1'],
+    ['subscribed', '<>', '1'],
+])
+DB::table('users')
+    ->where('votes', '>', 100)
+    ->orWhere('name', 'John')
+    ->get();
+DB::table('users')->whereBetween('votes', [1, 100])->get();
+DB::table('users')->whereNotBetween('votes', [1, 100])->get();
+DB::table('users')->whereIn('id', [1, 2, 3])->get();
+DB::table('users')->whereNotIn('id', [1, 2, 3])->get();
+DB::table('users')->whereNull('updated_at')->get();
 DB::table('name')->whereNotNull('column')->get();
-// Dynamic Where Clauses
-$admin = DB::table('users')->whereId(1)->first();
-$john = DB::table('users')
-                    ->whereIdAndEmail(2, 'john@doe.com')
-                    ->first();
-$jane = DB::table('users')
-                    ->whereNameOrAge('Jane', 22)
-                    ->first();
-// Order By, Group By, And Having
-$users = DB::table('users')
-                    ->orderBy('name', 'desc')
-                    ->groupBy('count')
-                    ->having('count', '>', 100)
-                    ->get();
-DB::table('name')->orderBy('column')->get();
-DB::table('name')->orderBy('column','desc')->get();
-DB::table('name')->having('count', '>', 100)->get();
-// Offset & Limit
-$users = DB::table('users')->skip(10)->take(5)->get();
+// Compare a column's value against a date
+DB::table('users')->whereDate('created_at', '2016-12-31');
+// Compare a column's value against a specific month of a year
+DB::table('users')->whereMonth('created_at', '12');
+// Column's value against a specific day of a month
+DB::table('users')->whereDay('created_at', '31');
+// Compare a column's value against a specific year
+DB::table('users')->whereYear('created_at', '2016');
+// Verify that two columns are equal
+DB::table('users')->whereColumn('first_name', 'last_name');
+// Pass a comparison operator
+DB::table('users')->whereColumn('updated_at', '>', 'created_at');
+DB::table('users')->whereColumn([
+    ['first_name', '=', 'last_name'],
+    ['updated_at', '>', 'created_at']
+]);
+// select * from users where name = 'John' or (votes > 100 and title <> 'Admin')
+DB::table('users')
+    ->where('name', '=', 'John')
+    ->orWhere(function($query)
+    {
+        $query->where('votes', '>', 100)
+              ->where('title', '<>', 'Admin');
+    });
+// select * from users where exists (
+//    select 1 from orders where orders.user_id = users.id
+// )
+DB::table('users')
+    ->whereExists(function ($query) {
+        $query->select(DB::raw(1))
+            ->from('orders')
+            ->whereRaw('orders.user_id = users.id');
+    });
+// JSON Where Clauses
+DB::table('users')->where('preferences->dining->meal', 'salad');
 </pre>
 
-<h6>Joins <a href="http://laravel.com/docs/5.3/queries#joins" title="Joins @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
+<h6>Ordering, Grouping, Limit, & Offset</h6>
+<pre class="prettyprint lang-php">
+// Dynamic Where Clauses
+$admin = DB::table('users')->whereId(1)->first();
+$john = DB::table('users')->whereIdAndEmail(2, 'john@doe.com');
+$jane = DB::table('users')->whereNameOrAge('Jane', 22);
+// Sort the query results randomly
+DB::table('users')->inRandomOrder();
+DB::table('name')->orderBy('column','desc');
+DB::table('orders')->groupBy('department')->having('price', '>', 100);
+DB::table('orders')->groupBy('department')->havingRaw('SUM(price) > 2500');
+// Offset & Limit
+DB::table('users')->skip(10)->take(5);
+</pre>
+
+<h6>Conditional Clauses</h6>
+<pre class="prettyprint lang-php">
+// Apply a where statement if a given input value is present and true
+DB::table('users')
+    ->when($role, function ($query) use ($role) {
+        return $query->where('role_id', $role);
+    });
+
+DB::table('users')
+    ->when(
+        $sortBy,
+        function ($query) {},
+        function ($query) {
+            $run_if_when_is_false;
+        });
+    });
+</pre>
+
+<h6>Joins <a href="https://laravel.com/docs/5.3/queries#joins" title="Joins @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
 <pre class="prettyprint lang-php">
 // Basic Join Statement
 DB::table('users')
-            ->join('contacts', 'users.id', '=', 'contacts.user_id')
-            ->join('orders', 'users.id', '=', 'orders.user_id')
-            ->select('users.id', 'contacts.phone', 'orders.price')
-            ->get();
+    ->join('contacts', 'users.id', '=', 'contacts.user_id')
+    ->join('orders', 'users.id', '=', 'orders.user_id')
+    ->select('users.id', 'contacts.phone', 'orders.price')
+    ->get();
 // Left Join Statement
+DB::table('users')->leftJoin('posts', 'users.id', '=', 'posts.user_id');
+// Cross Join Clause
+DB::table('sizes')->crossJoin('colours');
+// Advanced Join Clauses
 DB::table('users')
-        ->leftJoin('posts', 'users.id', '=', 'posts.user_id')
-        ->get();
-// select * from users where name = 'John' or (votes > 100 and title <> 'Admin')
+    ->join('contacts', function ($join) {
+        $join->on('users.id', '=', 'contacts.user_id')->orOn(...);
+    });
+// "where" style clause on your joins
 DB::table('users')
-            ->where('name', '=', 'John')
-            ->orWhere(function($query)
-            {
-                $query->where('votes', '>', 100)
-                      ->where('title', '<>', 'Admin');
-            })
-            ->get();
+    ->join('contacts', function ($join) {
+        $join->on('users.id', '=', 'contacts.user_id')
+             ->where('contacts.user_id', '>', 5);
+    });
 </pre>
 
-<h6>Aggregates <a href="http://laravel.com/docs/5.3/queries#aggregates" title="Aggregates @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
+<h6>Aggregates <a href="https://laravel.com/docs/5.3/queries#aggregates" title="Aggregates @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
 <pre class="prettyprint lang-php">
-$users = DB::table('users')->count();
+DB::table('users')->count();
 $price = DB::table('orders')->max('price');
 $price = DB::table('orders')->min('price');
 $price = DB::table('orders')->avg('price');
 $total = DB::table('users')->sum('votes');
-
-DB::table('name')->remember(5)->get();
-DB::table('name')->remember(5, 'cache-key-name')->get();
-DB::table('name')->cacheTags('my-key')->remember(5)->get();
-DB::table('name')->cacheTags(array('my-first-key','my-second-key'))->remember(5)->get();
 </pre>
 
-<h6>Raw Expressions <a href="http://laravel.com/docs/5.3/queries#raw-expressions" title="Raw Expressions @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
+<h6>Raw Expressions <a href="https://laravel.com/docs/5.3/queries#raw-expressions" title="Raw Expressions @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
 <pre class="prettyprint lang-php">
-$users = DB::table('users')
-                     ->select(DB::raw('count(*) as user_count, status'))
-                     ->where('status', '<>', 1)
-                     ->groupBy('status')
-                     ->get();
+DB::table('users')
+    ->select(DB::raw('count(*) as user_count, status'))
+    ->where('status', '<>', 1)
+    ->groupBy('status')
+    ->get();
 // return rows
 DB::select('select * from users where id = ?', array('value'));
 // return nr affected rows
@@ -904,7 +1530,7 @@ DB::delete('delete from bar');
 // returns void
 DB::statement('update foo set bar=2');
 // raw expression inside a statement
-DB::table('name')->select(DB::raw('count(*) as count, column2'))->get();
+DB::table('name')->select(DB::raw('count(*) as count, column2'));
 </pre>
 
 <h6>Inserts / Updates / Deletes / Unions / Pessimistic Locking</h6>
@@ -920,10 +1546,10 @@ DB::table('users')->insert([
     ['email' => 'taylor@example.com', 'votes' => 0],
     ['email' => 'dayle@example.com', 'votes' => 0]
 ]);
-// Updates
-DB::table('users')
-            ->where('id', 1)
-            ->update(['votes' => 1]);
+// Update
+DB::table('users')->where('id', 1)->update(['votes' => 1]);
+// Update JSON Columns
+DB::table('users')->where('id', 1)->update(['options->enabled' => true]);
 DB::table('users')->increment('votes');
 DB::table('users')->increment('votes', 5);
 DB::table('users')->decrement('votes');
@@ -936,15 +1562,15 @@ DB::table('users')->truncate();
 // Unions
 // The unionAll() method is also available, and has the same method signature as union.
 $first = DB::table('users')->whereNull('first_name');
-$users = DB::table('users')->whereNull('last_name')->union($first)->get();
+DB::table('users')->whereNull('last_name')->union($first);
 // Pessimistic Locking
-DB::table('users')->where('votes', '>', 100)->sharedLock()->get();
-DB::table('users')->where('votes', '>', 100)->lockForUpdate()->get();
+DB::table('users')->where('votes', '>', 100)->sharedLock();
+DB::table('users')->where('votes', '>', 100)->lockForUpdate();
 </pre>
 <h4><a name="elixir" href="#elixir">Elixir</a> <a href="https://laravel.com/docs/5.3/elixir" title="Elixir @ Laravel Docs"><i class="icon-file-text"></i></a>
                 </h4>
 <h6>Stylesheets</h6>
-<pre class="prettyprint lang-php">
+<pre class="prettyprint lang-js">
 // Less
 elixir(function(mix) { mix.less('app.less');});
 // Sass
@@ -970,7 +1596,7 @@ elixir.config.sourcemaps = false;
 </pre>
 
 <h6>Scripts</h6>
-<pre class="prettyprint lang-php">
+<pre class="prettyprint lang-js">
 // Webpack
 elixir(function(mix) { mix.webpack('app.js'); });
 // Rollup
@@ -1005,21 +1631,290 @@ elixir(function(mix) {
     });
 });
 </pre>
-<h4><a name="eloquent" href="#eloquent">Eloquent ORM</a> <a href="http://laravel.com/docs/5.3/eloquent" title="Eloquent @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
-<h6>Basic Usage <a href="http://laravel.com/docs/5.3/eloquent#basic-usage" title="Basic Usage @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
+<h4><a name="eloquent-mutators" href="#eloquent-mutators">Eloquent: Mutators</a> <a href="https://laravel.com/docs/5.3/eloquent-mutators" title="Eloquent: Mutators @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
 <pre class="prettyprint lang-php">
-// Defining An Eloquent Model
-class User extends Model {}
-// generate Eloquent models
-php artisan make:model User
-// specify a custom table name
+// Define an accessor & mutator
 class User extends Model {
+    public function getFirstNameAttribute($value) {
+        return ucfirst($value);
+    }
+
+    public function setFirstNameAttribute($value) {
+        $this->attributes['first_name'] = strtolower($value);
+    }
+}
+// $user->first_name = 'sally';
+$user->first_name = 'Sally';
+// $firstName = 'Sally';
+$firstName = $user->first_name;
+
+// Define date mutators
+class User extends Model {
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at'
+    ];
+}
+
+// Automatically be stored to the date's value
+$user->deleted_at = Carbon::now();
+$user->deleted_at = date('Y-m-d');
+// Automatically be cast to a Carbon instance
+$carbon = $user->deleted_at->getTimestamp();
+
+// Append values to json
+class User extends Model {
+    protected $appends = ['is_admin'];
+
+    public function getIsAdminAttribute() {
+        return $this->attributes['admin'] == 'yes';
+    }
+}
+
+// "{"admin":"yes","is_admin":true}
+$user->toJson();
+// ["admin"=>"yes", "is_admin"=>true]
+$user->toArray();
+</pre>
+<h4><a name="eloquent-relationships" href="#eloquent-relationships">Eloquent: Relationships</a> <a href="https://laravel.com/docs/5.3/eloquent-relationships" title="Eloquent: Relationships @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<pre class="prettyprint lang-php">
+// One to one
+$user->hasOne('App\Phone');
+$user->hasOne('App\Phone', 'foreign_key');
+$user->hasOne('App\Phone', 'foreign_key', 'local_key');
+// Define the inverse
+$phone->belongsTo('App\User');
+$phone->belongsTo('App\User', 'foreign_key');
+$phone->belongsTo('App\User', 'foreign_key', 'other_key');
+
+// One to many
+$post->hasMany('App\Comment');
+$post->hasMany('App\Comment', 'foreign_key');
+$post->hasMany('App\Comment', 'foreign_key', 'local_key');
+// Define the inverse
+$comment->belongsTo('App\Post');
+$comment->belongsTo('App\Post', 'foreign_key');
+$comment->belongsTo('App\Post', 'foreign_key', 'other_key');
+
+// Many to many
+$user->belongsToMany('App\Role');
+$user->belongsToMany('App\Role', 'role_user');
+$user->belongsToMany('App\Role', 'role_user', 'user_id', 'role_id');
+// Define the inverse
+$role->belongsToMany('App\User');
+
+// Specify pivot table columns when defining the relationship
+$user->belongsToMany('App\Role')->withPivot('column1', 'column2');
+// Filter relationships via intermediate table columns
+$user->belongsToMany('App\Role')->wherePivot('approved', 1);
+$user->belongsToMany('App\Role')->wherePivotIn('priority', [1, 2]);
+// Retrieve Intermediate Table Columns
+foreach ($user->roles as $role) {
+    echo $role->pivot->created_at;
+}
+
+// Has many through
+$country->hasManyThrough('App\Post', 'App\User');
+$country->hasManyThrough(
+    'App\Post', 'App\User',
+    'country_id', 'user_id', 'id'
+);
+
+// Polymorphic relations
+// function commentable()
+$comment->morphTo();
+// function comments()
+$post->morphMany('App\Comment', 'commentable');
+// function comments()
+$video->morphMany('App\Comment', 'commentable');
+
+// Retrieve polymorphic relations
+$commentable = $comment->commentable;
+foreach ($post->comments as $comment) {}
+foreach ($video->comments as $comment) {}
+
+// Custom polymorphic types
+use Illuminate\Database\Eloquent\Relations\Relation;
+Relation::morphMap([
+    'posts' => App\Post::class,
+    'videos' => App\Video::class,
+]);
+
+// Many to many polymorphic relations
+// function tags()
+$post->morphToMany('App\Tag', 'taggable');
+// function posts()
+$tag->morphedByMany('App\Post', 'taggable');
+// function videos()
+$tag->morphedByMany('App\Video', 'taggable');
+
+// Retrieve The Relationship
+foreach ($post->tags as $tag) {}
+foreach ($tag->videos as $video) {}
+</pre>
+
+<h6>Querying Relations</h6>
+<pre class="prettyprint lang-php">
+// Retrieve all posts that have at least one comment
+Post::has('comments')->get();
+// Don't have any comments
+App\Post::doesntHave('comments')->get();
+// Retrieve all posts that have three or more comments
+Post::has('comments', '>=', 3)->get();
+// Retrieve all posts that have at least one comment with votes
+Post::has('comments.votes')->get();
+// Retrieve all posts with at least one comment containing words like foo%
+Post::whereHas('comments', function ($query) {
+    $query->where('content', 'like', 'foo%');
+})->get();
+Post::whereDoesntHave('comments', function ($query) {
+    $query->where('content', 'like', 'foo%');
+})->get();
+
+// Count related models
+$posts = Post::withCount('comments')->get();
+foreach ($posts as $post) {
+    echo $post->comments_count;
+}
+// Retrieve the "counts" for multiple relations
+$posts = Post::withCount(['votes', 'comments' => function ($query) {
+    $query->where('content', 'like', 'foo%');
+}])->get();
+</pre>
+
+<h6>Eager Loading</h6>
+<pre class="prettyprint lang-php">
+Book::with('author')->get();
+// Eager loading multiple relationships
+Book::with('author', 'publisher')->get();
+// Nested eager loading
+Book::with('author.contacts')->get();
+// Specify additional query constraints
+User::with(['posts' => function ($query) {
+    $query->where('title', 'like', '%first%')
+          ->orderBy('created_at', 'desc');
+}])->get();
+
+// Eager loading after parent model has already been retrieved
+if (true) { $books->load('author', 'publisher'); }
+// Set additional query constraints
+$books->load(['author' => function ($query) {
+    $query->orderBy('published_date', 'asc');
+}]);
+</pre>
+
+<h6>Inserting & Updating Related Models</h6>
+<pre class="prettyprint lang-php">
+// Add a new model to relationships
+$post->comments()->save($comment);
+// Save multiple related models
+$post->comments()->saveMany([
+    new App\Comment(['message' => 'A new comment.']),
+    new App\Comment(['message' => 'Another comment.']),
+]);
+// Creates a model
+$comment = $post->comments()->create([
+    'message' => 'A new comment.',
+]);
+
+// Update a belongsTo relationship
+$user->account()->associate($account);
+$user->save();
+
+// Many To Many, Insert a record in the intermediate table
+$user->roles()->attach($roleId);
+// Inserted into the intermediate table with additional data
+$user->roles()->attach($roleId, ['expires' => $expires]);
+// Detach roles from the user
+$user->roles()->detach($roleId);
+$user->roles()->detach([1, 2, 3]);
+// Detach all roles from the user
+$user->roles()->detach();
+// Only the IDs in the given array will exist in the intermediate table
+$user->roles()->sync([1, 2, 3]);
+$user->roles()->sync([1 => ['expires' => true], 2, 3]);
+$user->roles()->syncWithoutDetaching([1, 2, 3]);
+// Save additional data on a pivot table
+$user->roles()->save($roleId, ['expires' => $expires]);
+// Update a record on a pivot table
+$user->roles()->updateExistingPivot($roleId, $attributes);
+
+
+</pre>
+<h4><a name="eloquent" href="#eloquent">Eloquent ORM</a> <a href="https://laravel.com/docs/5.3/eloquent" title="Eloquent @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<h6>Basic Usage <a href="https://laravel.com/docs/5.3/eloquent#basic-usage" title="Basic Usage @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
+<pre class="prettyprint lang-php">
+// Define an eloquent model
+class User extends Model {}
+// Generate an Eloquent model
+php artisan make:model User
+
+// Customize an eloquent model
+class User extends Model {
+//  Customize the names of the columns used to store the timestamps
+&nbsp;&nbsp;&nbsp;
+    const CREATED_AT = 'creation_date';
+    const UPDATED_AT = 'last_update';
+//  Indicate the model should be timestamped
+&nbsp;&nbsp;&nbsp;
+    public $timestamps = false;
+//  The table associated with the model
+&nbsp;&nbsp;&nbsp;
     protected $table = 'my_users';
+//  The storage format of the model's date columns
+&nbsp;&nbsp;&nbsp;
+    protected $dateFormat = 'U';
+//  The connection name for the model
+&nbsp;&nbsp;&nbsp;
+    protected $connection = 'connection-name';
+//  Make mass assignable
+&nbsp;&nbsp;&nbsp;
+    protected $fillable = ['name'];
+//  Make not mass assignable
+&nbsp;&nbsp;&nbsp;
+    protected $guarded = ['price'];
+//  Should be hidden for arrays
+&nbsp;&nbsp;&nbsp;
+    protected $hidden = ['password'];
+//  Should be visible in arrays
+&nbsp;&nbsp;&nbsp;
+    protected $visible = ['first_name', 'last_name'];
+//  Define date mutators
+&nbsp;&nbsp;&nbsp;
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at'
+    ];
+//  All of the relationships to be touched
+&nbsp;&nbsp;&nbsp;
+    protected $touches = ['post'];
+//  Convert attributes to common data types
+//  Suport types: integer, real, float, double, string, boolean,
+//  object, array, collection, date, datetime, and timestamp
+&nbsp;&nbsp;&nbsp;
+    protected $casts = [
+        'is_admin' => 'boolean',
+    ];
+//  Receive a custom collection when Eloquent returns a Collection instance
+&nbsp;&nbsp;&nbsp;
+    public function newCollection(array $models = []) {
+        return new CustomCollection($models);
+    }
 }
 </pre>
 
+<h6>Hiding Attributes From JSON</h6>
+<pre class="prettyprint lang-php">
+// Temporarily modifying attribute visibility
+$user->makeVisible('attribute')->toArray();
+$user->makeHidden('attribute')->toArray();
+</pre>
+
 <h6>More</h6>
-<pre class="prettyprint lang-php">Model::create(array('key' => 'value'));
+<pre class="prettyprint lang-php">
+Model::create(array('key' => 'value'));
 // Find first matching record by attributes or create
 Model::firstOrCreate(array('key' => 'value'));
 // Find first record by attributes or instantiate
@@ -1028,7 +1923,10 @@ Model::firstOrNew(array('key' => 'value'));
 Model::updateOrCreate(array('search_key' => 'search_value'), array('key' => 'value'));
 // Fill a model with an array of attributes, beware of mass assignment!
 Model::fill($attributes);
+// Delete An Existing Model By Key
 Model::destroy(1);
+Model::destroy([1, 2, 3]);
+Model::destroy(1, 2, 3);
 Model::all();
 Model::find(1);
 // Find using dual primary key
@@ -1039,7 +1937,7 @@ Model::findOrFail(1);
 Model::findOrFail(array('first', 'last'));
 Model::where('foo', '=', 'bar')->get();
 Model::where('foo', '=', 'bar')->first();
-// dynamic
+// Dynamic
 Model::whereFoo('bar')->first();
 // Throw an exception if the lookup fails
 Model::where('foo', '=', 'bar')->firstOrFail();
@@ -1047,15 +1945,11 @@ Model::where('foo', '=', 'bar')->count();
 Model::where('foo', '=', 'bar')->delete();
 //Output raw query
 Model::where('foo', '=', 'bar')->toSql();
-// name = {"en":"name","ar":"nom"};
+// name = {"en":"name"};
 Model::where('name->en', 'name')->get();
 // You may dive deep in the JSON string using the `->` operator.
 Model::where('contacts->phone->home', 1234);
 Model::whereRaw('foo = bar and cars = 2', array(20))->get();
-Model::remember(5)->get();
-Model::remember(5, 'cache-key-name')->get();
-Model::cacheTags('my-tag')->remember(5)->get();
-Model::cacheTags(array('my-first-key','my-second-key'))->remember(5)->get();
 Model::on('connection-name')->find(1);
 Model::with('relation')->get();
 Model::all()->take(10);
@@ -1063,20 +1957,27 @@ Model::all()->skip(10);
 // Default Eloquent sort is ascendant
 Model::all()->orderBy('column');
 Model::all()->orderBy('column','desc');
+// Iterate through your database records using a cursor
+foreach (Flight::where('foo', 'bar')->cursor() as $flight) {}
 </pre>
 
-<h6>Soft Delete <a href="http://laravel.com/docs/5.3/eloquent#soft-deleting" title="Soft Deleting @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
+<h6>Soft Delete <a href="https://laravel.com/docs/5.3/eloquent#soft-deleting" title="Soft Deleting @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
 <pre class="prettyprint lang-php">
+// Determine if a given model instance has been soft deleted
+$model->trashed()
+// Restore a soft deleted model
+$model->restore();
+// Permanently delete a model
+$model->forceDelete();
+// Including soft deleted models
 Model::withTrashed()->where('cars', 2)->get();
-// Include the soft deleted models in the results
-Model::withTrashed()->where('cars', 2)->restore();
-Model::where('cars', 2)->forceDelete();
 // Force the result set to only included soft deletes
 Model::onlyTrashed()->where('cars', 2)->get();
 </pre>
 
 <h6>Events</h6>
-<pre class="prettyprint lang-php">Model::creating(function($model){});
+<pre class="prettyprint lang-php">
+Model::creating(function($model){});
 Model::created(function($model){});
 Model::updating(function($model){});
 Model::updated(function($model){});
@@ -1086,26 +1987,98 @@ Model::deleting(function($model){});
 Model::deleted(function($model){});
 Model::observe(new FooObserver);
 </pre>
+
 <h6>Eloquent Configuration</h6>
-<pre class="prettyprint lang-php">// Disables mass assignment exceptions from being thrown from model inserts and updates
+<pre class="prettyprint lang-php">
+// Disables mass assignment exceptions from being thrown from model inserts and updates
 Eloquent::unguard();
 // Renables any ability to throw mass assignment exceptions
 Eloquent::reguard();
 </pre>
-<h4><a name="app" href="#app">Environment Configuration</a> <a href="http://laravel.com/docs/5.3/configuration#environment-configuration" title="Environment Configuration @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
-<pre class="prettyprint lang-php">
-$environment = app()->environment();
-$environment = App::environment();
-$environment = $app->environment();
-// The environment is local
-if ($app->environment('local')){}
-// The environment is either local OR staging...
-if ($app->environment('local', 'staging')){}
-</pre>
-        </div>
 
-        <div class="large-4 columns code-column">
-<h4><a name="events" href="#events">Events</a> <a href="http://laravel.com/docs/5.3/events" title="Events @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<h6>Query Scopes</h6>
+<pre class="prettyprint lang-php">
+// Apply a global scope
+Model::addGlobalScope(new AgeScope);
+// Apply an anonymous global scope
+Model::addGlobalScope('age', function(Builder $builder) {
+    $builder->where('age', '>', 200);
+});
+// Remove Global Scopes
+Model::withoutGlobalScope('age');
+Model::withoutGlobalScope(AgeScope::class);
+// Remove some of the global scopes
+Model::withoutGlobalScopes([FirstScope::class, SecondScope::class]);
+// Remove all of the global scopes...
+Model::withoutGlobalScopes();
+
+// Local scopes
+public function scopePopular($query)
+{
+    return $query->where('votes', 1);
+}
+
+public function scopeOfType($query, $type)
+{
+    return $query->where('type', $type);
+}
+Model::popular()->ofType('admin')->get();
+</pre>
+<h4><a name="envoy" href="#envoy">Envoy Task Runner</a> <a href="https://laravel.com/docs/5.3/envoy" title="Envoy Task Runner @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<pre class="prettyprint lang-php">
+// Envoy.blade.php
+@servers(['web' => ['user@192.168.1.1']])
+@task('deploy', ['on' => ['web']])
+@endtask
+// Multiple servers
+@servers(['web-1' => '192.168.1.1', 'web-2' => '192.168.1.2'])
+@task('deploy', ['on' => ['web-1', 'web-2']])
+@endtask
+// Parallel execution
+@task('deploy', ['on' => ['web-1', 'web-2'], 'parallel' => true])
+@endtask
+// Confirme before running a given task
+@task('deploy', ['on' => 'web', 'confirm' => true])
+
+// Require a PHP file
+@include('vendor/autoload.php')
+
+// execute some PHP code before executing
+@setup
+    $now = new DateTime();
+    $environment = isset($env) ? $env : "testing";
+@endsetup
+
+// Send notifications to Slack after each task
+@after
+    @slack('webhook-url', '#bots')
+@endafter
+
+// echo a variable
+@task('deploy', ['on' => 'web'])
+    git pull origin {{ $branch }}
+@endtask
+
+// Story: group a set of tasks
+@story('deploy')
+    git
+    composer
+@endstory
+@task('git')
+@endtask
+@task('composer')
+@endtask
+</pre>
+
+<pre class="prettyprint lang-sh">
+# Pass a option value into Envoy
+envoy run deploy --branch=master
+
+# Run a story or task
+envoy run task-name
+envoy run story-name
+</pre>
+<h4><a name="events" href="#events">Events</a> <a href="https://laravel.com/docs/5.3/events" title="Events @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
 <pre class="prettyprint lang-php">
 Event::fire('foo.bar', array($bar));
 // Register an event listener with the dispatcher.
@@ -1127,6 +2100,15 @@ app()->resolving(function ($object, $app) {});
 app()->resolving(HelpSpot\API::class, function ($api, $app) {});
 </pre>
 
+<h6>Database Events</h6>
+<pre class="prettyprint lang-php">
+DB::listen(function ($query) {
+//  $query->sql, $query->bindings, $query->time;
+});
+</pre>
+
+
+
 <h6>Authentication Events</h6>
 <pre class="prettyprint lang-php">
 Illuminate\Auth\Events\Attempting
@@ -1134,7 +2116,26 @@ Illuminate\Auth\Events\Login
 Illuminate\Auth\Events\Logout
 Illuminate\Auth\Events\Lockout
 </pre>
-<h4><a name="files" href="#files">Files</a> <a href="http://laravel.com/api/5.0/Illuminate/Filesystem/Filesystem.html" title="Filesystem @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+
+<h6>Cache Events</h6>
+<pre class="prettyprint lang-php">
+Illuminate\Cache\Events\CacheHit
+Illuminate\Cache\Events\CacheMissed
+Illuminate\Cache\Events\KeyForgotten
+Illuminate\Cache\Events\KeyWritten
+</pre>
+
+<h6>Email Events</h6>
+<pre class="prettyprint lang-php">
+Illuminate\Mail\Events\MessageSending
+</pre>
+
+<h6>Notification Events</h6>
+<pre class="prettyprint lang-php">
+Illuminate\Notifications\Events\NotificationSent
+</pre>
+
+<h4><a name="files" href="#files">Files</a> <a href="https://laravel.com/api/5.0/Illuminate/Filesystem/Filesystem.html" title="Filesystem @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
 <pre class="prettyprint lang-php">File::exists('path');
 File::get('path');
 File::getRemote('path');
@@ -1182,6 +2183,68 @@ File::copyDirectory('directory', 'destination', $options = null);
 File::deleteDirectory('directory', $preserve = false);
 // Empty the specified directory of all files and folders
 File::cleanDirectory('directory');
+</pre>
+<h4><a name="filesystem" href="#filesystem">Filesystem / Cloud Storage</a> <a href="https://laravel.com/docs/5.3/filesystem" title="Filesystem / Cloud Storage @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<pre class="prettyprint lang-php">
+// Obtain the disk instance
+Storage::disk('s3');
+// Retrieve a file
+Storage::get('file.jpg');
+// Determine if a file exists
+Storage::disk('s3')->exists('file.jpg');
+// Get the URL for the given file
+Storage::url('file1.jpg');
+// Get the size of the file in bytes
+Storage::size('file1.jpg');
+// Returns the UNIX timestamp of the last time the file was modified
+Storage::lastModified('file1.jpg');
+// Store the file
+Storage::put('file.jpg', $contents);
+// Store with a PHP resource
+Storage::put('file.jpg', $resource);
+// use Illuminate\Http\File or Illuminate\Http\UploadedFile;
+Storage::putFile($dir, new File('/path/to/photo'));
+// specify the "visibility" of the stored file
+Storage::putFile($dir, new File('/path/to/photo'), 'public');
+// Manually specify a file name...
+Storage::putFileAs($dir, new File('/path/to/photo'), 'photo.jpg');
+// Write to the beginning of a file
+Storage::prepend('file.log', 'Prepended Text');
+// Write to the end of a file
+Storage::append('file.log', 'Appended Text');
+// Copy an existing file to a new location
+Storage::copy('old/file1.jpg', 'new/file1.jpg');
+// Rename or move an existing file to a new location
+Storage::move('old/file1.jpg', 'new/file1.jpg');
+
+// Store uploaded files
+$request->file('avatar')->store($dir);
+// Manually specify a file name...
+$request->file('avatar')->storeAs($dir, $filename);
+// Manually specify a storage
+$request->file('avatar')->store($dir .'/'. $filename, 's3');
+
+// Retrieve the visibility of a file
+Storage::getVisibility('file.jpg');
+// Set the visibility of a file
+Storage::setVisibility('file.jpg', 'private');
+
+// Delete files
+Storage::delete('file.jpg');
+Storage::delete(['file1.jpg', 'file2.jpg']);
+
+// Get all files within a directory
+Storage::files($directory);
+// Include all sub-directories
+Storage::allFiles($directory);
+// Get all directories within a directory
+Storage::directories($directory);
+// Recursive...
+Storage::allDirectories($directory);
+// Create a directory
+Storage::makeDirectory($directory);
+// Delete a directory
+Storage::deleteDirectory($directory);
 </pre>
 <h4><a name="forms" href="#forms">Forms</a> <a href="https://github.com/illuminate/html/" title="Forms & HTML @ GitHub"><i class="icon-file-text"></i></a></h4>
 <pre class="prettyprint lang-php">
@@ -1234,201 +2297,253 @@ Form::macro('fooField', function()
 });
 Form::fooField();
 </pre>
-<h4><a name="helpers" href="#helpers">Helpers</a> <a href="http://laravel.com/docs/5.3/helpers" title="Helpers @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<h4><a name="helpers" href="#helpers">Helpers</a> <a href="https://laravel.com/docs/5.3/helpers" title="Helpers @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
 <h6>Arrays</h6>
 <pre class="prettyprint lang-php">
-array_add($array, 'key', 'value');
-// Result: [1, 2, 3, 4, 5, 6]
-$array = array_collapse([[1, 2, 3], [4, 5, 6]]);
-// Divide an array into two arrays. One with keys and the other with values
-array_divide($array);
-// Flatten a multi-dimensional associative array with dots
-array_dot($array);
-// Get all of the given array except for a specified array of items
-array_except($array, array('key'));
-// Return the first element in an array passing a given truth test
-array_first($array, function($key, $value){}, $default);
-// Strips keys from the array
-array_flatten($array);
-// Remove one or many array items from a given array using "dot" notation
-array_forget($array, 'foo');
-// Dot notation
-array_forget($array, 'foo.bar');
-// Get an item from an array using "dot" notation
-array_get($array, 'foo', 'default');
-array_get($array, 'foo.bar', 'default');
-// Checks that a given item exists in an array using "dot" notation
-array_has($array, 'products.desk');
-// Returns the last element of an array passing a given truth test
-array_last($array, function ($value, $key) {
-    return $value >= 150;
+// ['one'=>1, 'two'=>2]
+array_add(['one'=>1], 'two', 2);
+// [1, 2, 3, 4, 5, 6]
+array_collapse(array([1, 2, 3], [4, 5, 6]));
+// $keys: ['name'], $values: ['Desk']
+list($keys, $values) = array_divide(['name'=>'Desk']);
+// ['foo.bar'=>'baz']
+array_dot(['foo'=>['bar'=>'baz']]);
+// ['one'=>1]
+array_except(['one'=>1, 'two'=>2], ['two']);
+// 2
+array_first([1, 2, 3, 4], function($item, $key){
+    return $item > 1;
+}, $default);
+// ['a', true, 'd']
+array_flatten([ 'a', 'b'=>true, 'c'=>['d'] ]);
+// ['products'=>[]]
+$array = [ 'products'=>['desk'=>['price'=>100]] ];
+array_forget($array, 'products.desk');
+// ['price'=>100]
+$array = [ 'products'=>['desk'=>['price'=>100]] ];
+array_get($array, 'products.desk', $default);
+// Check that a given item or items exists
+$array = [ 'products'=>['name'=>'desk', 'price'=>100] ];
+array_has($array, 'products.name');
+array_has($array, ['products.name', 'products.price']);
+// 4
+array_last([1, 2, 3, 4], function($item, $key){
+    return $item > 1;
 });
-// Get a subset of the items from the given array
-array_only($array, array('key'));
-// Return array of key => values
-array_pluck($array, 'key');
-// Push an item onto the beginning of an array
-array_prepend($array, 'zero');
-// Return and remove 'key' from array
-array_pull($array, 'key');
-// Set an array item to a given value using "dot" notation
-array_set($array, 'key', 'value');
-// Dot notation
-array_set($array, 'key.subkey', 'value');
-array_sort($array, function(){});
-array_sort_recursive($array)
-// Filters the array using the given Closure:
-array_where($array, function ($value, $key) {
-    return is_string($value);
+// ['two'=>2]
+array_only(['one'=>1, 'two'=>2], ['two']);
+// [1, 2]
+$array = [
+    ['staff'=>['id'=>1]],
+    ['staff'=>['id'=>2]],
+];
+array_pluck($array, 'staff.id');
+// ['zero' ,'one', 'two', 'three']
+array_prepend(['one', 'two', 'three'], 'zero');
+// $name: Desk, $array: ['price'=>100]
+$array = ['name'=>'Desk', 'price'=>100];
+$name = array_pull($array, 'name');
+// [ 'products'=>['desk'=>['price'=>200]] ]
+$array = [ 'products'=>['desk'=>['price'=>100]] ];
+array_set($array, 'products.desk.price', 200);
+/* [
+    1=>['name'=>'a'],
+    0=>['name'=>'b'],
+] */
+array_sort([
+    0=>['name'=>'b'],
+    1=>['name'=>'a'],
+], function ($value) {
+    return $value['name'];
 });
-// Fill in data where it's missing.
-data_fill(&$target, $key, $value)
-// Set an item on an array or object using dot notation.
-data_set(&$target, $key, $value, $overwrite = true)
-// First element of an array
-head($array);
-// Last element of an array
-last($array);
+/* [
+    ['a', 'b', 'c'],
+    ['1', '2', '3'],
+] */
+array_sort_recursive([
+    ['a', 'c', 'b'],
+    ['2', '3', '1'],
+]);
+// [2 => 500]
+array_where(['cat', 'dog', 500], function ($value, $key) {
+    return is_integer($value);
+});
+// 100
+head([100, 200, 300]);
+// 300
+last([100, 200, 300]);
 </pre>
+
 <h6>Paths</h6>
 <pre class="prettyprint lang-php">
+// /var/www/laravel/app
 app_path();
-// App root path
+// /var/www/laravel
 base_path();
-// configuration directory
+// /var/www/laravel/config
 config_path();
-// database directory
+// /var/www/laravel/database
 database_path();
-// Gets the path to a versioned Elixir file:
+// Get the path to a versioned Elixir file:
 elixir($file);
-// the public directory
+// /var/www/laravel/public
 public_path();
-// the resources directory.
+// /var/www/laravel/resources
 resource_path();
-resource_path('assets/sass/app.scss');
-// Get the path to the storage folder
+// /var/www/laravel/resources/assets/filename
+resource_path('assets/filename');
+// /var/www/laravel/sotrage
 storage_path();
+// /var/www/laravel/sotrage/app/file.txt
 storage_path('app/file.txt');
 </pre>
+
 <h6>Strings</h6>
 <pre class="prettyprint lang-php">
-// Convert a value to camel case
-camel_case($value);
-// Get the class "basename" of the given object / class
-class_basename($class);
-// Escape a string
-e('&lt;html&gt;');
-// Determine if a given string starts with a given substring
-starts_with('Foo bar.', 'Foo');
-// Determine if a given string ends with a given substring
-ends_with('Foo bar.', 'bar.');
-// Convert a string to snake case
+// fooBar
+camel_case('foo_bar');
+// Baz
+class_basename('Foo\Bar\Baz');
+// &amp;lt;html&amp;gt;foo&amp;lt;/html&amp;gt;
+e('&lt;html&gt;foo&lt;/html&gt;');
+// True
+ends_with('This is my name', 'name');
+// foo_bar
 snake_case('fooBar');
-// Limits the number of characters in a string
-str_limit('The PHP framework for web artisans.', 7);
-// Determine if a given string contains a given substring
-str_contains('Hello foo bar.', 'foo');
-// Result: foo/bar/
-str_finish('foo/bar', '/');
+// The PHP...
+str_limit('The PHP framework for web artisans.', $limit = 7);
+// True
+starts_with('This is my name', 'This');
+// True
+str_contains('This is my name', 'my');
+// If the given string contains any of the values
+str_contains('This is my name', ['my', 'foo']);
+// this/string@
+str_finish('this/string', '@');
+// If a given string matches a given pattern
 str_is('foo*', 'foobar');
+// cars
 str_plural('car');
-str_random(25);
-str_replace_first($search, $replace, $subject)
-str_replace_last($search, $replace, $subject)
+// children
+str_plural('child', 2);
+// child
+str_plural('child', 1);
+// Generate a random string
+str_random(10);
+// car
 str_singular('cars');
-// generates a URL friendly "slug", Result: laravel-5-framework
+// laravel-5-framework
 str_slug('Laravel 5 Framework', '-');
-// Result: FooBar
+// FooBar
 studly_case('foo_bar');
-// Result: A Nice Title Uses The Correct Case
-$title = title_case('a nice title uses the correct case');
-trans('foo.bar');
+// A Nice Title Uses The Correct Case
+title_case('a nice title uses the correct case');
+// Translate the given language line using your localization files
+trans('validation.required');
+// Translate the given language line with inflection
 trans_choice('foo.bar', $count);
 </pre>
+
 <h6>URLs and Links</h6>
 <pre class="prettyprint lang-php">
-action('FooController@method', $parameters);
-link_to('foo/bar', $title, $attributes, $secure);
-link_to_asset('img/foo.jpg', $title, $attributes, $secure);
-link_to_route('route.name', $title, $parameters, $attributes);
-link_to_action('FooController@method', $title, $params, $attrs);
-// HTML Link
-asset('img/photo.jpg', $title, $attributes);
-// HTTPS link
-secure_asset('img/photo.jpg', $title, $attributes);
-secure_url('path', $parameters);
-route($route, $parameters, $absolute = true);
-url('path', $parameters = array(), $secure = null);
+// Generate a URL for the given controller action
+action('HomeController@getIndex');
+// Route parameters
+action('UserController@profile', ['id' => 1]);
+// http://localhost/img/photo.jpg
+asset('img/photo.jpg');
+// https://localhost/foo/bar.zip
+secure_asset('foo/bar.zip');
+// Generate a URL for the given named route
+route('routeName');
+// Route parameters
+route('routeName', ['id' => 1]);
+// https://localhost/user/profile
+secure_url('user/profile');
+// http://localhost/user/profile
+url('user/profile');
+// https://localhost/user/profile/1
+secure_url('user/profile', [1]);
+// http://localhost/user/profile/1
+url('user/profile', [1]);
+// http://localhost
+url()->current();
+// http://localhost?query
+url()->full();
+// HTTP referer or previous URL from the session
+url()->previous();
 </pre>
+
 <h6>Miscellaneous</h6>
 <pre class="prettyprint lang-php">
-// Throws a HTTP exception
+// Throw a HTTP exception
 abort(401);
+// Provide the exception's response text
 abort(401, 'Unauthorized.');
-// Throws a HTTP exception if true
+// Throw a HTTP exception if true
 abort_if(! Auth::user()->isAdmin(), 403);
-// Throws a HTTP exception if false
+// Throw a HTTP exception if false
 abort_unless(Auth::user()->isAdmin(), 403);
-// Returns an authenticator instanc
-$user = auth()->user();
-// Generates a previous location redirect response
+// Return an authenticator instanc
+auth()->user();
+// Generate a previous location redirect response
 back();
-// Hashes the given value using Bcrypt
-$password = bcrypt('my-secret-password');
+// Hashe the given value using Bcrypt
+bcrypt('my-secret-password');
 // Get values from the cache
-$value = cache('key');
-$value = cache('key', 'default');
+cache('key');
+cache('key', 'default');
 // Cache by passing an array of key / value pairs
-cache(['key' => 'value'], 5);
+cache(['key'=>'value'], 5);
 // Create a collection instance
-$collection = collect(['taylor', 'abigail']);
-// Gets the value of a configuration variable
-$value = config('app.timezone');
-$value = config('app.timezone', $default);
+collect(['taylor', 'abigail']);
+// Get the value of a configuration variable
+config('app.timezone');
+config('app.timezone', $default);
 csrf_token();
-// Dumps the given variables and ends execution
+// Dump the given variables and ends execution
 dd($value);
 // Do not halt the execution
 dump($value);
-// Pushes a new job onto the queue
+// Pushe a new job onto the queue
 dispatch(new App\Jobs\SendEmails);
-// Gets the value of an environment variable
-$env = env('APP_ENV', 'default');
+// Get the value of an environment variable
+env('APP_ENV', 'default');
 // Dispatches the given event to its listeners
 event(new UserRegistered($user));
 // Create a model factory builder for a given class, name, and amount.
-$user = factory(App\User::class)->make();
-$user = factory(App\User::class)->create();
-$user = factory(App\User::class, $amount)->make();
-$user = factory(App\User::class)->make(['name' => 'foo']);
+factory(App\User::class)->make();
+factory(App\User::class)->create();
+factory(App\User::class, $amount)->make();
+factory(App\User::class)->make(['name'=>'foo']);
 // Write information to the log
-info('write information to the log', ['id' => $user->id]);
+info('write information to the log', ['id'=>$user->id]);
 // Write a debug level message to the log
-logger('Debug message to the log', ['id' => $user->id]);
+logger('Debug message to the log', ['id'=>$user->id]);
 // A logger instance will be returned if no value is passed
 logger()->error('You are not allowed here.');
-// Retrieves an old input value flashed into the session:
-$value = old('value', 'default');
-// Returns a redirect HTTP response
-$response = redirect('/home');
-// Returns the redirector instance
-$response = redirect()->route('route.name');
-// Returns the current request instance
-$request = request();
+// Retrieve an old input value flashed into the session:
+old('value', 'default');
+// Return a redirect HTTP response
+redirect('/home');
+// Return the redirector instance
+redirect()->route('route.name');
+// Return the current request instance
+request();
 // Obtains an input item:
-$value = request('key', 'default')
+request('key', 'default')
 // Create a response instance
-$response = response('Hello World', 200, $headers);
+response('Hello World', 200, $headers);
 // Obtains an instance of the response factory:
-$response = response()->json(['foo' => 'bar'], 200, $headers);
-// Gets session values
-$value = session('key');
+response()->json(['foo'=>'bar'], 200, $headers);
+// Get session values
+session('key');
 // Sets session values
-session(['chairs' => 7, 'instruments' => 3]);
+session(['chairs'=>7, 'instruments'=>3]);
 // Return a default value if the variable doesn't exist...
 value(function(){ return 'bar'; });
-// Retrieves a view instance:
-$view = view('auth.login');
+// Retrieve a view instance:
+view('auth.login');
 // Call the given Closure with the given value then return the value.
 tap($value, $callback)
 // Return the given object. Useful for chaining.
@@ -1479,7 +2594,9 @@ HTML::attributeElement($key, $value);
 // Obfuscate a string to prevent spam-bots from sniffing it
 HTML::obfuscate($value);
 </pre>
-<h4><a name="input" href="#input">Input</a> <a href="http://laravel.com/docs/5.3/requests" title="Input @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+                    </div>
+                    <div class="large-4 columns code-column">
+<h4><a name="input" href="#input">Input</a> <a href="https://laravel.com/docs/5.3/requests" title="Input @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
 <pre class="prettyprint lang-php">
 Request::input('key');
 // Default if the key is missing
@@ -1544,7 +2661,7 @@ $path = $request->photo->storeAs('images', 'filename.jpg');
 $path = $request->photo->storeAs('images', 'filename.jpg', 's3');
 
 </pre>
-<h4><a name="localization" href="#localization">Localization</a> <a href="http://laravel.com/docs/5.3/localization" title="Localization @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<h4><a name="localization" href="#localization">Localization</a> <a href="https://laravel.com/docs/5.3/localization" title="Localization @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
 <pre class="prettyprint lang-php">
 App::setLocale('en');
 App::getLocale();
@@ -1557,7 +2674,7 @@ Lang::choice('messages.apples', 10);
 trans('messages.welcome');
 trans_choice('messages.apples', 10);
 </pre>
-<h4><a name="log" href="#log">Log</a> <a href="http://laravel.com/docs/5.3/errors#logging" title="Log @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<h4><a name="log" href="#log">Log</a> <a href="https://laravel.com/docs/5.3/errors#logging" title="Log @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
 <pre class="prettyprint lang-php">
 // The logger provides the seven logging levels defined in RFC 5424:
 // debug, info, notice, warning, error, critical, and alert.
@@ -1576,21 +2693,43 @@ Log::getMonolog();
 Log::listen(function($level, $message, $context) {});
 </pre>
 
-<h6>Query Logging <a href="http://laravel.com/docs/5.3/database#query-logging" title="Log @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
+<h6>Query Logging <a href="https://laravel.com/docs/5.3/database#query-logging" title="Log @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
 <pre class="prettyprint lang-php">
 // enable the log
 DB::connection()->enableQueryLog();
 // get an array of the executed queries
 DB::getQueryLog();
 </pre>
-<h4><a name="mail" href="#mail">Mail</a> <a href="http://laravel.com/docs/5.3/mail" title="Mail @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
-<pre class="prettyprint lang-php">Mail::send('email.view', $data, function($message){});
+<h4><a name="mail" href="#mail">Mail</a> <a href="https://laravel.com/docs/5.3/mail" title="Mail @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<h6>Mailable</h6>
+<pre class="prettyprint lang-php">
+// Configure the sender of the email
+Mailable::from('example@example.com');
+// Specify the template when rendering the email's contents
+Mailable::view('emails.orders.shipped');
+// Specify a plain-text template
+Mailable::text('emails.orders.shipped_plain');
+// Add a attachment to an email
+Mailable::attach('/path/to/file');
+Mailable::attachattach('/path/to/file',
+['as' => 'name.pdf', 'mime' => 'application/pdf']);
+// Attach a raw string of bytes as an attachment
+Mailable::attachData($this->pdf, 'name.pdf', ['mime' => 'application/pdf']);
+</pre>
+
+<pre class="prettyprint lang-php">
+Mail::send('email.view', $data, function($message){});
 Mail::send(array('html.view', 'text.view'), $data, $callback);
 Mail::queue('email.view', $data, function($message){});
 Mail::queueOn('queue-name', 'email.view', $data, $callback);
 Mail::later(5, 'email.view', $data, function($message){});
 // Write all email to logs instead of sending
 Mail::pretend();
+
+Mail::to($request->user())
+    ->cc($moreUsers)
+    ->bcc($evenMoreUsers)
+    ->send(new Mailable($order));
 </pre>
 
 <h6>Messages</h6>
@@ -1613,7 +2752,201 @@ $message->embedData('foo', 'Data Name', $options);
 // Get the underlying Swift Message instance
 $message->getSwiftMessage();
 </pre>
-<h4><a name="pagination" href="#pagination">Pagination</a> <a href="http://laravel.com/docs/5.3/pagination" title="Pagination @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<h4><a name="mocking" href="#mocking">Mocking</a> <a href="https://laravel.com/docs/5.3/mocking" title="Mocking @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<h6>Events</h6>
+<pre class="prettyprint lang-php">
+// Verify the expected event is fired
+$this->expectsEvents(UserRegistered::class);
+// Or not...
+$this->doesntExpectEvents(OrderFailedToShip::class);
+// All listeners for all events will be mocked
+$this->withoutEvents();
+
+// fake method prevents all event listeners from executing
+// Assertions are made after the code under test is executed
+class ExampleTest extends TestCase {
+    public function testOrderShipping() {
+        Event::fake();
+
+        Event::assertFired(OrderShipped::class, Closure);
+        Event::assertNotFired(OrderFailedToShip::class);
+    }
+}
+</pre>
+
+<h6>Jobs</h6>
+<pre class="prettyprint lang-php">
+// Verify that the expected job is dispatched
+$this->expectsJobs(ShipOrder::class);
+// Or not...
+$this->doesntExpectJobs(ShipOrder::class);
+// All jobs that are dispatched during that test will be discarded
+$this->withoutJobs();
+
+// fake method prevents jobs from being queued
+class ExampleTest extends TestCase {
+    public function testOrderShipping() {
+        Queue::fake();
+
+        Queue::assertPushed(ShipOrder::class, Closure);
+        Queue::assertPushedOn('queue-name', ShipOrder::class);
+        Queue::assertNotPushed(AnotherJob::class);
+    }
+}
+</pre>
+
+<h6>Mail Fakes</h6>
+<pre class="prettyprint lang-php">
+// fake method prevents mail from being sent
+class ExampleTest extends TestCase {
+    public function testOrderShipping() {
+        Mail::fake();
+
+        Mail::assertSent(ShipOrder::class, Closure);
+        Mail::assertSentTo([$user], OrderShipped::class);
+        Mail::assertNotSent(AnotherMailable::class);
+    }
+}
+</pre>
+
+<h6>Notification Fakes</h6>
+<pre class="prettyprint lang-php">
+// fake method prevents mail from being sent
+class ExampleTest extends TestCase {
+    public function testOrderShipping() {
+        Notification::fake();
+
+        Mail::assertSentTo($user, ShipOrder::class, Closure);
+        Mail::assertSentTo([$user], OrderShipped::class);
+        Mail::assertNotSentTo([$user], AnotherMailable::class);
+    }
+}
+</pre>
+
+<h6>Facades</h6>
+<pre class="prettyprint lang-php">
+Cache::shouldReceive('get')
+    ->once()
+    ->with('key')
+    ->andReturn('value');
+
+$value = Cache::get('key');
+</pre>
+<h4><a name="notifications" href="#notifications">Notifications</a> <a href="https://laravel.com/docs/5.3/notifications" title="Notifications @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<pre class="prettyprint lang-php">
+// Sent a notification
+Notification::send($users, new InvoicePaid($invoice));
+// Use the notifiable trait
+$user->notify(new InvoicePaid($invoice));
+// Delay the deliver of the notification
+$when = Carbon::now()->addMinutes(10);
+$user->notify((new InvoicePaid($invoice))->delay($when));
+</pre>
+
+<h6>Database Notifications</h6>
+<pre class="prettyprint lang-php">
+// Mark a notification as read
+$user->notifications[0]->markAsRead();
+// Mark all
+$user->notifications->markAsRead();
+// Mark all without retrieving them from the database
+$user->notifications()->update(['read_at' => Carbon::now()]);
+// Remove all
+$user->notifications()->delete();
+</pre>
+
+<h6>MailMessage</h6>
+<pre class="prettyprint lang-php">
+MailMessage::line($message);
+MailMessage::action('View Invoice', $url);
+MailMessage::subject('Notification Subject');
+MailMessage::error();
+</pre>
+<h4><a name="packages" href="#packages">Package Development</a> <a href="https://laravel.com/docs/5.3/packages" title="packages @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<pre class="prettyprint lang-php">
+use Illuminate\Support\ServiceProvider;
+class MyPackageServiceProvider extends ServiceProvider {
+    public function boot() {
+//      Define routes
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        if (! $this->app->routesAreCached()) {
+            require __DIR__.'/../../routes.php';
+        }
+//      Publish configuration file
+//      config('courier.option');
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        $this->publishes([
+            __DIR__.'/path/to/config/courier.php' =>
+            config_path('courier.php'),
+        ]);
+//           Load migrations
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        $this->loadMigrationsFrom(__DIR__.'/path/to/migrations');
+//      Load translations
+//      trans('courier::messages.welcome');
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        $this->loadTranslationsFrom(
+            __DIR__.'/path/to/translations',
+            'courier'
+        );
+//      Publish translations
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        $this->publishes([
+            __DIR__.'/path/to/translations' =>
+            resource_path('lang/vendor/courier'),
+        ]);
+//      Load views
+//      view('courier::admin');
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        $this->loadViewsFrom(
+            __DIR__.'/path/to/views',
+            'courier'
+        );
+//      Publish views
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        $this->publishes([
+            __DIR__.'/path/to/views' =>
+            resource_path('views/vendor/courier'),
+        ]);
+//      register Artisan commands
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                FooCommand::class,
+                BarCommand::class,
+            ]);
+        }
+//      Publish assets to public directory
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        $this->publishes([
+            __DIR__.'/path/to/assets' =>
+            public_path('vendor/courier'),
+        ], 'public');
+//      Publish files separately
+//      php artisan vendor:publish --tag=config
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        $this->publishes([
+            __DIR__.'/../config/package.php' =>
+            config_path('package.php')
+        ], 'config');
+
+        $this->publishes([
+            __DIR__.'/../database/migrations/' =>
+            database_path('migrations')
+        ], 'migrations');
+}
+
+    public function register() {
+//      Merge package configuration file with the application's published copy
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        $this->mergeConfigFrom(
+            __DIR__.'/path/to/config/courier.php',
+            'courier'
+        );
+    }
+}
+</pre>
+<h4><a name="pagination" href="#pagination">Pagination</a> <a href="https://laravel.com/docs/5.3/pagination" title="Pagination @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
 <pre class="prettyprint lang-php">
 // Auto-Magic Pagination
 Model::paginate(15);
@@ -1623,32 +2956,115 @@ Model::where('cars', 2)->simplePaginate(15);
 // Manual Paginator
 Paginator::make($items, $totalItems, $perPage);
 // Print page navigators in view
-$variable->links();
+$paginator->links();
+// Customize The Paginator URI
+$paginator->setPath('custom/url');
+// Append to the query string of pagination links
+$paginator->appends(['sort' => 'votes']);
+// Append a "hash fragment" to the paginator's URLs
+$paginator->fragment('foo');
 </pre>
-<h4><a name="queues" href="#queues">Queues</a> <a href="http://laravel.com/docs/5.3/queues" title="Queues @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
-<pre class="prettyprint lang-php">Queue::push('SendMail', array('message' => $message));
+<h6>Paginator Instance Methods</h6>
+<pre class="prettyprint lang-php">
+$results->count()
+$results->currentPage()
+$results->firstItem()
+$results->hasMorePages()
+$results->lastItem()
+// (Not available when using simplePaginate)
+$results->lastPage()
+$results->nextPageUrl()
+$results->perPage()
+$results->previousPageUrl()
+// (Not available when using simplePaginate)
+$results->total()
+$results->url($page)
+</pre>
+<h4><a name="passport" href="#passport">API Authentication (Passport)</a> <a href="https://laravel.com/docs/5.3/passport" title="Passport @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<pre class="prettyprint lang-php">
+// Register Passport routes
+Passport::routes();
+// Set lifetime for access tokens
+Passport::tokensExpireIn(Carbon::now()->addDays(15));
+// Set lifetime for refresh token
+Passport::refreshTokensExpireIn(Carbon::now()->addDays(30));
+// Delete revoked access tokens from the database
+Passport::pruneRevokedTokens();
+// Define Scopes
+Passport::tokensCan([
+    'place-orders' => 'Place orders',
+    'check-status' => 'Check order status',
+]);
+
+// Create a token without scopes
+$token = $user->createToken('Token Name')->accessToken;
+// Create a token with scopes
+$token = $user->createToken('My Token', ['place-orders'])->accessToken;
+
+// Check Scopes On A Token Instance
+$request->user()->tokenCan('place-orders');
+</pre>
+
+<h6>Routes</h6>
+<pre class="prettyprint lang-php">
+// Return all of the clients for the authenticated user
+GET /oauth/clients
+// Create new clients
+// data = {name: 'Client Name',redirect: 'http://example.com/callback'};
+POST /oauth/clients
+// Update clients
+PUT /oauth/clients/{client-id}
+// Delete clients
+DELETE /oauth/clients/{client-id}
+// Return all of the scopes defined for your application
+GET /oauth/scopes
+// Return all of the personal access tokens
+GET /oauth/personal-access-tokens
+// Create creates new personal access tokens
+POST /oauth/personal-access-tokens
+// Delete personal access tokens:
+DELETE /oauth/personal-access-tokens/{token-id}
+// Redirect For Authorization
+GET /oauth/authorize
+// Get Access Tokens or Refresh Tokens
+POST /oauth/token
+</pre>
+
+<h6>Middleware</h6>
+<pre class="prettyprint lang-php">
+'scopes' => \Laravel\Passport\Http\Middleware\CheckScopes::class,
+'scope' => \Laravel\Passport\Http\Middleware\CheckForAnyScope::class,
+// attach a laravel_token cookie to your outgoing response
+\Laravel\Passport\Http\Middleware\CreateFreshApiToken::class,
+
+// Check For All Scopes
+// Access token has both "check-status" and "place-orders" scopes...
+Route::get('/orders', function () {})
+->middleware('scopes:check-status,place-orders');
+</pre>
+<h4><a name="queues" href="#queues">Queues</a> <a href="https://laravel.com/docs/5.3/queues" title="Queues @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<pre class="prettyprint lang-php">
+// Sent to the default queue...
+dispatch(new Job);
+// Sent to the "emails" queue...
+dispatch((new Job)->onQueue('emails'));
+// Delay the execution of a queued job
+$job = (new Job())->delay(Carbon::now()->addMinutes(10));
+// Push a job to a different queue
+$job = (new Job())->onQueue('processing');
+// specify a connection
+$job = (new Job())->onConnection('sqs');
+
+Queue::push('SendMail', array('message' => $message));
 Queue::push('SendEmail@send', array('message' => $message));
 Queue::push(function($job) use $id {});
 // Same payload to multiple workers
 Queue::bulk(array('SendEmail', 'NotifyUser'), $payload);
-// Starting the queue listener
-php artisan queue:listen
-php artisan queue:listen connection
-php artisan queue:listen --timeout=60
-// Process only the first job on the queue
-php artisan queue:work
-// Start a queue worker in daemon mode
-php artisan queue:work --daemon
-// Create migration file for failed jobs
-php artisan queue:failed-table
-// Listing failed jobs
-php artisan queue:failed
-// Delete failed job by id
-php artisan queue:forget 5
-// Delete all failed jobs
-php artisan queue:flush
+// Specify callbacks to be executed before or after a queued job is processed
+Queue::before(function (JobProcessing $event) {});
+Queue::after(function (JobProcessed $event) {});
 </pre>
-<h4><a name="redirects" href="#redirects">Redirects</a> <a href="http://laravel.com/docs/5.3/responses#redirects" title="Redirects @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<h4><a name="redirects" href="#redirects">Redirects</a> <a href="https://laravel.com/docs/5.3/responses#redirects" title="Redirects @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
 <pre class="prettyprint lang-php">return Redirect::to('foo/bar');
 return Redirect::to('foo/bar')->with('key', 'value');
 return Redirect::to('foo/bar')->withInput();
@@ -1673,7 +3089,31 @@ return Redirect::intended('foo/bar');
 // Redirects With Flashed Session Data
 return redirect('dashboard')->with('status', 'Profile updated!');
 </pre>
-<h4><a name="requests" href="#requests">Requests</a> <a href="http://laravel.com/docs/5.3/requests" title="Requests @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<h4><a name="redis" href="#redis">Redis</a> <a href="https://laravel.com/docs/5.3/redis" title="Redis @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<pre class="prettyprint lang-php">
+// Call the Redis GET command
+Redis::get('user:profile:'.$id);
+Redis::set('name', 'Taylor');
+Redis::lrange('names', 5, 10);
+Redis::command('lrange', ['name', 5, 10]);
+// Get a Redis instance
+Redis::connection();
+// Get a specific server
+Redis::connection('other');
+// Send many commands to the server in one operation
+Redis::pipeline(function ($pipe) {
+    for ($i = 0; $i < 1000; $i++) {
+        $pipe->set("key:$i", $i);
+    }
+});
+// Listen for messages on a given "channel"
+Redis::subscribe(['test-channel'], function($message) { });
+// Publish messages to the channel
+Redis::publish('test-channel', json_encode(['foo' => 'bar']));
+// Subscribe to a wildcard channel
+Redis::psubscribe(['*'], function($message, $channel) { })
+</pre>
+<h4><a name="requests" href="#requests">Requests</a> <a href="https://laravel.com/docs/5.3/requests" title="Requests @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
 <pre class="prettyprint lang-php">
 // url: http://xx.com/aa/bb
 Request::url();
@@ -1716,10 +3156,7 @@ Request::isJson();
 // true if HTTP Accept header is application/json
 Request::wantsJson();
 </pre>
-        </div>
-
-        <div class="large-4 columns code-column">
-<h4><a name="responses" href="#responses">Responses</a> <a href="http://laravel.com/docs/5.3/responses" title="Responses @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<h4><a name="responses" href="#responses">Responses</a> <a href="https://laravel.com/docs/5.3/responses" title="Responses @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
 <pre class="prettyprint lang-php">return Response::make($contents);
 return Response::make($contents, 200);
 return Response::json(array('key' => 'value'));
@@ -1746,27 +3183,27 @@ return response($content)
 return Response::make($content)
     ->withCookie(Cookie::make('key', 'value'));
 </pre>
-<h4><a name="routing" href="#routing">Routing</a> <a href="http://laravel.com/docs/5.3/routing" title="Routing @ Laravel Docs"><i class="icon-file-text"></i></a> <a href="http://laravel.com/docs/5.3/helpers#routing" title="Routing Helpers @ Laravel Docs"><i class="icon-file-text"></i></a> </h4>
+<h4><a name="routing" href="#routing">Routing</a> <a href="https://laravel.com/docs/5.3/routing" title="Routing @ Laravel Docs"><i class="icon-file-text"></i></a> <a href="https://laravel.com/docs/5.3/helpers#routing" title="Routing Helpers @ Laravel Docs"><i class="icon-file-text"></i></a> </h4>
 <pre class="prettyprint lang-php">Route::get('foo', function(){});
 Route::get('foo', 'ControllerName@function');
 Route::controller('foo', 'FooController');
 </pre>
 
-<h6>RESTful Controllers <a href="http://laravel.com/docs/5.3/controllers#restful-resource-controllers" title="RESTful Controllers @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
+<h6>RESTful Controllers <a href="https://laravel.com/docs/5.3/controllers#restful-resource-controllers" title="RESTful Controllers @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
 <pre class="prettyprint lang-php">Route::resource('posts','PostsController');
 //Specify a subset of actions to handle on the route
 Route::resource('photo', 'PhotoController',['only' => ['index', 'show']]);
 Route::resource('photo', 'PhotoController',['except' => ['update', 'destroy']]);
 </pre>
 
-<h6>Triggering Errors <a href="http://laravel.com/docs/5.3/routing#throwing-404-errors" title="throwing-404-errors @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
+<h6>Triggering Errors <a href="https://laravel.com/docs/5.3/routing#throwing-404-errors" title="throwing-404-errors @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
 <pre class="prettyprint lang-php">
 App::abort(404);
 $handler->missing(...) in ErrorServiceProvider::boot();
 throw new NotFoundHttpException;
 </pre>
 
-<h6>Route Parameters <a href="http://laravel.com/docs/5.3/routing#route-parameters" title="RESTful Controllers @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
+<h6>Route Parameters <a href="https://laravel.com/docs/5.3/routing#route-parameters" title="RESTful Controllers @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
 <pre class="prettyprint lang-php">Route::get('foo/{bar}', function($bar){});
 Route::get('foo/{bar?}', function($bar = 'bar'){});
 </pre>
@@ -1803,7 +3240,7 @@ Route::get('foo/{bar}/{baz}', function($bar, $baz){})
 Route::pattern('bar', '[0-9]+')
 </pre>
 
-<h6>HTTP Middleware <a href="http://laravel.com/docs/5.3/middleware" title="HTTP Middleware @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
+<h6>HTTP Middleware <a href="https://laravel.com/docs/5.3/middleware" title="HTTP Middleware @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
 <pre class="prettyprint lang-php">
 // Assigning Middleware To Routes
 Route::get('admin/profile', ['middleware' => 'auth', function(){}]);
@@ -1860,7 +3297,103 @@ Route::get('api/users/{user}', function (App\User $user) {
     return $user->email;
 });
 </pre>
-<h4><a name="schema" href="#schema">Schema</a> <a href="http://laravel.com/docs/5.3/schema" title="Schema Builder @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<h4><a name="scheduling" href="#scheduling">Task Scheduling</a> <a href="https://laravel.com/docs/5.3/scheduling" title="Task Scheduling @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<pre class="prettyprint lang-sh">
+# Start the scheduler
+* * * * * php /path/to/artisan schedule:run >> /dev/null 2>&1
+
+# Defining Schedules
+/app/Console/Kernel.php
+</pre>
+
+<pre class="prettyprint lang-php">
+// Schedule a Closure to be called
+$schedule->call(function () {})->daily();
+// Schedule an Artisan command using command's name
+$schedule->command('emails:send --force')->daily();
+// Schedule an Artisan command using command's class
+$schedule->command(EmailsCommand::class, ['--force'])->daily();
+// Issue a command to the operating system
+$schedule->exec('node /home/forge/script.js')->daily();
+
+// Prevent the previous instance of the task is still running
+$schedule->command('emails:send')->withoutOverlapping();
+// Force a task to run even in maintenance mode
+$schedule->command('emails:send')->evenInMaintenanceMode();
+// Send the output to a file
+$schedule->command('emails:send')->sendOutputTo($filePath);
+// Append the output to a given file
+$schedule->command('emails:send')->appendOutputTo($filePath);
+// E-mail the output
+$schedule->command('foo')
+         ->sendOutputTo($filePath)
+         ->emailOutputTo('foo@example.com');
+
+// Specify code to be executed before and after the scheduled task
+$schedule->command('emails:send')->before(Closure)->after(Closure);
+// Ping a given URL before or after a task is complete
+$schedule->command('emails:send')->pingBefore($url)->thenPing($url);
+</pre>
+
+<h6>Schedule Frequency Options</h6>
+<pre class="prettyprint lang-php">
+// Run the task on a custom Cron schedule
+->cron('* * * * * *');
+// Run the task every minute
+->everyMinute();
+// Run the task every five minutes
+->everyFiveMinutes();
+// Run the task every ten minutes
+->everyTenMinutes();
+// Run the task every thirty minutes
+->everyThirtyMinutes();
+// Run the task every hour
+->hourly();
+// Run the task every day at midnight
+->daily();
+// Run the task every day at 13:00
+->dailyAt('13:00');
+// Run the task daily at 1:00 & 13:00
+->twiceDaily(1, 13);
+// Run the task every week
+->weekly();
+// Run the task every month
+->monthly();
+// Run the task every month on the 4th at 15:00
+->monthlyOn(4, '15:00');
+// Run the task every quarter
+->quarterly();
+// Run the task every year
+->yearly();
+// Set the timezone
+->timezone('America/New_York');
+
+// Limit the task to weekdays
+->weekdays();
+// Limit the task to Sunday
+->sundays();
+// Limit the task to Monday
+->mondays();
+// Limit the task to Tuesday
+->tuesdays();
+// Limit the task to Wednesday
+->wednesdays();
+//Limit the task to Thursday
+->thursdays();
+// Limit the task to Friday
+->fridays();
+// Limit the task to Saturday
+->saturdays();
+// Limit the task to run between start and end times
+->between($start, $end);
+// Exclude the execution of a task for a period of time
+->unlessBetwee($start, $end);
+// Limit the task based on a truth test
+->when(Closure);
+// The inverse of when
+->skip(Closure);
+</pre>
+<h4><a name="schema" href="#schema">Schema</a> <a href="https://laravel.com/docs/5.3/schema" title="Schema Builder @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
 <pre class="prettyprint lang-php">
 // Indicate that the table needs to be created
 Schema::create('table', function($table)
@@ -1887,8 +3420,8 @@ $table->renameColumn('from', 'to');
 $table->dropColumn(string|array);
 // The storage engine that should be used for the table
 $table->engine = 'InnoDB';
-// Only work on MySQL
-$table->string('name')->after('email');
+// Modify an existing column
+$table->string('name', 50)->nullable()->change();
 </pre>
 
 <h6>Indexes</h6>
@@ -1918,12 +3451,20 @@ $table->foreign('user_id')->references('id')->on('users');
 $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'|'restrict'|'set null'|'no action');
 $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade'|'restrict'|'set null'|'no action');
 $table->dropForeign('posts_user_id_foreign');
+
+Schema::enableForeignKeyConstraints();
+Schema::disableForeignKeyConstraints();
 </pre>
 
 <h6>Column Types</h6>
-<pre class="prettyprint lang-php">// Increments
+<pre class="prettyprint lang-php">
+// Increments
+// UNSIGNED SMALL INTEGER
+$table->smallIncrements('id');
 $table->increments('id');
 $table->bigIncrements('id');
+// UNSIGNED MEDIUM INTEGER
+$table->mediumIncrements('id');
 
 // Numbers
 $table->integer('votes');
@@ -1934,6 +3475,11 @@ $table->bigInteger('votes');
 $table->float('amount');
 $table->double('column', 15, 8);
 $table->decimal('amount', 5, 2);
+$table->unsignedBigInteger('votes');
+$table->unsignedInteger('votes');
+$table->unsignedMediumInteger('votes');
+$table->unsignedSmallInteger('votes');
+$table->unsignedTinyInteger('votes');
 
 //String and Text
 $table->char('name', 4);
@@ -1946,10 +3492,14 @@ $table->longText('description');
 //Date and Time
 $table->date('created_at');
 $table->dateTime('created_at');
+$table->dateTimeTz('created_at');
 $table->time('sunrise');
+$table->timeTz('sunrise');
 $table->timestamp('added_on');
+$table->timestampTz('added_on');
 // Adds created_at and updated_at columns
 $table->timestamps();
+$table->timestampsTz();
 $table->nullableTimestamps();
 
 // Others
@@ -1957,22 +3507,97 @@ $table->binary('data');
 $table->boolean('confirmed');
 // Adds deleted_at column for soft deletes
 $table->softDeletes();
+$table->ipAddress('visitor');
+$table->json('options');
+$table->jsonb('options');
+$table->macAddress('device');
 $table->enum('choices', array('foo', 'bar'));
+$table->uuid('id');
 // Adds remember_token as VARCHAR(100) NULL
 $table->rememberToken();
 // Adds INTEGER parent_id and STRING parent_type
 $table->morphs('parent');
-->nullable()
+</pre>
+
+<h6>Column Modifiers</h6>
+<pre class="prettyprint lang-php">
+// Place the column "after" another column (MySQL Only)
+->after('column')
+// Add a comment to a column
+->comment('my comment')
+// Specify a "default" value for the column
 ->default($value)
+// Place the column "first" in the table (MySQL Only)
+->first()
+// Allow NULL values to be inserted into the column
+->nullable()
+// Create a stored generated column (MySQL Only)
+->storedAs($expression)
+// Set integer columns to UNSIGNED
 ->unsigned()
+// Create a virtual generated column (MySQL Only)
+->virtualAs($expression)
+</pre>
+<h4><a name="scout" href="#scout">Laravel Scout</a> <a href="https://laravel.com/docs/5.3/scout" title="Laravel Scout @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<pre class="prettyprint lang-php">
+// Configure indexes and searchable data
+use Laravel\Scout\Searchable;
+class Post extends Model {
+    use Searchable;
+
+    public function searchableAs() {
+        return 'posts_index';
+    }
+
+    public function toSearchableArray() {
+        return $this->toArray();
+    }
+}
+</pre>
+
+<h6>Indexing</h6>
+<pre class="prettyprint lang-php">
+// Add or update a model to search index
+$model->save();
+// Via Eloquent query
+Model::where('price', '>', 100)->searchable();
+// Via relationships
+$user->orders()->searchable();
+// Via collections
+$models->searchable();
+
+// Remove a record from index
+$model->delete();
+// Via Eloquent query
+Model::where('price', '>', 100)->unsearchable();
+// Via relationships
+$user->orders()->unsearchable();
+// Via collections
+$models->unsearchable();
+
+// Pause Indexing
+App\Order::withoutSyncingToSearch(function () {
+//  Perform model actions...
+});
+</pre>
+
+<h6>Searching</h6>
+<pre class="prettyprint lang-php">
+// Search your model
+Model::search('Star Trek')->get();
+// Add a basic numeric equality checking
+Model::search('Star Trek')
+     ->where('user_id', 1)->get();
+// Paginate search results
+Model::search('Star Trek')->paginate($per_page = null);
 </pre>
 <h4><a name="security" href="#security">Security</a></h4>
-<h6>Hashing <a href="http://laravel.com/docs/5.3/hashing" title="Hashing @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
+<h6>Hashing <a href="https://laravel.com/docs/5.3/hashing" title="Hashing @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
 <pre class="prettyprint lang-php">Hash::make('secretpassword');
 Hash::check('secretpassword', $hashedPassword);
 Hash::needsRehash($hashedPassword);
 </pre>
-<h6>Authentication <a href="http://laravel.com/docs/5.3/authentication" title="Authentication @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
+<h6>Authentication <a href="https://laravel.com/docs/5.3/authentication" title="Authentication @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
 <pre class="prettyprint lang-php">// Determine if the current user is authenticated
 Auth::check();
 // Get the currently authenticated user
@@ -2017,8 +3642,14 @@ Password::remind($credentials, function($message, $user){});
 Crypt::decrypt($encryptedString);
 Crypt::setMode('ctr');
 Crypt::setCipher($cipher);
+
+$encryptedValue = encrypt($request->secret);
+try {
+    $decrypted = decrypt($encryptedValue);
+} catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+}
 </pre>
-<h4><a name="service-container" href="#service-container">Service Container</a> <a href="http://laravel.com/docs/5.3/container" title="Service Container @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<h4><a name="service-container" href="#service-container">Service Container</a> <a href="https://laravel.com/docs/5.3/container" title="Service Container @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
 <pre class="prettyprint lang-php">
 App::bind('foo', function($app){ return new Foo; });
 $foo = App::make('foo');
@@ -2060,7 +3691,7 @@ App::register('FooServiceProvider');
 // Listen for object resolution
 App::resolving(function($object){});
 </pre>
-<h4><a name="sessions" href="#sessions">Sessions</a> <a href="http://laravel.com/docs/5.3/session" title="Session @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<h4><a name="sessions" href="#sessions">Sessions</a> <a href="https://laravel.com/docs/5.3/session" title="Session @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
 <pre class="prettyprint lang-php">
 Session::get('key');
 or
@@ -2095,30 +3726,7 @@ Session::reflash();
 // Reflash a subset of the current flash data
 Session::keep(array('key1', 'key2'));
 </pre>
-<h4><a name="ssh" href="#ssh">SSH</a> <a href="http://laravel.com/docs/5.3/ssh" title="SSH @ Laravel Docs"><i class="icon-file-text"></i></a>
-                </h4>
-<h6>Executing Commands</h6>
-<pre class="prettyprint lang-php">SSH::run(array $commands);
-SSH::into($remote)->run(array $commands); // specify remote, otherwise assumes default
-SSH::run(array $commands, function($line)
-{
-    echo $line.PHP_EOL;
-});
-</pre>
-
-<h6>Tasks</h6>
-<pre class="prettyprint lang-php">SSH::define($taskName, array $commands); // define
-SSH::task($taskName, function($line) // execute
-{
-    echo $line.PHP_EOL;
-});
-</pre>
-
-<h6>SFTP Uploads</h6>
-<pre class="prettyprint lang-php">SSH::put($localFile, $remotePath);
-SSH::putString($string, $remotePath);
-</pre>
-<h4><a name="str" href="#str">Strings</a> <a href="http://laravel.com/docs/5.3/helpers#strings" title="Strings CLI @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<h4><a name="str" href="#str">Strings</a> <a href="https://laravel.com/docs/5.3/helpers#strings" title="Strings CLI @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
 <pre class="prettyprint lang-php">// Transliterate a UTF-8 value to ASCII
 Str::ascii($value)
 Str::camel($value)
@@ -2153,42 +3761,7 @@ Str::startsWith($haystack, $needles)
 Str::studly($value)
 Str::macro($name, $macro)
 </pre>
-<h4><a name="testing" href="#testing">Testing</a> <a href="http://laravel.com/docs/5.3/testing" title="Unit testing @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
-<h6>Install and run</h6>
-<pre class="prettyprint lang-php">// add to composer and update:
-"phpunit/phpunit": "4.0.*"
-// run tests (from project root)
-./vendor/bin/phpunit
-</pre>
-<h6>Asserts</h6>
-<pre class="prettyprint lang-php">
-$this->assertTrue(true);
-$this->assertEquals('foo', $bar);
-$this->assertCount(1,$times);
-$this->assertResponseOk();
-$this->assertResponseStatus(403);
-$this->assertRedirectedTo('foo');
-$this->assertRedirectedToRoute('route.name');
-$this->assertRedirectedToAction('Controller@method');
-$this->assertViewHas('name');
-$this->assertViewHas('age', $value);
-$this->assertSessionHasErrors();
-// Asserting the session has errors for a given key...
-$this->assertSessionHasErrors('name');
-// Asserting the session has errors for several keys...
-$this->assertSessionHasErrors(array('name', 'age'));
-$this->assertHasOldInput();
-</pre>
-<h6>Calling routes</h6>
-<pre class="prettyprint lang-php">
-$response = $this->call($method, $uri, $parameters, $files, $server, $content);
-$response = $this->callSecure('GET', 'foo/bar');
-$this->session(['foo' => 'bar']);
-$this->flushSession();
-$this->seed();
-$this->seed($connection);
-</pre>
-<h4><a name="urls" href="#urls">UrlGenerator</a> <a href="http://laravel.com/api/5.0/Illuminate/Routing/UrlGenerator.html" title="UrlGenerator @ Laravel Docs"><i class="icon-file-text"></i></a>&nbsp;<a href="http://laravel.com/docs/5.3/helpers#urls" title="URL helper @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<h4><a name="urls" href="#urls">UrlGenerator</a> <a href="https://laravel.com/api/5.0/Illuminate/Routing/UrlGenerator.html" title="UrlGenerator @ Laravel Docs"><i class="icon-file-text"></i></a>&nbsp;<a href="https://laravel.com/docs/5.3/helpers#urls" title="URL helper @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
 <pre class="prettyprint lang-php">URL::full();
 URL::current();
 URL::previous();
@@ -2205,7 +3778,7 @@ URL::isValidUrl('http://example.com');
 URL::getRequest();
 URL::setRequest($request);
 </pre>
-<h4><a name="validation" href="#validation">Validation</a> <a href="http://laravel.com/docs/5.3/validation" title="Validation @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<h4><a name="validation" href="#validation">Validation</a> <a href="https://laravel.com/docs/5.3/validation" title="Validation @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
 <pre class="prettyprint lang-php">
 Validator::make(
     array('key' => 'Foo'),
@@ -2313,7 +3886,7 @@ timezone
 unique:table,column,except,idColumn
 url
 </pre>
-<h4><a name="views" href="#views">Views</a> <a href="http://laravel.com/docs/5.3/views" title="Views @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<h4><a name="views" href="#views">Views</a> <a href="https://laravel.com/docs/5.3/views" title="Views @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
 <pre class="prettyprint lang-php">
 View::make('path/to/view');
 View::make('foo/bar')->with('key', 'value');
@@ -2334,7 +3907,18 @@ View::composer('*', function ($view) {});
 View::composer('viewname', 'FooComposer');
 View::creator('viewname', function($view){});
 </pre>
+
+                    </div>
+                </div>
+            </section>
+            <!-- close the off-canvas menu -->
+            <a class="exit-off-canvas"></a>
+          </div>
         </div>
+
+
+        <a href="#top" id="top-button" title="Top"><i class="icon-arrow-up"></i></a>
+        <a href="#" id="small-search-button" class="searchable"><i class="icon-search"></i></a>
 
         <script src="assets/js/jquery.js"></script>
         <script src="assets/js/jquery.highlight-4.js"></script>

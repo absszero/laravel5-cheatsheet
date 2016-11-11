@@ -1,8 +1,15 @@
-<h4><a name="Configuration" href="#Configuration">Configuration</a> <a href="https://laravel.com/docs/5.3/configuration" title="Configuration Docs"><i class="icon-file-text"></i></a></h4>
+<h4><a name="configuration" href="#configuration">Configuration</a> <a href="https://laravel.com/docs/5.3/configuration" title="Configuration @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
 <pre class="prettyprint lang-php">
-Config::get('app.timezone');
-//get with Default value
-Config::get('app.timezone', 'UTC');
-//set Configuration
-Config::set('database.default', 'sqlite');
+// Access configuration values
+$value = config('app.timezone');
+// Set configuration values at runtime
+config(['app.timezone' => 'America/Chicago']);
+//  retrieve value from $_ENV PHP super-global
+env('APP_DEBUG', $deafult);
+// Current application environment
+App::environment();
+// Check if local
+App::environment('local');
+// Check if local OR staging
+App::environment('local', 'staging');
 </pre>

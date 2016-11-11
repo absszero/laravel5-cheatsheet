@@ -12,96 +12,160 @@
     </head>
     <body>
 
-        <a href="#top" id="top-button" title="Top"><i class="icon-arrow-up"></i></a>
-        <div class="fixed">
-            <nav class="top-bar" data-topbar>
-                <ul class="title-area">
-                    <li class="name"><h1><a href="http://laravel.com/docs/5.3/">Laravel 5.3 Cheat Sheet</a></h1></li>
-                    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-                </ul>
-                <section class="top-bar-section">
-                    <ul class="left">
-                        <li class="larajobs-text">Inspired By</li>
-                        <li><a class="larajobs-link" href="http://github.com/jesseobrien/laravel-cheatsheet">JesseObrien/laravel-cheatsheet</a></li>
-                    </ul>
-                    <ul class="right">
-                        <li class="comments-toggle"><a href="#"><i class="icon-comments"></i> Toggle Code Comments</a></li>
-                        <!-- <li><a href="/Laravel-5-Cheatsheet.pdf"><i class="icon-download"></i> PDF Version</a></li> -->
-                        <!-- <li><a href="https://github.com/mclxly/laravel5-cheatsheet" target="_blank"><i class="icon-github"></i> Github</a></li> -->
-                        <li class="has-dropdown">
-                            <a href="#">Laravel Docs</a>
-                            <ul class="dropdown">
-                                <li>
-                                    <a href="http://laravel.com/docs/5.3" target="_blank"><i class="icon-file-text"></i> Laravel 5 Docs</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </section>
+        <div class="off-canvas-wrap" data-offcanvas>
+          <div class="inner-wrap">
+            <nav class="tab-bar">
+              <div  class="left-small">
+                <a class="left-off-canvas-toggle menu-icon" href="#"><span></span></a>
+              </div>
+
+              <div class="right tab-bar-section">
+                  <h1 class="title"><a href="index.html">Laravel 5.3 Cheat Sheet</a></h1>
+              </div>
             </nav>
-        </div>
 
-        <a name="top" id="top-anchor"></a>
-
-        <div class="row" id="search-box">
-            <div class="small-10 small-offset-1 large-6 large-offset-3 columns">
-                <div class="row collapse">
-                    <div class="small-10 columns">
-                        <input type="text" placeholder="Start typing to search..." id="search" name="search" />
+            <div class="row" id="search-box">
+                <div class="small-10 small-offset-1 large-6 large-offset-3 columns">
+                    <div class="row collapse">
+                        <div class="small-10 columns">
+                            <input type="text" placeholder="Start typing to search..." id="search" name="search" />
+                        </div>
+                        <div class="small-2 columns">
+                            <button class="button postfix searchable" id="search-button"><i class="icon-search"></i></button>
+                        </div>
                     </div>
-                    <div class="small-2 columns">
-                        <button class="button postfix" id="search-button"><i class="icon-search"></i></button>
-                    </div>
+                    <small id="searchHint">hint: keep tapping the search, it scrolls to the result</small>
                 </div>
-                <small id="searchHint">hint: keep tapping the search, it scrolls to the result</small>
             </div>
-        </div>
-        <div class="large-4 columns code-column">
+
+
+            <!-- Off Canvas Menu -->
+            <aside class="left-off-canvas-menu">
+                <ul class="off-canvas-list" >
+<li><a id="comments-toggle" href="#"><i class="icon-comments"></i> Toggle Code Comments</a></li>
+<li><a href="#application-testing">Application Testing</a></li>
+<li><a href="#artisan">Artisan</a></li>
+<li><a href="#authorization">Authorization</a></li>
+<li><a href="#billing">Billing</a></li>
+<li><a href="#blade">Blade</a></li>
+<li><a href="#broadcasting">Broadcasting</a></li>
+<li><a href="#cache">Cache</a></li>
+<li><a href="#configuration">Configuration</a></li>
+<li><a href="#collections">Collections</a></li>
+<li><a href="#configuration">Configuration</a></li>
+<li><a href="#controllers">Controllers</a></li>
+<li><a href="#cookies">Cookies</a></li>
+<li><a href="#database-testing">Database Testing</a></li>
+<li><a href="#database">Database</a></li>
+<li><a href="#elixir">Elixir</a></li>
+<li><a href="#eloquent-mutators">Eloquent Mutators</a></li>
+<li><a href="#eloquent-relationships">Eloquent Relationships</a></li>
+<li><a href="#eloquent">Eloquent</a></li>
+<li><a href="#envoy">Envoy</a></li>
+<li><a href="#events">Events</a></li>
+<li><a href="#files">Files</a></li>
+<li><a href="#filesystem">Filesystem</a></li>
+<li><a href="#forms">Forms</a></li>
+<li><a href="#helpers">Helpers</a></li>
+<li><a href="#html">Html</a></li>
+<li><a href="#input">Input</a></li>
+<li><a href="#localization">Localization</a></li>
+<li><a href="#log">Log</a></li>
+<li><a href="#mail">Mail</a></li>
+<li><a href="#mocking">Mocking</a></li>
+<li><a href="#notifications">Notifications</a></li>
+<li><a href="#packages">Packages</a></li>
+<li><a href="#pagination">Pagination</a></li>
+<li><a href="#passport">Passport</a></li>
+<li><a href="#queues">Queues</a></li>
+<li><a href="#redirects">Redirects</a></li>
+<li><a href="#redis">Redis</a></li>
+<li><a href="#requests">Requests</a></li>
+<li><a href="#responses">Responses</a></li>
+<li><a href="#routing">Routing</a></li>
+<li><a href="#scheduling">Scheduling</a></li>
+<li><a href="#schema">Schema</a></li>
+<li><a href="#scout">Scout</a></li>
+<li><a href="#security">Security</a></li>
+<li><a href="#service-container">Service Container</a></li>
+<li><a href="#sessions">Sessions</a></li>
+<li><a href="#str">Str</a></li>
+<li><a href="#urls">Urls</a></li>
+<li><a href="#validation">Validation</a></li>
+<li><a href="#views">Views</a></li>
+                </ul>
+            </aside>
+
+            <a name="top" id="top-anchor"></a>
+            <section class="main-section">
+                <div class="row full-width">
+                    <div class="large-4 columns code-column">
+application-testing.html
 artisan.html
 authorization.html
+billing.html
 blade.html
+broadcasting.html
 cache.html
+configuration.html
 collections.html
-composer.html
 configuration.html
 controllers.html
 cookies.html
+                    </div>
+                    <div class="large-4 columns code-column">
+database-testing.html
 database.html
 elixir.html
+eloquent-mutators.html
+eloquent-relationships.html
 eloquent.html
-environment-configuration.html
-        </div>
-
-        <div class="large-4 columns code-column">
+envoy.html
 events.html
 files.html
+filesystem.html
 forms.html
 helpers.html
 html.html
+                    </div>
+                    <div class="large-4 columns code-column">
 input.html
 localization.html
 log.html
 mail.html
+mocking.html
+notifications.html
+packages.html
 pagination.html
+passport.html
 queues.html
 redirects.html
+redis.html
 requests.html
-        </div>
-
-        <div class="large-4 columns code-column">
 responses.html
 routing.html
+scheduling.html
 schema.html
+scout.html
 security.html
 service-container.html
 sessions.html
-ssh.html
 str.html
-testing.html
 urls.html
 validation.html
 views.html
+
+                    </div>
+                </div>
+            </section>
+            <!-- close the off-canvas menu -->
+            <a class="exit-off-canvas"></a>
+          </div>
         </div>
+
+
+        <a href="#top" id="top-button" title="Top"><i class="icon-arrow-up"></i></a>
+        <a href="#" id="small-search-button" class="searchable"><i class="icon-search"></i></a>
 
         <script src="assets/js/jquery.js"></script>
         <script src="assets/js/jquery.highlight-4.js"></script>

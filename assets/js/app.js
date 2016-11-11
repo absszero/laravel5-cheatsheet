@@ -1,8 +1,9 @@
 $(function(){
 
 	// Allow the user to turn comments off
-	$('.comments-toggle').on('click', function(event){
+	$('#comments-toggle').on('click', function(event){
 		$('span.com').toggle();
+		return false;
 	});
 
 	// Call prettprint manually
@@ -68,7 +69,7 @@ $(function(){
 
 	// No form event to clutter the uri with
 	// your search terms
-	$('#search-button').click(search);
+	$('.searchable').click(search);
 
 	// Focus the user's cursor to the search box on page load
 	$('#search').focus();
