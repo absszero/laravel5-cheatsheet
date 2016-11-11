@@ -1,27 +1,28 @@
 <h4><a name="responses" href="#responses">Responses</a> <a href="https://laravel.com/docs/5.3/responses" title="Responses @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
-<pre class="prettyprint lang-php">return Response::make($contents);
-return Response::make($contents, 200);
-return Response::json(array('key' => 'value'));
+<pre class="prettyprint lang-php">
+Response::make($contents);
+Response::make($contents, 200);
+Response::json(array('key' => 'value'));
 // Create a JSONP response
-return Response::json(array('key' => 'value'))
+Response::json(array('key' => 'value'))
     ->withCallback(Request::input('callback'));
-return Response::download($filepath);
-return Response::download($filepath, $filename, $headers);
-// display a file directly in the user's browser
-return Response::file($pathToFile);
-return Response::file($pathToFile, $headers);
+Response::download($filepath);
+Response::download($filepath, $filename, $headers);
+// Display a file directly in the user's browser
+Response::file($pathToFile);
+Response::file($pathToFile, $headers);
 // Create a response and modify a header value
 $response = Response::make($contents, 200);
 $response->header('Content-Type', 'application/json');
-return $response;
-// specifies an array of headers to be added
-return response($content)
-            ->withHeaders([
-                'Content-Type' => $type,
-                'X-Header-One' => 'Header Value',
-                'X-Header-Two' => 'Header Value',
-            ]);
+$response;
+// Specify an array of headers to be added
+response($content)
+    ->withHeaders([
+        'Content-Type' => $type,
+        'X-Header-One' => 'Header Value',
+        'X-Header-Two' => 'Header Value',
+    ]);
 // Attach a cookie to a response
-return Response::make($content)
+Response::make($content)
     ->withCookie(Cookie::make('key', 'value'));
 </pre>

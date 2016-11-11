@@ -83,7 +83,7 @@
 <li><a href="#responses">Responses</a></li>
 <li><a href="#routing">Routing</a></li>
 <li><a href="#scheduling">Scheduling</a></li>
-<li><a href="#schema">Schema</a></li>
+<li><a href="#migrations">Migrations</a></li>
 <li><a href="#scout">Scout</a></li>
 <li><a href="#security">Security</a></li>
 <li><a href="#service-container">Service Container</a></li>
@@ -2678,10 +2678,10 @@ Log::getMonolog();
 Log::listen(function($level, $message, $context) {});
 </pre>
 
-<h6>Query Logging <a href="https://laravel.com/docs/5.3/database#query-logging" title="Log @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
+<h6>Query Logging</h6>
 <pre class="prettyprint lang-php">
 // enable the log
-DB::connection()->enableQueryLog();
+DB::enableQueryLog();
 // get an array of the executed queries
 DB::getQueryLog();
 </pre>
@@ -2699,7 +2699,8 @@ Mailable::attach('/path/to/file');
 Mailable::attachattach('/path/to/file',
 ['as' => 'name.pdf', 'mime' => 'application/pdf']);
 // Attach a raw string of bytes as an attachment
-Mailable::attachData($this->pdf, 'name.pdf', ['mime' => 'application/pdf']);
+Mailable::attachData($this->pdf, 'name.pdf',
+['mime' => 'application/pdf']);
 </pre>
 
 <pre class="prettyprint lang-php">
@@ -2736,6 +2737,151 @@ $message->embed('foo\bar.txt');
 $message->embedData('foo', 'Data Name', $options);
 // Get the underlying Swift Message instance
 $message->getSwiftMessage();
+</pre>
+<h4><a name="migrations" href="#migrations">Migrations</a> <a href="https://laravel.com/docs/5.3/migrations" title="Schema Builder @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<pre class="prettyprint lang-php">
+// Indicate that the table needs to be created
+Schema::create('table', function($table)
+{
+    $table->increments('id');
+});
+// Specify a Connection
+Schema::connection('foo')->create('table', function($table){});
+// Rename the table to a given name
+Schema::rename($from, $to);
+// Indicate that the table should be dropped
+Schema::drop('table');
+// Indicate that the table should be dropped if it exists
+Schema::dropIfExists('table');
+// Determine if the given table exists
+Schema::hasTable('table');
+// Determine if the given table has a given column
+Schema::hasColumn('table', 'column');
+// Update an existing table
+Schema::table('table', function($table){});
+// Indicate that the given columns should be renamed
+$table->renameColumn('from', 'to');
+// Indicate that the given columns should be dropped
+$table->dropColumn(string|array);
+// The storage engine that should be used for the table
+$table->engine = 'InnoDB';
+// Modify an existing column
+$table->string('name', 50)->nullable()->change();
+</pre>
+
+<h6>Indexes</h6>
+<pre class="prettyprint lang-php">
+$table->string('column')->unique();
+$table->primary('column');
+// Create a dual primary key
+$table->primary(array('first', 'last'));
+$table->unique('column');
+$table->unique('column', 'key_name');
+// Create a dual unique index
+$table->unique(array('first', 'last'));
+$table->unique(array('first', 'last'), 'key_name');
+$table->index('column');
+$table->index('column', 'key_name');
+// Create a dual index
+$table->index(array('first', 'last'));
+$table->index(array('first', 'last'), 'key_name');
+$table->dropPrimary('table_column_primary');
+$table->dropUnique('table_column_unique');
+$table->dropIndex('table_column_index');
+</pre>
+
+<h6>Foreign Keys</h6>
+<pre class="prettyprint lang-php">
+$table->foreign('user_id')->references('id')->on('users');
+$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'|'restrict'|'set null'|'no action');
+$table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade'|'restrict'|'set null'|'no action');
+$table->dropForeign('posts_user_id_foreign');
+
+Schema::enableForeignKeyConstraints();
+Schema::disableForeignKeyConstraints();
+</pre>
+
+<h6>Column Types</h6>
+<pre class="prettyprint lang-php">
+// Increments
+// UNSIGNED SMALL INTEGER
+$table->smallIncrements('id');
+$table->increments('id');
+$table->bigIncrements('id');
+// UNSIGNED MEDIUM INTEGER
+$table->mediumIncrements('id');
+
+// Numbers
+$table->integer('votes');
+$table->tinyInteger('votes');
+$table->smallInteger('votes');
+$table->mediumInteger('votes');
+$table->bigInteger('votes');
+$table->float('amount');
+$table->double('column', 15, 8);
+$table->decimal('amount', 5, 2);
+$table->unsignedBigInteger('votes');
+$table->unsignedInteger('votes');
+$table->unsignedMediumInteger('votes');
+$table->unsignedSmallInteger('votes');
+$table->unsignedTinyInteger('votes');
+
+//String and Text
+$table->char('name', 4);
+$table->string('email');
+$table->string('name', 100);
+$table->text('description');
+$table->mediumText('description');
+$table->longText('description');
+
+//Date and Time
+$table->date('created_at');
+$table->dateTime('created_at');
+$table->dateTimeTz('created_at');
+$table->time('sunrise');
+$table->timeTz('sunrise');
+$table->timestamp('added_on');
+$table->timestampTz('added_on');
+// Adds created_at and updated_at columns
+$table->timestamps();
+$table->timestampsTz();
+$table->nullableTimestamps();
+
+// Others
+$table->binary('data');
+$table->boolean('confirmed');
+// Adds deleted_at column for soft deletes
+$table->softDeletes();
+$table->ipAddress('visitor');
+$table->json('options');
+$table->jsonb('options');
+$table->macAddress('device');
+$table->enum('choices', array('foo', 'bar'));
+$table->uuid('id');
+// Adds remember_token as VARCHAR(100) NULL
+$table->rememberToken();
+// Adds INTEGER parent_id and STRING parent_type
+$table->morphs('parent');
+</pre>
+
+<h6>Column Modifiers</h6>
+<pre class="prettyprint lang-php">
+// Place the column "after" another column (MySQL Only)
+->after('column')
+// Add a comment to a column
+->comment('my comment')
+// Specify a "default" value for the column
+->default($value)
+// Place the column "first" in the table (MySQL Only)
+->first()
+// Allow NULL values to be inserted into the column
+->nullable()
+// Create a stored generated column (MySQL Only)
+->storedAs($expression)
+// Set integer columns to UNSIGNED
+->unsigned()
+// Create a virtual generated column (MySQL Only)
+->virtualAs($expression)
 </pre>
 <h4><a name="mocking" href="#mocking">Mocking</a> <a href="https://laravel.com/docs/5.3/mocking" title="Mocking @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
 <h6>Events</h6>
@@ -2982,9 +3128,9 @@ Passport::tokensCan([
 ]);
 
 // Create a token without scopes
-$token = $user->createToken('Token Name')->accessToken;
+$user->createToken('Token Name')->accessToken;
 // Create a token with scopes
-$token = $user->createToken('My Token', ['place-orders'])->accessToken;
+$user->createToken('My Token', ['place-orders'])->accessToken;
 
 // Check Scopes On A Token Instance
 $request->user()->tokenCan('place-orders');
@@ -3037,7 +3183,7 @@ dispatch((new Job)->onQueue('emails'));
 $job = (new Job())->delay(Carbon::now()->addMinutes(10));
 // Push a job to a different queue
 $job = (new Job())->onQueue('processing');
-// specify a connection
+// Specify a connection
 $job = (new Job())->onConnection('sqs');
 
 Queue::push('SendMail', array('message' => $message));
@@ -3050,29 +3196,30 @@ Queue::before(function (JobProcessing $event) {});
 Queue::after(function (JobProcessed $event) {});
 </pre>
 <h4><a name="redirects" href="#redirects">Redirects</a> <a href="https://laravel.com/docs/5.3/responses#redirects" title="Redirects @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
-<pre class="prettyprint lang-php">return Redirect::to('foo/bar');
-return Redirect::to('foo/bar')->with('key', 'value');
-return Redirect::to('foo/bar')->withInput();
-return Redirect::to('foo/bar')->withInput(Request::except('password'));
-return Redirect::to('foo/bar')->withErrors($validator);
+<pre class="prettyprint lang-php">
+Redirect::to('foo/bar');
+Redirect::to('foo/bar')->with('key', 'value');
+Redirect::to('foo/bar')->withInput();
+Redirect::to('foo/bar')->withInput(Request::except('password'));
+Redirect::to('foo/bar')->withErrors($validator);
 // Create a new redirect response to the previous location
-return Redirect::back();
-or
+Redirect::back();
+// same
 back();
 // Back with inputs
-return back()->withInput();
+back()->withInput();
 // Create a new redirect response to a named route
-return Redirect::route('foobar');
-return Redirect::route('foobar', array('value'));
-return Redirect::route('foobar', array('key' => 'value'));
+Redirect::route('foobar');
+Redirect::route('foobar', array('value'));
+Redirect::route('foobar', array('key' => 'value'));
 // Create a new redirect response to a controller action
-return Redirect::action('FooController@index');
-return Redirect::action('FooController@baz', array('value'));
-return Redirect::action('FooController@baz', array('key' => 'value'));
+Redirect::action('FooController@index');
+Redirect::action('FooController@baz', array('value'));
+Redirect::action('FooController@baz', array('key' => 'value'));
 // If intended redirect is not defined, defaults to foo/bar.
-return Redirect::intended('foo/bar');
+Redirect::intended('foo/bar');
 // Redirects With Flashed Session Data
-return redirect('dashboard')->with('status', 'Profile updated!');
+redirect('dashboard')->with('status', 'Profile updated!');
 </pre>
 <h4><a name="redis" href="#redis">Redis</a> <a href="https://laravel.com/docs/5.3/redis" title="Redis @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
 <pre class="prettyprint lang-php">
@@ -3202,54 +3349,51 @@ $request->photo->storeAs('images', 'filename.jpg');
 $request->photo->storeAs('images', 'filename.jpg', 's3');
 </pre>
 <h4><a name="responses" href="#responses">Responses</a> <a href="https://laravel.com/docs/5.3/responses" title="Responses @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
-<pre class="prettyprint lang-php">return Response::make($contents);
-return Response::make($contents, 200);
-return Response::json(array('key' => 'value'));
+<pre class="prettyprint lang-php">
+Response::make($contents);
+Response::make($contents, 200);
+Response::json(array('key' => 'value'));
 // Create a JSONP response
-return Response::json(array('key' => 'value'))
+Response::json(array('key' => 'value'))
     ->withCallback(Request::input('callback'));
-return Response::download($filepath);
-return Response::download($filepath, $filename, $headers);
-// display a file directly in the user's browser
-return Response::file($pathToFile);
-return Response::file($pathToFile, $headers);
+Response::download($filepath);
+Response::download($filepath, $filename, $headers);
+// Display a file directly in the user's browser
+Response::file($pathToFile);
+Response::file($pathToFile, $headers);
 // Create a response and modify a header value
 $response = Response::make($contents, 200);
 $response->header('Content-Type', 'application/json');
-return $response;
-// specifies an array of headers to be added
-return response($content)
-            ->withHeaders([
-                'Content-Type' => $type,
-                'X-Header-One' => 'Header Value',
-                'X-Header-Two' => 'Header Value',
-            ]);
+$response;
+// Specify an array of headers to be added
+response($content)
+    ->withHeaders([
+        'Content-Type' => $type,
+        'X-Header-One' => 'Header Value',
+        'X-Header-Two' => 'Header Value',
+    ]);
 // Attach a cookie to a response
-return Response::make($content)
+Response::make($content)
     ->withCookie(Cookie::make('key', 'value'));
 </pre>
-<h4><a name="routing" href="#routing">Routing</a> <a href="https://laravel.com/docs/5.3/routing" title="Routing @ Laravel Docs"><i class="icon-file-text"></i></a> <a href="https://laravel.com/docs/5.3/helpers#routing" title="Routing Helpers @ Laravel Docs"><i class="icon-file-text"></i></a> </h4>
-<pre class="prettyprint lang-php">Route::get('foo', function(){});
+<h4><a name="routing" href="#routing">Routing</a> <a href="https://laravel.com/docs/5.3/routing" title="Routing @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<pre class="prettyprint lang-php">
+Route::get('foo', Closure);
 Route::get('foo', 'ControllerName@function');
 Route::controller('foo', 'FooController');
 </pre>
 
-<h6>RESTful Controllers <a href="https://laravel.com/docs/5.3/controllers#restful-resource-controllers" title="RESTful Controllers @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
-<pre class="prettyprint lang-php">Route::resource('posts','PostsController');
+<h6>RESTful Controllers</h6>
+<pre class="prettyprint lang-php">
+Route::resource('posts','PostsController');
 //Specify a subset of actions to handle on the route
 Route::resource('photo', 'PhotoController',['only' => ['index', 'show']]);
 Route::resource('photo', 'PhotoController',['except' => ['update', 'destroy']]);
 </pre>
 
-<h6>Triggering Errors <a href="https://laravel.com/docs/5.3/routing#throwing-404-errors" title="throwing-404-errors @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
+<h6>Route Parameters</h6>
 <pre class="prettyprint lang-php">
-App::abort(404);
-$handler->missing(...) in ErrorServiceProvider::boot();
-throw new NotFoundHttpException;
-</pre>
-
-<h6>Route Parameters <a href="https://laravel.com/docs/5.3/routing#route-parameters" title="RESTful Controllers @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
-<pre class="prettyprint lang-php">Route::get('foo/{bar}', function($bar){});
+Route::get('foo/{bar}', function($bar){});
 Route::get('foo/{bar?}', function($bar = 'bar'){});
 </pre>
 
@@ -3269,10 +3413,6 @@ Route::match(['get', 'post'], '/', function(){});
 Route::any('foo', function () {});
 </pre>
 
-<h6>Secure Routes(TBD)</h6>
-<pre class="prettyprint lang-php">
-</pre>
-
 <h6>Route Constraints</h6>
 <pre class="prettyprint lang-php">
 Route::get('foo/{bar}', function($bar){})
@@ -3285,10 +3425,10 @@ Route::get('foo/{bar}/{baz}', function($bar, $baz){})
 Route::pattern('bar', '[0-9]+')
 </pre>
 
-<h6>HTTP Middleware <a href="https://laravel.com/docs/5.3/middleware" title="HTTP Middleware @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
+<h6>HTTP Middleware</h6>
 <pre class="prettyprint lang-php">
 // Assigning Middleware To Routes
-Route::get('admin/profile', ['middleware' => 'auth', function(){}]);
+Route::get('admin/profile', ['middleware' => 'auth', Closure]);
 // Assigning Multi Middleware
 Route::get('admin/profile')->middleware(['auth', 'subscribed'], ['only' => ['getCandy']]);
 </pre>
@@ -3299,11 +3439,11 @@ $route = Route::current();
 $name = Route::currentRouteName();
 $action = Route::currentRouteAction();
 
-Route::get('foo/bar', array('as' => 'foobar', function(){}));
+Route::get('foo/bar', array('as' => 'foobar', Closure));
 Route::get('user/profile', [
     'as' => 'profile', 'uses' => 'UserController@showProfile'
 ]);
-Route::get('user/profile', function () {})->name('profile');
+Route::get('user/profile', Closure)->name('profile');
 Route::get('user/profile', 'UserController@showProfile')->name('profile');
 $url = route('profile');
 $redirect = redirect()->route('profile');
@@ -3311,8 +3451,7 @@ $redirect = redirect()->route('profile');
 
 <h6>Route Prefixing</h6>
 <pre class="prettyprint lang-php">
-Route::group(['prefix' => 'admin'], function()
-{
+Route::group(['prefix' => 'admin'], function() {
     Route::get('users', function(){
         return 'Matches The "/admin/users" URL';
     });
@@ -3321,19 +3460,19 @@ Route::group(['prefix' => 'admin'], function()
 
 <h6>Route Middleware</h6>
 <pre class="prettyprint lang-php">
-Route::group(['middleware' => 'auth'], function () {});
+Route::group(['middleware' => 'auth'], Closure);
 </pre>
 
 <h6>Route Namespacing</h6>
 <pre class="prettyprint lang-php">
 // This route group will carry the namespace 'Foo\Bar'
-Route::group(array('namespace' => 'Foo\Bar'), function(){})
+Route::group(array('namespace' => 'Foo\Bar'), Closure)
 </pre>
 
 <h6>Sub-Domain Routing</h6>
 <pre class="prettyprint lang-php">
 // {sub} will be passed to the closure
-Route::group(array('domain' => '{sub}.example.com'), function(){});
+Route::group(array('domain' => '{sub}.example.com'), Closure);
 </pre>
 
 <h6>Implicit Binding</h6>
@@ -3437,151 +3576,6 @@ $schedule->command('emails:send')->pingBefore($url)->thenPing($url);
 ->when(Closure);
 // The inverse of when
 ->skip(Closure);
-</pre>
-<h4><a name="schema" href="#schema">Schema</a> <a href="https://laravel.com/docs/5.3/schema" title="Schema Builder @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
-<pre class="prettyprint lang-php">
-// Indicate that the table needs to be created
-Schema::create('table', function($table)
-{
-    $table->increments('id');
-});
-// Specify a Connection
-Schema::connection('foo')->create('table', function($table){});
-// Rename the table to a given name
-Schema::rename($from, $to);
-// Indicate that the table should be dropped
-Schema::drop('table');
-// Indicate that the table should be dropped if it exists
-Schema::dropIfExists('table');
-// Determine if the given table exists
-Schema::hasTable('table');
-// Determine if the given table has a given column
-Schema::hasColumn('table', 'column');
-// Update an existing table
-Schema::table('table', function($table){});
-// Indicate that the given columns should be renamed
-$table->renameColumn('from', 'to');
-// Indicate that the given columns should be dropped
-$table->dropColumn(string|array);
-// The storage engine that should be used for the table
-$table->engine = 'InnoDB';
-// Modify an existing column
-$table->string('name', 50)->nullable()->change();
-</pre>
-
-<h6>Indexes</h6>
-<pre class="prettyprint lang-php">
-$table->string('column')->unique();
-$table->primary('column');
-// Create a dual primary key
-$table->primary(array('first', 'last'));
-$table->unique('column');
-$table->unique('column', 'key_name');
-// Create a dual unique index
-$table->unique(array('first', 'last'));
-$table->unique(array('first', 'last'), 'key_name');
-$table->index('column');
-$table->index('column', 'key_name');
-// Create a dual index
-$table->index(array('first', 'last'));
-$table->index(array('first', 'last'), 'key_name');
-$table->dropPrimary('table_column_primary');
-$table->dropUnique('table_column_unique');
-$table->dropIndex('table_column_index');
-</pre>
-
-<h6>Foreign Keys</h6>
-<pre class="prettyprint lang-php">
-$table->foreign('user_id')->references('id')->on('users');
-$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'|'restrict'|'set null'|'no action');
-$table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade'|'restrict'|'set null'|'no action');
-$table->dropForeign('posts_user_id_foreign');
-
-Schema::enableForeignKeyConstraints();
-Schema::disableForeignKeyConstraints();
-</pre>
-
-<h6>Column Types</h6>
-<pre class="prettyprint lang-php">
-// Increments
-// UNSIGNED SMALL INTEGER
-$table->smallIncrements('id');
-$table->increments('id');
-$table->bigIncrements('id');
-// UNSIGNED MEDIUM INTEGER
-$table->mediumIncrements('id');
-
-// Numbers
-$table->integer('votes');
-$table->tinyInteger('votes');
-$table->smallInteger('votes');
-$table->mediumInteger('votes');
-$table->bigInteger('votes');
-$table->float('amount');
-$table->double('column', 15, 8);
-$table->decimal('amount', 5, 2);
-$table->unsignedBigInteger('votes');
-$table->unsignedInteger('votes');
-$table->unsignedMediumInteger('votes');
-$table->unsignedSmallInteger('votes');
-$table->unsignedTinyInteger('votes');
-
-//String and Text
-$table->char('name', 4);
-$table->string('email');
-$table->string('name', 100);
-$table->text('description');
-$table->mediumText('description');
-$table->longText('description');
-
-//Date and Time
-$table->date('created_at');
-$table->dateTime('created_at');
-$table->dateTimeTz('created_at');
-$table->time('sunrise');
-$table->timeTz('sunrise');
-$table->timestamp('added_on');
-$table->timestampTz('added_on');
-// Adds created_at and updated_at columns
-$table->timestamps();
-$table->timestampsTz();
-$table->nullableTimestamps();
-
-// Others
-$table->binary('data');
-$table->boolean('confirmed');
-// Adds deleted_at column for soft deletes
-$table->softDeletes();
-$table->ipAddress('visitor');
-$table->json('options');
-$table->jsonb('options');
-$table->macAddress('device');
-$table->enum('choices', array('foo', 'bar'));
-$table->uuid('id');
-// Adds remember_token as VARCHAR(100) NULL
-$table->rememberToken();
-// Adds INTEGER parent_id and STRING parent_type
-$table->morphs('parent');
-</pre>
-
-<h6>Column Modifiers</h6>
-<pre class="prettyprint lang-php">
-// Place the column "after" another column (MySQL Only)
-->after('column')
-// Add a comment to a column
-->comment('my comment')
-// Specify a "default" value for the column
-->default($value)
-// Place the column "first" in the table (MySQL Only)
-->first()
-// Allow NULL values to be inserted into the column
-->nullable()
-// Create a stored generated column (MySQL Only)
-->storedAs($expression)
-// Set integer columns to UNSIGNED
-->unsigned()
-// Create a virtual generated column (MySQL Only)
-->virtualAs($expression)
 </pre>
 <h4><a name="scout" href="#scout">Laravel Scout</a> <a href="https://laravel.com/docs/5.3/scout" title="Laravel Scout @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
 <pre class="prettyprint lang-php">
@@ -3771,57 +3765,76 @@ Session::reflash();
 // Reflash a subset of the current flash data
 Session::keep(array('key1', 'key2'));
 </pre>
-<h4><a name="str" href="#str">Strings</a> <a href="https://laravel.com/docs/5.3/helpers#strings" title="Strings CLI @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
-<pre class="prettyprint lang-php">// Transliterate a UTF-8 value to ASCII
-Str::ascii($value)
-Str::camel($value)
-Str::charsArray()
+<h4><a name="str" href="#str">Strings</a> <a href="https://laravel.com/api/5.3/Illuminate/Support/Str.html" title="Strings CLI @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<pre class="prettyprint lang-php">
+// Transliterate a UTF-8 value to ASCII
+Str::ascii($value);
+// Convert a value to camel case
+Str::camel($value);
 // Returns the replacements for the ascii method.
-Str::contains($haystack, $needle)
-Str::endsWith($haystack, $needles)
+Str::contains($haystack, $needle);
+Str::endsWith($haystack, $needles);
 // Cap a string with a single instance of a given value.
-Str::finish($value, $cap)
-Str::is($pattern, $value)
-Str::length($value)
-Str::limit($value, $limit = 100, $end = '...')
-Str::lower($value)
-Str::words($value, $words = 100, $end = '...')
-Str::plural($value, $count = 2)
+Str::finish($value, $cap);
+Str::is($pattern, $value);
+Str::length($value);
+// Limit the number of characters in a string
+Str::limit($value, $limit = 100, $end = '...');
+Str::lower($value);
+// Limit the number of words in a string
+Str::words($value, $words = 100, $end = '...');
+// Parse a Class@method style callback into class and method
+Str::parseCallback('Class@method', $default);
+Str::plural($value, $count = 2);
 // Generate a "random" alpha-numeric string.
-Str::random($length = 16)
+Str::random($length = 16);
 // Replace a given value in the string sequentially with an array.
-Str::replaceArray($search, array $replace, $subject)
+Str::replaceArray($search, array $replace;, $subject)
 // Replace the first occurrence of a given value in the string.
-Str::replaceFirst($search, $replace, $subject)
+Str::replaceFirst($search, $replace, $;subject)
 // Replace the last occurrence of a given value in the string.
-Str::replaceLast($search, $replace, $subject)
-Str::quickRandom($length = 16)
-Str::upper($value)
-Str::title($value)
-Str::singular($value)
-Str::slug($title, $separator = '-')
-Str::snake($value, $delimiter = '_')
-Str::startsWith($haystack, $needles)
+Str::replaceLast($search, $replace, $;subject)
+// deprecated
+Str::quickRandom($length = 16);
+Str::upper($value);
+Str::title($value);
+Str::singular($value);
+Str::slug($title, $separator = '-');
+Str::snake($value, $delimiter = '_');
+Str::startsWith($haystack, $needles);
 // Convert a value to studly caps case.
-Str::studly($value)
-Str::macro($name, $macro)
+Str::studly($value);
+Str::macro($name, $macro);
 </pre>
-<h4><a name="urls" href="#urls">UrlGenerator</a> <a href="https://laravel.com/api/5.0/Illuminate/Routing/UrlGenerator.html" title="UrlGenerator @ Laravel Docs"><i class="icon-file-text"></i></a>&nbsp;<a href="https://laravel.com/docs/5.3/helpers#urls" title="URL helper @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
-<pre class="prettyprint lang-php">URL::full();
+<h4><a name="urls" href="#urls">UrlGenerator</a> <a href="https://laravel.com/api/5.3/Illuminate/Routing/UrlGenerator.html" title="UrlGenerator @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<pre class="prettyprint lang-php">
+// Get the full URL for the current request
+URL::full();
+// Get the current URL for the request
 URL::current();
+// Get the URL for the previous request
 URL::previous();
+// Generate a absolute URL to the given path
 URL::to('foo/bar', $parameters, $secure);
-URL::action('NewsController@item', ['id'=>123]);
-// need be in appropriate namespace
-URL::action('Auth\AuthController@logout');
-URL::action('FooController@method', $parameters, $absolute);
-URL::route('foo', $parameters, $absolute);
+// Generate a secure, absolute URL to the given path
 URL::secure('foo/bar', $parameters);
+// Generate a URL to an application asset
 URL::asset('css/foo.css', $secure);
+// Generate a URL to a secure asset
 URL::secureAsset('css/foo.css');
+// Force the schema for URLs
+URL::forceSchema($schema);
+// Get the URL to a named route
+URL::route('foo', $parameters, $absolute);
+// Get the URL to a controller action
+URL::action('FooController@method', $parameters, $absolute);
+// Set the forced root URL
+URL::forceRootUrl(string $root);
+// Determine if the given path is a valid URL
 URL::isValidUrl('http://example.com');
+// Get the request instance
 URL::getRequest();
-URL::setRequest($request);
+// Set the current request instance
 </pre>
 <h4><a name="validation" href="#validation">Validation</a> <a href="https://laravel.com/docs/5.3/validation" title="Validation @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
 <pre class="prettyprint lang-php">

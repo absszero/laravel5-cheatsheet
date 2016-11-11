@@ -17,10 +17,10 @@ Log::getMonolog();
 Log::listen(function($level, $message, $context) {});
 </pre>
 
-<h6>Query Logging <a href="https://laravel.com/docs/5.3/database#query-logging" title="Log @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
+<h6>Query Logging</h6>
 <pre class="prettyprint lang-php">
 // enable the log
-DB::connection()->enableQueryLog();
+DB::enableQueryLog();
 // get an array of the executed queries
 DB::getQueryLog();
 </pre>

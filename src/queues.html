@@ -8,7 +8,7 @@ dispatch((new Job)->onQueue('emails'));
 $job = (new Job())->delay(Carbon::now()->addMinutes(10));
 // Push a job to a different queue
 $job = (new Job())->onQueue('processing');
-// specify a connection
+// Specify a connection
 $job = (new Job())->onConnection('sqs');
 
 Queue::push('SendMail', array('message' => $message));

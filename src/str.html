@@ -1,35 +1,41 @@
-<h4><a name="str" href="#str">Strings</a> <a href="https://laravel.com/docs/5.3/helpers#strings" title="Strings CLI @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
-<pre class="prettyprint lang-php">// Transliterate a UTF-8 value to ASCII
-Str::ascii($value)
-Str::camel($value)
-Str::charsArray()
+<h4><a name="str" href="#str">Strings</a> <a href="https://laravel.com/api/5.3/Illuminate/Support/Str.html" title="Strings CLI @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<pre class="prettyprint lang-php">
+// Transliterate a UTF-8 value to ASCII
+Str::ascii($value);
+// Convert a value to camel case
+Str::camel($value);
 // Returns the replacements for the ascii method.
-Str::contains($haystack, $needle)
-Str::endsWith($haystack, $needles)
+Str::contains($haystack, $needle);
+Str::endsWith($haystack, $needles);
 // Cap a string with a single instance of a given value.
-Str::finish($value, $cap)
-Str::is($pattern, $value)
-Str::length($value)
-Str::limit($value, $limit = 100, $end = '...')
-Str::lower($value)
-Str::words($value, $words = 100, $end = '...')
-Str::plural($value, $count = 2)
+Str::finish($value, $cap);
+Str::is($pattern, $value);
+Str::length($value);
+// Limit the number of characters in a string
+Str::limit($value, $limit = 100, $end = '...');
+Str::lower($value);
+// Limit the number of words in a string
+Str::words($value, $words = 100, $end = '...');
+// Parse a Class@method style callback into class and method
+Str::parseCallback('Class@method', $default);
+Str::plural($value, $count = 2);
 // Generate a "random" alpha-numeric string.
-Str::random($length = 16)
+Str::random($length = 16);
 // Replace a given value in the string sequentially with an array.
-Str::replaceArray($search, array $replace, $subject)
+Str::replaceArray($search, array $replace;, $subject)
 // Replace the first occurrence of a given value in the string.
-Str::replaceFirst($search, $replace, $subject)
+Str::replaceFirst($search, $replace, $;subject)
 // Replace the last occurrence of a given value in the string.
-Str::replaceLast($search, $replace, $subject)
-Str::quickRandom($length = 16)
-Str::upper($value)
-Str::title($value)
-Str::singular($value)
-Str::slug($title, $separator = '-')
-Str::snake($value, $delimiter = '_')
-Str::startsWith($haystack, $needles)
+Str::replaceLast($search, $replace, $;subject)
+// deprecated
+Str::quickRandom($length = 16);
+Str::upper($value);
+Str::title($value);
+Str::singular($value);
+Str::slug($title, $separator = '-');
+Str::snake($value, $delimiter = '_');
+Str::startsWith($haystack, $needles);
 // Convert a value to studly caps case.
-Str::studly($value)
-Str::macro($name, $macro)
+Str::studly($value);
+Str::macro($name, $macro);
 </pre>

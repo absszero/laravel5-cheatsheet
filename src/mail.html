@@ -12,7 +12,8 @@ Mailable::attach('/path/to/file');
 Mailable::attachattach('/path/to/file',
 ['as' => 'name.pdf', 'mime' => 'application/pdf']);
 // Attach a raw string of bytes as an attachment
-Mailable::attachData($this->pdf, 'name.pdf', ['mime' => 'application/pdf']);
+Mailable::attachData($this->pdf, 'name.pdf',
+['mime' => 'application/pdf']);
 </pre>
 
 <pre class="prettyprint lang-php">

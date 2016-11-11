@@ -1,25 +1,26 @@
 <h4><a name="redirects" href="#redirects">Redirects</a> <a href="https://laravel.com/docs/5.3/responses#redirects" title="Redirects @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
-<pre class="prettyprint lang-php">return Redirect::to('foo/bar');
-return Redirect::to('foo/bar')->with('key', 'value');
-return Redirect::to('foo/bar')->withInput();
-return Redirect::to('foo/bar')->withInput(Request::except('password'));
-return Redirect::to('foo/bar')->withErrors($validator);
+<pre class="prettyprint lang-php">
+Redirect::to('foo/bar');
+Redirect::to('foo/bar')->with('key', 'value');
+Redirect::to('foo/bar')->withInput();
+Redirect::to('foo/bar')->withInput(Request::except('password'));
+Redirect::to('foo/bar')->withErrors($validator);
 // Create a new redirect response to the previous location
-return Redirect::back();
-or
+Redirect::back();
+// same
 back();
 // Back with inputs
-return back()->withInput();
+back()->withInput();
 // Create a new redirect response to a named route
-return Redirect::route('foobar');
-return Redirect::route('foobar', array('value'));
-return Redirect::route('foobar', array('key' => 'value'));
+Redirect::route('foobar');
+Redirect::route('foobar', array('value'));
+Redirect::route('foobar', array('key' => 'value'));
 // Create a new redirect response to a controller action
-return Redirect::action('FooController@index');
-return Redirect::action('FooController@baz', array('value'));
-return Redirect::action('FooController@baz', array('key' => 'value'));
+Redirect::action('FooController@index');
+Redirect::action('FooController@baz', array('value'));
+Redirect::action('FooController@baz', array('key' => 'value'));
 // If intended redirect is not defined, defaults to foo/bar.
-return Redirect::intended('foo/bar');
+Redirect::intended('foo/bar');
 // Redirects With Flashed Session Data
-return redirect('dashboard')->with('status', 'Profile updated!');
+redirect('dashboard')->with('status', 'Profile updated!');
 </pre>

@@ -15,9 +15,9 @@ Passport::tokensCan([
 ]);
 
 // Create a token without scopes
-$token = $user->createToken('Token Name')->accessToken;
+$user->createToken('Token Name')->accessToken;
 // Create a token with scopes
-$token = $user->createToken('My Token', ['place-orders'])->accessToken;
+$user->createToken('My Token', ['place-orders'])->accessToken;
 
 // Check Scopes On A Token Instance
 $request->user()->tokenCan('place-orders');
