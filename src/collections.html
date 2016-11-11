@@ -10,10 +10,10 @@ collect([1, 2, 3, 4, 5])->avg();
 // array([1, 2, 3, 4], [5, 6])
 collect([1, 2, 3, 4, 5, 6])->chunk(4);
 // [1, 2, 3, 4, 5, 6]
-collect(array(
+collect([
     [1, 2, 3],
     [4, 5, 6],
-))->collapse();
+])->collapse();
 // ['name'=>'George', 'age'=>29]
 collect(['name', 'age'])->combine(['George', 29]);
 
@@ -56,15 +56,15 @@ collect([1, 2, 3, 4])->first(function($item, $key){
 // ['a', true, 'd']
 collect([ 'a', 'b'=>true, 'c'=>['d'] ])->flatten();
 // array(['a.2'], ['b.2'])
-collect(array(
+collect([
     'a'=>array(['a.2']),
     'b'=>array(['b.2']),
-))->flatten(1);
+])->flatten(1);
 // ['a.2', 'b.2']
-collect(array(
+collect([
     'a'=>array(['a.2']),
     'b'=>array(['b.2']),
-))->flatten(2);
+])->flatten(2);
 
 // ['Jack'=>'name']
 collect(['name'=>'Jack'])->flip();
@@ -113,26 +113,26 @@ collect([])->isEmpty();
     '100'=>['id'=>'100', 'name'=>'desk'],
     '200'=>['id'=>'200', 'name'=>'chair'],
 ] */
-collect(array(
+collect([
     ['id'=>'100', 'name'=>'desk'],
     ['id'=>'200', 'name'=>'chair'],
-))->keyBy('id');
+])->keyBy('id');
 /* [
     'desk'=>['id'=>'100', 'name'=>'desk'],
     'chair'=>['id'=>'200', 'name'=>'chair'],
 ] */
-collect(array(
+collect([
     ['id'=>'100', 'name'=>'desk'],
     ['id'=>'200', 'name'=>'chair'],
-))->keyBy(function($item) {
+])->keyBy(function($item) {
     return $item['name'];
 });
 
 // ['a', 'b']
-collect(array(
+collect([
     'a'=>[],
     'b'=>[],
-))->keys();
+])->keys();
 // 4
 collect([1, 2, 3, 4])->last(function($item, $key){
     return $item > 1;
@@ -144,29 +144,29 @@ collect([1, 2, 3, 4, 5])->map(function ($item, $key) {
     return $item * 2;
 });
 // ["one"=>1, "two"=>2];
-collect(array(
+collect([
     'one'=>['id'=>1],
     'two'=>['id'=>2]
-))->mapWithKeys(function ($item, $key) {
+])->mapWithKeys(function ($item, $key) {
     return [$key=>$item['id']];
 });
 
 // 5
 collect([1, 2, 3, 4, 5])->max();
 // 20
-collect(array(
+collect([
     ['foo'=>10],
     ['foo'=>20]
-))->max('foo');
+])->max('foo');
 // ['a'=>1, 'b'=>200, 'c'=>3]
 collect(['a'=>1, 'b'=>2])->merge(['b'=>200, 'c'=>3]);
 // 1
 collect([1, 2, 3, 4, 5])->min();
 // 10
-collect(array(
+collect([
     ['foo'=>10],
     ['foo'=>20]
-))->min('foo');
+])->min('foo');
 // ['b'=>'2', 'c'=>'3']
 collect(['a'=>'1', 'b'=>'2', 'c'=> '3'])->only(['b','c']);
 // 6
@@ -174,15 +174,15 @@ collect([1, 2, 3])->pipe(function ($collection) {
     return $collection->sum();
 })
 // ['Jack', 'Rose']
-collect(array(
+collect([
     ['id'=>5, 'name'=>'Jack'],
     ['id'=>6, 'name'=>'Rose'],
-))->pluck('name');
+])->pluck('name');
 // [5=>'Jack', 6=>'Rose']
-collect(array(
+collect([
     ['id'=>5, 'name'=>'Jack'],
     ['id'=>6, 'name'=>'Rose']
-))->pluck ('name', $key = 'id');
+])->pluck ('name', $key = 'id');
 
 // 5
 collect([1, 2, 3, 4, 5])->pop();
@@ -267,10 +267,10 @@ collect([1, 2, 3, 4, 5])->splice(2, 1);
 // 15
 collect([1, 2, 3, 4, 5])->sum();
 // 1272
-$collection = collect(array(
+$collection = collect([
     ['pages'=>176],
     ['pages'=>1096],
-))->sum('pages');
+])->sum('pages');
 $collection->sum(Closure);
 
 // [0, 1, 2]
@@ -292,28 +292,28 @@ collect([1=>'a', 2=>'b'])->union([3=>'c', 1=>'d']);
 // [1, 2, 3, 4]
 collect([1, 1, 2, 2, 3, 4, 2])->unique();
 // [ ['id'=>1, 'size'=>'big'] ]
-collect(array(
+collect([
     ['id'=>1, 'size'=>'big'],
     ['id'=>2, 'size'=>'big'],
-))->unique('size');
+])->unique('size');
 $collection->unique(Closure);
 
 // [1, 2]
 collect(['a'=>1, 'b'=>2])->values();
 
 // [ ['id'=>2, 'size'=>'big'] ]
-collect(array(
+collect([
     ['id'=>1, 'size'=>'big'],
     ['id'=>2, 'size'=>'big'],
-))->where('id', 2);
+])->where('id', 2);
 // Strict...
 $collection->whereStrict('id', 2);
 
 // [ ['id'=>2, 'size'=>'big'] ]
-collect(array(
+collect([
     ['id'=>6, 'size'=>'big'],
     ['id'=>2, 'size'=>'big'],
-))->whereIn('id', [2, 3]);
+])->whereIn('id', [2, 3]);
 // Strict...
 $collection->whereInStrict('id', 2);
 

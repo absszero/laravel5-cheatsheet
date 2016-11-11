@@ -2,10 +2,8 @@
                 </h4>
 <h6>Single Action Controllers</h6>
 <pre class="prettyprint lang-php">
-class ShowProfile extends Controller
-{
-    public function __invoke($id)
-    {
+class ShowProfile extends Controller {
+    public function __invoke($id) {
         return view('user.profile', ['user' => User::findOrFail($id)]);
     }
 }

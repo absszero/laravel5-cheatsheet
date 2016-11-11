@@ -11,8 +11,7 @@ DB::statement('drop table users');
 // Listening For Query Events
 DB::listen(function($sql, $bindings, $time){ code_here; });
 // Database Transactions
-DB::transaction(function()
-{
+DB::transaction(function() {
     DB::table('users')->update(['votes' => 1]);
     DB::table('posts')->delete();
 });
@@ -26,8 +25,7 @@ DB::commit();
 // Retrieving All Rows From A Table
 DB::table('name')->get();
 // Chunking Results From A Table
-DB::table('users')->chunk(100, function($users)
-{
+DB::table('users')->chunk(100, function($users) {
     foreach ($users as $user) { }
 });
 // Retrieving A Single Row From A Table
@@ -80,11 +78,11 @@ DB::table('users')->whereColumn([
     ['first_name', '=', 'last_name'],
     ['updated_at', '>', 'created_at']
 ]);
-// select * from users where name = 'John' or (votes > 100 and title <> 'Admin')
+// select * from users where name = 'John'
+// OR (votes > 100 and title <> 'Admin')
 DB::table('users')
     ->where('name', '=', 'John')
-    ->orWhere(function($query)
-    {
+    ->orWhere(function($query) {
         $query->where('votes', '>', 100)
               ->where('title', '<>', 'Admin');
     });

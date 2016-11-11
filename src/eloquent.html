@@ -1,5 +1,4 @@
 <h4><a name="eloquent" href="#eloquent">Eloquent ORM</a> <a href="https://laravel.com/docs/5.3/eloquent" title="Eloquent @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
-<h6>Basic Usage <a href="https://laravel.com/docs/5.3/eloquent#basic-usage" title="Basic Usage @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
 <pre class="prettyprint lang-php">
 // Define an eloquent model
 class User extends Model {}
@@ -169,13 +168,11 @@ Model::withoutGlobalScopes([FirstScope::class, SecondScope::class]);
 Model::withoutGlobalScopes();
 
 // Local scopes
-public function scopePopular($query)
-{
+public function scopePopular($query) {
     return $query->where('votes', 1);
 }
 
-public function scopeOfType($query, $type)
-{
+public function scopeOfType($query, $type) {
     return $query->where('type', $type);
 }
 Model::popular()->ofType('admin')->get();

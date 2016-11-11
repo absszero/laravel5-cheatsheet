@@ -94,8 +94,8 @@ class ExampleTest extends TestCase {
 
 <h6>Custom HTTP Requests</h6>
 <pre class="prettyprint lang-php">
-$response = $this->call($method, $uri, $parameters, $files, $server, $content);
-$response = $this->callSecure('GET', 'foo/bar');
+$this->call($method, $uri, $parameters, $files, $server, $content);
+$this->callSecure('GET', 'foo/bar');
 </pre>
 
 <h6>PHPUnit Assertions</h6>

@@ -68,7 +68,6 @@
 <li><a href="#forms">Forms</a></li>
 <li><a href="#helpers">Helpers</a></li>
 <li><a href="#html">Html</a></li>
-<li><a href="#input">Input</a></li>
 <li><a href="#localization">Localization</a></li>
 <li><a href="#log">Log</a></li>
 <li><a href="#mail">Mail</a></li>
@@ -196,8 +195,8 @@ class ExampleTest extends TestCase {
 
 <h6>Custom HTTP Requests</h6>
 <pre class="prettyprint lang-php">
-$response = $this->call($method, $uri, $parameters, $files, $server, $content);
-$response = $this->callSecure('GET', 'foo/bar');
+$this->call($method, $uri, $parameters, $files, $server, $content);
+$this->callSecure('GET', 'foo/bar');
 </pre>
 
 <h6>PHPUnit Assertions</h6>
@@ -689,7 +688,7 @@ $user->downloadInvoice($invoiceId, [
     'product' => 'Your Product',
 ]);
 </pre>
-<h4><a name="blade" href="#blade">Blade Templates</a> <a href="https://laravel.com/docs/5.3/templates#blade-templating" title="Blade Templating @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<h4><a name="blade" href="#blade">Blade Templates</a> <a href="https://laravel.com/docs/5.3/blade" title="Blade Templating @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
 <pre class="prettyprint lang-php">
 @extends('layout.name')
 // Defines a section
@@ -787,6 +786,7 @@ Today is {{ date }}.
 // &lt;input type=&quot;hidden&quot; name=&quot;_token&quot; value=&quot;{{ csrf_token() }}&quot;&gt;
 {{ csrf_field() }}
 </pre>
+
 <h6>$loop variable</h6>
 <pre class="prettyprint lang-php">
 @foreach ($users as $user)
@@ -816,7 +816,7 @@ $loop->parent
 </pre>
 <h4><a name="broadcasting" href="#broadcasting">Event Broadcasting</a> <a href="https://laravel.com/docs/5.3/broadcasting" title="Event Broadcasting @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
 <h6>Laravel Echo</h6>
-<pre class="prettyprint lang-php">
+<pre class="prettyprint lang-js">
 // Listen for event broadcasts
 Echo.channel('orders').listen('OrderShipped', (e) => {});
 // Specify the fully-qualified class name
@@ -876,21 +876,6 @@ $value = cache('key');
 cache(['key' => 'value'], $minutes);
 cache(['key' => 'value'], Carbon::now()->addSeconds(10));
 </pre>
-<h4><a name="configuration" href="#configuration">Configuration</a> <a href="https://laravel.com/docs/5.3/configuration" title="Configuration @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
-<pre class="prettyprint lang-php">
-// Access configuration values
-$value = config('app.timezone');
-// Set configuration values at runtime
-config(['app.timezone' => 'America/Chicago']);
-//  retrieve value from $_ENV PHP super-global
-env('APP_DEBUG', $deafult);
-// Current application environment
-App::environment();
-// Check if local
-App::environment('local');
-// Check if local OR staging
-App::environment('local', 'staging');
-</pre>
 <h4><a name="collections" href="#collections">Collections</a> <a href="https://laravel.com/docs/5.3/collections" title="Collections @ Laravel Docs"><i class="icon-file-text"></i></a>
                 </h4>
 <pre class="prettyprint lang-php">
@@ -903,10 +888,10 @@ collect([1, 2, 3, 4, 5])->avg();
 // array([1, 2, 3, 4], [5, 6])
 collect([1, 2, 3, 4, 5, 6])->chunk(4);
 // [1, 2, 3, 4, 5, 6]
-collect(array(
+collect([
     [1, 2, 3],
     [4, 5, 6],
-))->collapse();
+])->collapse();
 // ['name'=>'George', 'age'=>29]
 collect(['name', 'age'])->combine(['George', 29]);
 
@@ -949,15 +934,15 @@ collect([1, 2, 3, 4])->first(function($item, $key){
 // ['a', true, 'd']
 collect([ 'a', 'b'=>true, 'c'=>['d'] ])->flatten();
 // array(['a.2'], ['b.2'])
-collect(array(
+collect([
     'a'=>array(['a.2']),
     'b'=>array(['b.2']),
-))->flatten(1);
+])->flatten(1);
 // ['a.2', 'b.2']
-collect(array(
+collect([
     'a'=>array(['a.2']),
     'b'=>array(['b.2']),
-))->flatten(2);
+])->flatten(2);
 
 // ['Jack'=>'name']
 collect(['name'=>'Jack'])->flip();
@@ -1006,26 +991,26 @@ collect([])->isEmpty();
     '100'=>['id'=>'100', 'name'=>'desk'],
     '200'=>['id'=>'200', 'name'=>'chair'],
 ] */
-collect(array(
+collect([
     ['id'=>'100', 'name'=>'desk'],
     ['id'=>'200', 'name'=>'chair'],
-))->keyBy('id');
+])->keyBy('id');
 /* [
     'desk'=>['id'=>'100', 'name'=>'desk'],
     'chair'=>['id'=>'200', 'name'=>'chair'],
 ] */
-collect(array(
+collect([
     ['id'=>'100', 'name'=>'desk'],
     ['id'=>'200', 'name'=>'chair'],
-))->keyBy(function($item) {
+])->keyBy(function($item) {
     return $item['name'];
 });
 
 // ['a', 'b']
-collect(array(
+collect([
     'a'=>[],
     'b'=>[],
-))->keys();
+])->keys();
 // 4
 collect([1, 2, 3, 4])->last(function($item, $key){
     return $item > 1;
@@ -1037,29 +1022,29 @@ collect([1, 2, 3, 4, 5])->map(function ($item, $key) {
     return $item * 2;
 });
 // ["one"=>1, "two"=>2];
-collect(array(
+collect([
     'one'=>['id'=>1],
     'two'=>['id'=>2]
-))->mapWithKeys(function ($item, $key) {
+])->mapWithKeys(function ($item, $key) {
     return [$key=>$item['id']];
 });
 
 // 5
 collect([1, 2, 3, 4, 5])->max();
 // 20
-collect(array(
+collect([
     ['foo'=>10],
     ['foo'=>20]
-))->max('foo');
+])->max('foo');
 // ['a'=>1, 'b'=>200, 'c'=>3]
 collect(['a'=>1, 'b'=>2])->merge(['b'=>200, 'c'=>3]);
 // 1
 collect([1, 2, 3, 4, 5])->min();
 // 10
-collect(array(
+collect([
     ['foo'=>10],
     ['foo'=>20]
-))->min('foo');
+])->min('foo');
 // ['b'=>'2', 'c'=>'3']
 collect(['a'=>'1', 'b'=>'2', 'c'=> '3'])->only(['b','c']);
 // 6
@@ -1067,15 +1052,15 @@ collect([1, 2, 3])->pipe(function ($collection) {
     return $collection->sum();
 })
 // ['Jack', 'Rose']
-collect(array(
+collect([
     ['id'=>5, 'name'=>'Jack'],
     ['id'=>6, 'name'=>'Rose'],
-))->pluck('name');
+])->pluck('name');
 // [5=>'Jack', 6=>'Rose']
-collect(array(
+collect([
     ['id'=>5, 'name'=>'Jack'],
     ['id'=>6, 'name'=>'Rose']
-))->pluck ('name', $key = 'id');
+])->pluck ('name', $key = 'id');
 
 // 5
 collect([1, 2, 3, 4, 5])->pop();
@@ -1160,10 +1145,10 @@ collect([1, 2, 3, 4, 5])->splice(2, 1);
 // 15
 collect([1, 2, 3, 4, 5])->sum();
 // 1272
-$collection = collect(array(
+$collection = collect([
     ['pages'=>176],
     ['pages'=>1096],
-))->sum('pages');
+])->sum('pages');
 $collection->sum(Closure);
 
 // [0, 1, 2]
@@ -1185,43 +1170,55 @@ collect([1=>'a', 2=>'b'])->union([3=>'c', 1=>'d']);
 // [1, 2, 3, 4]
 collect([1, 1, 2, 2, 3, 4, 2])->unique();
 // [ ['id'=>1, 'size'=>'big'] ]
-collect(array(
+collect([
     ['id'=>1, 'size'=>'big'],
     ['id'=>2, 'size'=>'big'],
-))->unique('size');
+])->unique('size');
 $collection->unique(Closure);
 
 // [1, 2]
 collect(['a'=>1, 'b'=>2])->values();
 
 // [ ['id'=>2, 'size'=>'big'] ]
-collect(array(
+collect([
     ['id'=>1, 'size'=>'big'],
     ['id'=>2, 'size'=>'big'],
-))->where('id', 2);
+])->where('id', 2);
 // Strict...
 $collection->whereStrict('id', 2);
 
 // [ ['id'=>2, 'size'=>'big'] ]
-collect(array(
+collect([
     ['id'=>6, 'size'=>'big'],
     ['id'=>2, 'size'=>'big'],
-))->whereIn('id', [2, 3]);
+])->whereIn('id', [2, 3]);
 // Strict...
 $collection->whereInStrict('id', 2);
 
 // [['Chair', 100], ['Desk', 200]]
 collect(['Chair', 'Desk'])->zip([100, 200]);
 </pre>
-configuration.html
+<h4><a name="configuration" href="#configuration">Configuration</a> <a href="https://laravel.com/docs/5.3/configuration" title="Configuration @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<pre class="prettyprint lang-php">
+// Access configuration values
+$value = config('app.timezone');
+// Set configuration values at runtime
+config(['app.timezone' => 'America/Chicago']);
+//  retrieve value from $_ENV PHP super-global
+env('APP_DEBUG', $deafult);
+// Current application environment
+App::environment();
+// Check if local
+App::environment('local');
+// Check if local OR staging
+App::environment('local', 'staging');
+</pre>
 <h4><a name="controllers" href="#controllers">Controllers</a> <a href="https://laravel.com/docs/5.3/controllers" title="Controllers @ Laravel Docs"><i class="icon-file-text"></i></a>
                 </h4>
 <h6>Single Action Controllers</h6>
 <pre class="prettyprint lang-php">
-class ShowProfile extends Controller
-{
-    public function __invoke($id)
-    {
+class ShowProfile extends Controller {
+    public function __invoke($id) {
         return view('user.profile', ['user' => User::findOrFail($id)]);
     }
 }
@@ -1280,8 +1277,6 @@ $response->withCookie(Cookie::make('name', 'value', $minutes));
 // or
 response('Hello World')->cookie('name', 'value', $minutes);
 </pre>
-                    </div>
-                    <div class="large-4 columns code-column">
 <h4><a name="database-testing" href="#database-testing">Database Testing</a> <a href="https://laravel.com/docs/5.3/database-testing" title="Database Testing @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
 <pre class="prettyprint lang-php">
 // Assert that data exists in the database
@@ -1326,23 +1321,24 @@ $users = factory(User::class, 3)->make();
 $user = factory(User::class, 'admin')->make();
 // Create three "admin" User instances...
 $users = factory(User::class, 'admin', 3)->make();
-// Overriding Attributes
+// Override Attributes
 $user = factory(App\User::class)->make([
     'name' => 'Abigail',
 ]);
 
 // Create and save to the database
 $user = factory(User::class)->create();
-
 // Apply a state
 $users = factory(User::class)->states('deliquent')->make();
-
 // Attach a relation to a created model
 $users = factory(App\User::class)->create()
     ->each(function ($u) {
         $u->posts()->save(factory(App\Post::class)->make());
     });
 </pre>
+
+                    </div>
+                    <div class="large-4 columns code-column">
 
 <h4><a name="database" href="#database">Database</a> <a href="https://laravel.com/docs/5.3/database" title="Basic Database Usage @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
 
@@ -1357,8 +1353,7 @@ DB::statement('drop table users');
 // Listening For Query Events
 DB::listen(function($sql, $bindings, $time){ code_here; });
 // Database Transactions
-DB::transaction(function()
-{
+DB::transaction(function() {
     DB::table('users')->update(['votes' => 1]);
     DB::table('posts')->delete();
 });
@@ -1372,8 +1367,7 @@ DB::commit();
 // Retrieving All Rows From A Table
 DB::table('name')->get();
 // Chunking Results From A Table
-DB::table('users')->chunk(100, function($users)
-{
+DB::table('users')->chunk(100, function($users) {
     foreach ($users as $user) { }
 });
 // Retrieving A Single Row From A Table
@@ -1426,11 +1420,11 @@ DB::table('users')->whereColumn([
     ['first_name', '=', 'last_name'],
     ['updated_at', '>', 'created_at']
 ]);
-// select * from users where name = 'John' or (votes > 100 and title <> 'Admin')
+// select * from users where name = 'John'
+// OR (votes > 100 and title <> 'Admin')
 DB::table('users')
     ->where('name', '=', 'John')
-    ->orWhere(function($query)
-    {
+    ->orWhere(function($query) {
         $query->where('votes', '>', 100)
               ->where('title', '<>', 'Admin');
     });
@@ -1618,7 +1612,7 @@ elixir(function(mix) {
 // Combines all of the scripts in a given directory
 elixir(function(mix) { mix.scriptsIn('public/js/some/directory'); });
 // Copy
-elixir(function(mix) { mix.copy('vendor/foo/bar.css', 'public/css/bar.css'); });
+elixir(function(mix) { mix.copy('foo/bar.css', 'bar/foo.css'); });
 // Versioning Files
 elixir(function(mix) { mix.version('css/all.css'); });
 elixir(function(mix) {
@@ -1843,7 +1837,6 @@ $user->roles()->updateExistingPivot($roleId, $attributes);
 
 </pre>
 <h4><a name="eloquent" href="#eloquent">Eloquent ORM</a> <a href="https://laravel.com/docs/5.3/eloquent" title="Eloquent @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
-<h6>Basic Usage <a href="https://laravel.com/docs/5.3/eloquent#basic-usage" title="Basic Usage @ Laravel Docs"><i class="icon-file-text"></i></a></h6>
 <pre class="prettyprint lang-php">
 // Define an eloquent model
 class User extends Model {}
@@ -2013,13 +2006,11 @@ Model::withoutGlobalScopes([FirstScope::class, SecondScope::class]);
 Model::withoutGlobalScopes();
 
 // Local scopes
-public function scopePopular($query)
-{
+public function scopePopular($query) {
     return $query->where('votes', 1);
 }
 
-public function scopeOfType($query, $type)
-{
+public function scopeOfType($query, $type) {
     return $query->where('type', $type);
 }
 Model::popular()->ofType('admin')->get();
@@ -2135,34 +2126,50 @@ Illuminate\Mail\Events\MessageSending
 Illuminate\Notifications\Events\NotificationSent
 </pre>
 
-<h4><a name="files" href="#files">Files</a> <a href="https://laravel.com/api/5.0/Illuminate/Filesystem/Filesystem.html" title="Filesystem @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
-<pre class="prettyprint lang-php">File::exists('path');
+<h4><a name="files" href="#files">Files</a> <a href="https://laravel.com/api/5.3/Illuminate/Filesystem/Filesystem.html" title="Filesystem @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<pre class="prettyprint lang-php">
+File::exists('path');
 File::get('path');
-File::getRemote('path');
+// Get contents with shared access
+File::sharedGet('path');
 // Get a file's contents by requiring it
 File::getRequire('path');
 // Require the given file once
 File::requireOnce('path');
 // Write the contents of a file
 File::put('path', 'contents');
+// Prepend to a file
+File::prepend('path', 'data');
 // Append to a file
 File::append('path', 'data');
-// Delete the file at a given path
+// Delete the file
 File::delete('path');
 // Move a file to a new location
 File::move('path', 'target');
 // Copy a file to a new location
 File::copy('path', 'target');
-// Extract the file extension from a file path
+// Create a hard link
+File::link('target', 'link');
+// Extract the file name
+File::name('path');
+// Extract the trailing name component
+File::basename('path');
+// Extract the parent directory
+File::dirname('path');
+// Extract the file extension
 File::extension('path');
-// Get the file type of a given file
+// Get the file type
 File::type('path');
-// Get the file size of a given file
+// Get the file mime-type o
+File::mimeType('path');
+// Get the file size
 File::size('path');
 // Get the file's last modification time
 File::lastModified('path');
 // Determine if the given path is a directory
 File::isDirectory('directory');
+// Determine if the given path is readable
+File::isReadable('path');
 // Determine if the given path is writable
 File::isWritable('path');
 // Determine if the given path is a file
@@ -2177,6 +2184,8 @@ File::allFiles('directory');
 File::directories('directory');
 // Create a directory
 File::makeDirectory('path',  $mode = 0777, $recursive = false);
+// Move a directory
+File::moveDirectory('from', 'to', $overwrite  = false);
 // Copy a directory from one location to another
 File::copyDirectory('directory', 'destination', $options = null);
 // Recursively delete a directory
@@ -2549,118 +2558,94 @@ tap($value, $callback)
 // Return the given object. Useful for chaining.
 with(new Foo)->chainedMethod();
 </pre>
-<h4><a name="html" href="#html">HTML Builder</a></h4>
-<pre class="prettyprint lang-php">HTML::macro('name', function(){});
-// Convert an HTML string to entities
-HTML::entities($value);
-// Convert entities to HTML characters
-HTML::decode($value);
-// Generate a link to a JavaScript file
-HTML::script($url, $attributes);
-// Generate a link to a CSS file
-HTML::style($url, $attributes);
-// Generate an HTML image element
-HTML::image($url, $alt, $attributes);
-// Generate a HTML link
-HTML::link($url, 'title', $attributes, $secure);
-// Generate a HTTPS HTML link
-HTML::secureLink($url, 'title', $attributes);
-// Generate a HTML link to an asset
-HTML::linkAsset($url, 'title', $attributes, $secure);
-// Generate a HTTPS HTML link to an asset
-HTML::linkSecureAsset($url, 'title', $attributes);
-// Generate a HTML link to a named route
-HTML::linkRoute($name, 'title', $parameters, $attributes);
-// Generate a HTML link to a controller action
-HTML::linkAction($action, 'title', $parameters, $attributes);
-// Generate a HTML link to an email address
-HTML::mailto($email, 'title', $attributes);
-// Obfuscate an e-mail address to prevent spam-bots from sniffing it
-HTML::email($email);
-// Generate an ordered list of items
-HTML::ol($list, $attributes);
-// Generate an un-ordered list of items
-HTML::ul($list, $attributes);
-// Create a listing HTML element
-HTML::listing($type, $list, $attributes);
-// Create the HTML for a listing element
-HTML::listingElement($key, $type, $value);
-// Create the HTML for a nested listing attribute
-HTML::nestedListing($key, $type, $value);
-// Build an HTML attribute string from an array
-HTML::attributes($attributes);
-// Build a single attribute element
-HTML::attributeElement($key, $value);
-// Obfuscate a string to prevent spam-bots from sniffing it
-HTML::obfuscate($value);
+<h4><a name="html" href="#html">HTML Builder</a>
+<a href="https://laravelcollective.com/docs/5.3/html" title="Filesystem @ Laravel Docs"><i class="icon-file-text"></i></a>
+</h4>
+<pre class="prettyprint lang-php">
+// Open A Form
+Form::open(['url' => 'foo/bar'])
+Form::close()
+// Open a form that point to a named route
+Form::open(['route' => 'route.name'])
+Form::open(['route' => ['route.name', $user->id]])
+// Open a form that point to a controller action
+Form::open(['action' => 'Controller@method'])
+Form::open(['action' => ['Controller@method', $user->id]])
+// Accept file uploads
+Form::open(['url' => 'foo/bar', 'files' => true])
+
+// Populate a form based on the contents of a model
+Form::model($user, ['route' => ['user.update', $user->id]])
+Form::close()
+// Use form accessors
+use Collective\Html\Eloquent\FormAccessible;
+class User extends Model {
+    use FormAccessible;
+}
+
+// Generate the html for the hidden CSRF field
+Form::token();
+// Generate a label element
+Form::label('email', 'E-Mail Address', ['class' => 'awesome']);
+// Generate a text input with defaut value
+Form::text('email', 'example@gmail.com');
+// Generate a password input
+Form::password('password', ['class' => 'awesome']);
+// Generate other inputs
+Form::email($name, $value = null, $attributes = []);
+Form::file($name, $attributes = []);
+Form::number('name', 'value');
+Form::date('name', \Carbon\Carbon::now());
+// Generate a checkbox or radio input
+Form::checkbox('name', 'value', $checked);
+Form::radio('name', 'value', $checked);
+// Generate a drop-down list
+Form::select('size', ['L'=>'Large', 'S'=>'Small'], $selected);
+// generate a grouped list
+Form::select('animal', [
+    'Cats' => ['leopard' => 'Leopard'],
+    'Dogs' => ['spaniel' => 'Spaniel'],
+]);
+// Generate a drop-down list with a range
+Form::selectRange('number', 10, 20);
+// Generate a list with month names
+Form::selectMonth('month');
+// Generate a submit button
+Form::submit('Click Me!');
+</pre>
+
+<h6>Custom</h6>
+<pre class="prettyprint lang-php">
+// Register a form macro
+Form::macro('myField', function() {
+    return '&lt;input type="awesome"&gt;';
+});
+Form::myField();
+
+// Register a custom component
+Form::component('bsText', 'components.form.text', ['name', 'value', 'attributes']);
+// resources/views/components/form/text.blade.php
+&lt;div class="form-group"&gt;
+    {{ Form::label($name, null, ['class' => 'control-label']) }}
+    {{ Form::text($name, $value, array_merge(['class' => 'form-control'], $attributes)) }}
+&lt;/div&gt;
+// Call it
+Form::bsText('first_name');
+</pre>
+
+<h6>Generating URLs</h6>
+<pre class="prettyprint lang-php">
+// Generate a HTML link to the given URL
+link_to('foo/bar', $title = null, $attributes = [], $secure = null);
+// Generate a HTML link to the given asset
+link_to_asset('foo/bar.zip', $title = null, $attributes = [], $secure = null);
+// Generate a HTML link to the given named route
+link_to_route('route.name', $title = null, $parameters = [], $attributes = []);
+// Generate a HTML link to the given controller action
+link_to_action('HomeController@getIndex', $title = null, $parameters = [], $attributes = []);
 </pre>
                     </div>
                     <div class="large-4 columns code-column">
-<h4><a name="input" href="#input">Input</a> <a href="https://laravel.com/docs/5.3/requests" title="Input @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
-<pre class="prettyprint lang-php">
-Request::input('key');
-// Default if the key is missing
-Request::input('key', 'default');
-// Works with forms that contain array inputs
-Request::input('products.*.name');
-// Retrieving Input Via Dynamic Properties
-$name = request()->name;
-// Retrieving JSON Input Values when "Content-Type" header is "application/json"
-Request::input('user.name');
-Request::has('key');
-Request::all();
-// Only retrieve 'foo' and 'bar' when getting input
-Request::only(['foo', 'bar']);
-Request::only('foo', 'bar');
-// Disregard 'foo' when getting input
-Request::except('foo');
-Request::except(['foo']);
-// Flash Input To The Session
-Request::flush();
-// Flash a subset of the request data to the session
-$request->flashOnly(['username', 'email']);
-$request->flashExcept('password');
-</pre>
-
-<h6>Session Input (flash)</h6>
-<pre class="prettyprint lang-php">// Flash input to the session
-Request::flash();
-// Flash only some of the input to the session
-Request::flashOnly('foo', 'bar');
-// Flash only some of the input to the session
-Request::flashExcept('foo', 'baz');
-// Retrieve an old input item
-Request::old('key','default_value');
-</pre>
-
-<h6>Files</h6>
-<pre class="prettyprint lang-php">// Use a file that's been uploaded
-Request::file('filename');
-// Determine if a file was uploaded
-Request::hasFile('filename');
-// Validating Successful Uploads
-Request::file('photo')->isValid()
-// Access file properties
-Request::file('name')->path();
-Request::file('name')->getRealPath();
-Request::file('name')->extension();
-Request::file('name')->getClientOriginalName();
-Request::file('name')->getClientOriginalExtension();
-Request::file('name')->getSize();
-Request::file('name')->getMimeType();
-// Move an uploaded file
-Request::file('name')->move($destinationPath);
-// Move an uploaded file
-Request::file('name')->move($destinationPath, $fileName);
-// Stores Uploaded Files
-$path = Request::file('name')->store('store_dir');
-// the name of the disk that should be used to store the file
-$path = $request->photo->store('store_dir', 's3');
-// Stores as the filename
-$path = $request->photo->storeAs('images', 'filename.jpg');
-$path = $request->photo->storeAs('images', 'filename.jpg', 's3');
-
-</pre>
 <h4><a name="localization" href="#localization">Localization</a> <a href="https://laravel.com/docs/5.3/localization" title="Localization @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
 <pre class="prettyprint lang-php">
 App::setLocale('en');
@@ -3116,45 +3101,105 @@ Redis::psubscribe(['*'], function($message, $channel) { })
 <h4><a name="requests" href="#requests">Requests</a> <a href="https://laravel.com/docs/5.3/requests" title="Requests @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
 <pre class="prettyprint lang-php">
 // url: http://xx.com/aa/bb
-Request::url();
+$request->url();
 // url: http://xx.com/aa/bb?c=d
-Request::fullUrl();
+$request->fullUrl();
 // path: /aa/bb
-Request::path();
+$request->path();
+// Verify request path matches a given pattern
+$request->is('admin/*'))
 // getRequestUri: /aa/bb/?c=d
-Request::inputRequestUri();
+$request->inputRequestUri();
 // Returns user's IP
-Request::inputClientIp();
+$request->inputClientIp();
 // getUri: http://xx.com/aa/bb/?c=d
-Request::inputUri();
+$request->inputUri();
 // getQueryString: c=d
-Request::inputQueryString();
+$request->inputQueryString();
 // Get the port scheme of the request (e.g., 80, 443, etc.)
-Request::inputPort();
+$request->inputPort();
 // Determine if the current request URI matches a pattern
-Request::is('foo/*');
+$request->is('foo/*');
 // Get a segment from the URI (1 based index)
-Request::segment(1);
+$request->segment(1);
 // Retrieve a header from the request
-Request::header('Content-Type');
+$request->header('Content-Type');
 // Retrieve a server variable from the request
-Request::server('PATH_INFO');
+$request->server('PATH_INFO');
 // Determine if the request is the result of an AJAX call
-Request::ajax();
+$request->ajax();
 // Determine if the request is over HTTPS
-Request::secure();
+$request->secure();
 // Get the request method
-Request::method();
+$request->method();
 // Checks if the request method is of specified type
-Request::isMethod('post');
+$request->isMethod('post');
 // Get raw POST data
-Request::instance()->getContent();
+$request->instance()->getContent();
 // Get requested response format
-Request::format();
+$request->format();
 // true if HTTP Content-Type header contains */json
-Request::isJson();
+$request->isJson();
 // true if HTTP Accept header is application/json
-Request::wantsJson();
+$request->wantsJson();
+</pre>
+
+<h6>Retrieving Input</h6>
+<pre class="prettyprint lang-php">
+$request->input('key');
+// Default if the key is missing
+$request->input('key', 'default');
+// Works with forms that contain array inputs
+$request->input('products.0.name');
+$request->input('products.*.name');
+// Retrieve input via dynamic properties
+$name = request()->name;
+// Retrieve json input values when "content-type" header is "application/json"
+$request->input('user.name');
+$request->has('key');
+$request->all();
+// Only retrieve 'foo' and 'bar' when getting input
+$request->only(['foo', 'bar']);
+$request->only('foo', 'bar');
+// Disregard 'foo' when getting input
+$request->except('foo');
+$request->except(['foo']);
+// Flash Input To The Session
+$request->flash();
+// Flash a subset of the request data to the session
+$request->flashOnly(['username', 'email']);
+$request->flashExcept('password');
+// Retrieve an old input item
+$request->old('key','default_value');
+</pre>
+
+<h6>Files</h6>
+<pre class="prettyprint lang-php">
+// Use a file that's been uploaded
+$request->file('filename');
+// Determine if a file was uploaded
+$request->hasFile('filename');
+// validate a successful upload
+$request->file('photo')->isValid()
+// Access file properties
+$request->file('name')->path();
+$request->file('name')->getRealPath();
+$request->file('name')->extension();
+$request->file('name')->getClientOriginalName();
+$request->file('name')->getClientOriginalExtension();
+$request->file('name')->getSize();
+$request->file('name')->getMimeType();
+// Move an uploaded file
+$request->file('name')->move($destinationPath);
+// Move an uploaded file
+$request->file('name')->move($destinationPath, $fileName);
+// Store a uploaded file
+$request->file('name')->store('store_dir');
+// the name of the disk that should be used to store the file
+$request->photo->store('store_dir', 's3');
+// Store as the filename
+$request->photo->storeAs('images', 'filename.jpg');
+$request->photo->storeAs('images', 'filename.jpg', 's3');
 </pre>
 <h4><a name="responses" href="#responses">Responses</a> <a href="https://laravel.com/docs/5.3/responses" title="Responses @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
 <pre class="prettyprint lang-php">return Response::make($contents);

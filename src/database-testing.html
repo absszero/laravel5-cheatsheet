@@ -42,17 +42,15 @@ $users = factory(User::class, 3)->make();
 $user = factory(User::class, 'admin')->make();
 // Create three "admin" User instances...
 $users = factory(User::class, 'admin', 3)->make();
-// Overriding Attributes
+// Override Attributes
 $user = factory(App\User::class)->make([
     'name' => 'Abigail',
 ]);
 
 // Create and save to the database
 $user = factory(User::class)->create();
-
 // Apply a state
 $users = factory(User::class)->states('deliquent')->make();
-
 // Attach a relation to a created model
 $users = factory(App\User::class)->create()
     ->each(function ($u) {
