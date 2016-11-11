@@ -66,15 +66,15 @@ collect(array(
     'b'=>array(['b.2']),
 ))->flatten(2);
 
-// ['John'=>'name']
-collect(['name'=>'John'])->flip();
+// ['Jack'=>'name']
+collect(['name'=>'Jack'])->flip();
 // []
-collect(['name'=>'John'])->forget('name');
+collect(['name'=>'Jack'])->forget('name');
 // [3=>5, 4=>5, 5=>5]
 collect([4,4,4,  5,5,5,  6,6,6])->forPage($page = 2, $perPage = 3);
-// 'John'
-collect(['name'=>'John'])->get('name', 'default-value');
-collect(['name'=>'John'])->get('name', Closure);
+// 'Jack'
+collect(['name'=>'Jack'])->get('name', 'default-value');
+collect(['name'=>'Jack'])->get('name', Closure);
 
 /* [
      'big'=>[
@@ -96,10 +96,10 @@ $collection->groupBy(function ($item, $key) {
 });
 
 // Determine if a given key exists in the collection
-collect(['name'=>'John'])->has('name');
+collect(['name'=>'Jack'])->has('name');
 
-// John::Mary
-collect(array(['name'=>'John'], ['name'=>'Mary']))
+// Jack::Rose
+collect(array(['name'=>'Jack'], ['name'=>'Rose']))
     ->implode('name', '::');
 // 1-2-3-4-5
 collect([1, 2, 3, 4, 5])->implode('-');
@@ -173,15 +173,15 @@ collect(['a'=>'1', 'b'=>'2', 'c'=> '3'])->only(['b','c']);
 collect([1, 2, 3])->pipe(function ($collection) {
     return $collection->sum();
 })
-// ['John', 'Mary']
+// ['Jack', 'Rose']
 collect(array(
-    ['id'=>5, 'name'=>'John'],
-    ['id'=>6, 'name'=>'Mary'],
+    ['id'=>5, 'name'=>'Jack'],
+    ['id'=>6, 'name'=>'Rose'],
 ))->pluck('name');
-// [5=>'John', 6=>'Mary']
+// [5=>'Jack', 6=>'Rose']
 collect(array(
-    ['id'=>5, 'name'=>'John'],
-    ['id'=>6, 'name'=>'Mary']
+    ['id'=>5, 'name'=>'Jack'],
+    ['id'=>6, 'name'=>'Rose']
 ))->pluck ('name', $key = 'id');
 
 // 5

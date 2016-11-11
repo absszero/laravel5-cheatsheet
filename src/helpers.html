@@ -1,198 +1,250 @@
 <h4><a name="helpers" href="#helpers">Helpers</a> <a href="https://laravel.com/docs/5.3/helpers" title="Helpers @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
 <h6>Arrays</h6>
 <pre class="prettyprint lang-php">
-array_add($array, 'key', 'value');
-// Result: [1, 2, 3, 4, 5, 6]
-$array = array_collapse([[1, 2, 3], [4, 5, 6]]);
-// Divide an array into two arrays. One with keys and the other with values
-array_divide($array);
-// Flatten a multi-dimensional associative array with dots
-array_dot($array);
-// Get all of the given array except for a specified array of items
-array_except($array, array('key'));
-// Return the first element in an array passing a given truth test
-array_first($array, function($key, $value){}, $default);
-// Strips keys from the array
-array_flatten($array);
-// Remove one or many array items from a given array using "dot" notation
-array_forget($array, 'foo');
-// Dot notation
-array_forget($array, 'foo.bar');
-// Get an item from an array using "dot" notation
-array_get($array, 'foo', 'default');
-array_get($array, 'foo.bar', 'default');
-// Checks that a given item exists in an array using "dot" notation
-array_has($array, 'products.desk');
-// Returns the last element of an array passing a given truth test
-array_last($array, function ($value, $key) {
-    return $value >= 150;
+// ['one'=>1, 'two'=>2]
+array_add(['one'=>1], 'two', 2);
+// [1, 2, 3, 4, 5, 6]
+array_collapse(array([1, 2, 3], [4, 5, 6]));
+// $keys: ['name'], $values: ['Desk']
+list($keys, $values) = array_divide(['name'=>'Desk']);
+// ['foo.bar'=>'baz']
+array_dot(['foo'=>['bar'=>'baz']]);
+// ['one'=>1]
+array_except(['one'=>1, 'two'=>2], ['two']);
+// 2
+array_first([1, 2, 3, 4], function($item, $key){
+    return $item > 1;
+}, $default);
+// ['a', true, 'd']
+array_flatten([ 'a', 'b'=>true, 'c'=>['d'] ]);
+// ['products'=>[]]
+$array = [ 'products'=>['desk'=>['price'=>100]] ];
+array_forget($array, 'products.desk');
+// ['price'=>100]
+$array = [ 'products'=>['desk'=>['price'=>100]] ];
+array_get($array, 'products.desk', $default);
+// Check that a given item or items exists
+$array = [ 'products'=>['name'=>'desk', 'price'=>100] ];
+array_has($array, 'products.name');
+array_has($array, ['products.name', 'products.price']);
+// 4
+array_last([1, 2, 3, 4], function($item, $key){
+    return $item > 1;
 });
-// Get a subset of the items from the given array
-array_only($array, array('key'));
-// Return array of key => values
-array_pluck($array, 'key');
-// Push an item onto the beginning of an array
-array_prepend($array, 'zero');
-// Return and remove 'key' from array
-array_pull($array, 'key');
-// Set an array item to a given value using "dot" notation
-array_set($array, 'key', 'value');
-// Dot notation
-array_set($array, 'key.subkey', 'value');
-array_sort($array, function(){});
-array_sort_recursive($array)
-// Filters the array using the given Closure:
-array_where($array, function ($value, $key) {
-    return is_string($value);
+// ['two'=>2]
+array_only(['one'=>1, 'two'=>2], ['two']);
+// [1, 2]
+$array = [
+    ['staff'=>['id'=>1]],
+    ['staff'=>['id'=>2]],
+];
+array_pluck($array, 'staff.id');
+// ['zero' ,'one', 'two', 'three']
+array_prepend(['one', 'two', 'three'], 'zero');
+// $name: Desk, $array: ['price'=>100]
+$array = ['name'=>'Desk', 'price'=>100];
+$name = array_pull($array, 'name');
+// [ 'products'=>['desk'=>['price'=>200]] ]
+$array = [ 'products'=>['desk'=>['price'=>100]] ];
+array_set($array, 'products.desk.price', 200);
+/* [
+    1=>['name'=>'a'],
+    0=>['name'=>'b'],
+] */
+array_sort([
+    0=>['name'=>'b'],
+    1=>['name'=>'a'],
+], function ($value) {
+    return $value['name'];
 });
-// Fill in data where it's missing.
-data_fill(&$target, $key, $value)
-// Set an item on an array or object using dot notation.
-data_set(&$target, $key, $value, $overwrite = true)
-// First element of an array
-head($array);
-// Last element of an array
-last($array);
+/* [
+    ['a', 'b', 'c'],
+    ['1', '2', '3'],
+] */
+array_sort_recursive([
+    ['a', 'c', 'b'],
+    ['2', '3', '1'],
+]);
+// [2 => 500]
+array_where(['cat', 'dog', 500], function ($value, $key) {
+    return is_integer($value);
+});
+// 100
+head([100, 200, 300]);
+// 300
+last([100, 200, 300]);
 </pre>
+
 <h6>Paths</h6>
 <pre class="prettyprint lang-php">
+// /var/www/laravel/app
 app_path();
-// App root path
+// /var/www/laravel
 base_path();
-// configuration directory
+// /var/www/laravel/config
 config_path();
-// database directory
+// /var/www/laravel/database
 database_path();
-// Gets the path to a versioned Elixir file:
+// Get the path to a versioned Elixir file:
 elixir($file);
-// the public directory
+// /var/www/laravel/public
 public_path();
-// the resources directory.
+// /var/www/laravel/resources
 resource_path();
-resource_path('assets/sass/app.scss');
-// Get the path to the storage folder
+// /var/www/laravel/resources/assets/filename
+resource_path('assets/filename');
+// /var/www/laravel/sotrage
 storage_path();
+// /var/www/laravel/sotrage/app/file.txt
 storage_path('app/file.txt');
 </pre>
+
 <h6>Strings</h6>
 <pre class="prettyprint lang-php">
-// Convert a value to camel case
-camel_case($value);
-// Get the class "basename" of the given object / class
-class_basename($class);
-// Escape a string
-e('&lt;html&gt;');
-// Determine if a given string starts with a given substring
-starts_with('Foo bar.', 'Foo');
-// Determine if a given string ends with a given substring
-ends_with('Foo bar.', 'bar.');
-// Convert a string to snake case
+// fooBar
+camel_case('foo_bar');
+// Baz
+class_basename('Foo\Bar\Baz');
+// &amp;lt;html&amp;gt;foo&amp;lt;/html&amp;gt;
+e('&lt;html&gt;foo&lt;/html&gt;');
+// True
+ends_with('This is my name', 'name');
+// foo_bar
 snake_case('fooBar');
-// Limits the number of characters in a string
-str_limit('The PHP framework for web artisans.', 7);
-// Determine if a given string contains a given substring
-str_contains('Hello foo bar.', 'foo');
-// Result: foo/bar/
-str_finish('foo/bar', '/');
+// The PHP...
+str_limit('The PHP framework for web artisans.', $limit = 7);
+// True
+starts_with('This is my name', 'This');
+// True
+str_contains('This is my name', 'my');
+// If the given string contains any of the values
+str_contains('This is my name', ['my', 'foo']);
+// this/string@
+str_finish('this/string', '@');
+// If a given string matches a given pattern
 str_is('foo*', 'foobar');
+// cars
 str_plural('car');
-str_random(25);
-str_replace_first($search, $replace, $subject)
-str_replace_last($search, $replace, $subject)
+// children
+str_plural('child', 2);
+// child
+str_plural('child', 1);
+// Generate a random string
+str_random(10);
+// car
 str_singular('cars');
-// generates a URL friendly "slug", Result: laravel-5-framework
+// laravel-5-framework
 str_slug('Laravel 5 Framework', '-');
-// Result: FooBar
+// FooBar
 studly_case('foo_bar');
-// Result: A Nice Title Uses The Correct Case
-$title = title_case('a nice title uses the correct case');
-trans('foo.bar');
+// A Nice Title Uses The Correct Case
+title_case('a nice title uses the correct case');
+// Translate the given language line using your localization files
+trans('validation.required');
+// Translate the given language line with inflection
 trans_choice('foo.bar', $count);
 </pre>
+
 <h6>URLs and Links</h6>
 <pre class="prettyprint lang-php">
-action('FooController@method', $parameters);
-link_to('foo/bar', $title, $attributes, $secure);
-link_to_asset('img/foo.jpg', $title, $attributes, $secure);
-link_to_route('route.name', $title, $parameters, $attributes);
-link_to_action('FooController@method', $title, $params, $attrs);
-// HTML Link
-asset('img/photo.jpg', $title, $attributes);
-// HTTPS link
-secure_asset('img/photo.jpg', $title, $attributes);
-secure_url('path', $parameters);
-route($route, $parameters, $absolute = true);
-url('path', $parameters = array(), $secure = null);
+// Generate a URL for the given controller action
+action('HomeController@getIndex');
+// Route parameters
+action('UserController@profile', ['id' => 1]);
+// http://localhost/img/photo.jpg
+asset('img/photo.jpg');
+// https://localhost/foo/bar.zip
+secure_asset('foo/bar.zip');
+// Generate a URL for the given named route
+route('routeName');
+// Route parameters
+route('routeName', ['id' => 1]);
+// https://localhost/user/profile
+secure_url('user/profile');
+// http://localhost/user/profile
+url('user/profile');
+// https://localhost/user/profile/1
+secure_url('user/profile', [1]);
+// http://localhost/user/profile/1
+url('user/profile', [1]);
+// http://localhost
+url()->current();
+// http://localhost?query
+url()->full();
+// HTTP referer or previous URL from the session
+url()->previous();
 </pre>
+
 <h6>Miscellaneous</h6>
 <pre class="prettyprint lang-php">
-// Throws a HTTP exception
+// Throw a HTTP exception
 abort(401);
+// Provide the exception's response text
 abort(401, 'Unauthorized.');
-// Throws a HTTP exception if true
+// Throw a HTTP exception if true
 abort_if(! Auth::user()->isAdmin(), 403);
-// Throws a HTTP exception if false
+// Throw a HTTP exception if false
 abort_unless(Auth::user()->isAdmin(), 403);
-// Returns an authenticator instanc
-$user = auth()->user();
-// Generates a previous location redirect response
+// Return an authenticator instanc
+auth()->user();
+// Generate a previous location redirect response
 back();
-// Hashes the given value using Bcrypt
-$password = bcrypt('my-secret-password');
+// Hashe the given value using Bcrypt
+bcrypt('my-secret-password');
 // Get values from the cache
-$value = cache('key');
-$value = cache('key', 'default');
+cache('key');
+cache('key', 'default');
 // Cache by passing an array of key / value pairs
-cache(['key' => 'value'], 5);
+cache(['key'=>'value'], 5);
 // Create a collection instance
-$collection = collect(['taylor', 'abigail']);
-// Gets the value of a configuration variable
-$value = config('app.timezone');
-$value = config('app.timezone', $default);
+collect(['taylor', 'abigail']);
+// Get the value of a configuration variable
+config('app.timezone');
+config('app.timezone', $default);
 csrf_token();
-// Dumps the given variables and ends execution
+// Dump the given variables and ends execution
 dd($value);
 // Do not halt the execution
 dump($value);
-// Pushes a new job onto the queue
+// Pushe a new job onto the queue
 dispatch(new App\Jobs\SendEmails);
-// Gets the value of an environment variable
-$env = env('APP_ENV', 'default');
+// Get the value of an environment variable
+env('APP_ENV', 'default');
 // Dispatches the given event to its listeners
 event(new UserRegistered($user));
 // Create a model factory builder for a given class, name, and amount.
-$user = factory(App\User::class)->make();
-$user = factory(App\User::class)->create();
-$user = factory(App\User::class, $amount)->make();
-$user = factory(App\User::class)->make(['name' => 'foo']);
+factory(App\User::class)->make();
+factory(App\User::class)->create();
+factory(App\User::class, $amount)->make();
+factory(App\User::class)->make(['name'=>'foo']);
 // Write information to the log
-info('write information to the log', ['id' => $user->id]);
+info('write information to the log', ['id'=>$user->id]);
 // Write a debug level message to the log
-logger('Debug message to the log', ['id' => $user->id]);
+logger('Debug message to the log', ['id'=>$user->id]);
 // A logger instance will be returned if no value is passed
 logger()->error('You are not allowed here.');
-// Retrieves an old input value flashed into the session:
-$value = old('value', 'default');
-// Returns a redirect HTTP response
-$response = redirect('/home');
-// Returns the redirector instance
-$response = redirect()->route('route.name');
-// Returns the current request instance
-$request = request();
+// Retrieve an old input value flashed into the session:
+old('value', 'default');
+// Return a redirect HTTP response
+redirect('/home');
+// Return the redirector instance
+redirect()->route('route.name');
+// Return the current request instance
+request();
 // Obtains an input item:
-$value = request('key', 'default')
+request('key', 'default')
 // Create a response instance
-$response = response('Hello World', 200, $headers);
+response('Hello World', 200, $headers);
 // Obtains an instance of the response factory:
-$response = response()->json(['foo' => 'bar'], 200, $headers);
-// Gets session values
-$value = session('key');
+response()->json(['foo'=>'bar'], 200, $headers);
+// Get session values
+session('key');
 // Sets session values
-session(['chairs' => 7, 'instruments' => 3]);
+session(['chairs'=>7, 'instruments'=>3]);
 // Return a default value if the variable doesn't exist...
 value(function(){ return 'bar'; });
-// Retrieves a view instance:
-$view = view('auth.login');
+// Retrieve a view instance:
+view('auth.login');
 // Call the given Closure with the given value then return the value.
 tap($value, $callback)
 // Return the given object. Useful for chaining.
