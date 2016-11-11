@@ -8,44 +8,56 @@ php artisan make:model User
 
 // Customize an eloquent model
 class User extends Model {
-// Customize the names of the columns used to store the timestamps
-const CREATED_AT = 'creation_date';
-const UPDATED_AT = 'last_update';
-// Indicate the model should be timestamped
-public $timestamps = false;
-// The table associated with the model
-protected $table = 'my_users';
-// The storage format of the model's date columns
-protected $dateFormat = 'U';
-// The connection name for the model
-protected $connection = 'connection-name';
-// Make mass assignable
-protected $fillable = ['name'];
-// Make not mass assignable
-protected $guarded = ['price'];
-// Should be hidden for arrays
-protected $hidden = ['password'];
-// Should be visible in arrays
-protected $visible = ['first_name', 'last_name'];
-// Define date mutators
-protected $dates = [
-    'created_at',
-    'updated_at',
-    'deleted_at'
-];
-// All of the relationships to be touched
-protected $touches = ['post'];
-// Convert attributes to common data types
-// Suport types: integer, real, float, double, string, boolean,
-// object, array, collection, date, datetime, and timestamp
-protected $casts = [
-    'is_admin' => 'boolean',
-];
-// Receive a custom collection when Eloquent returns a Collection instance
-public function newCollection(array $models = []) {
-    return new CustomCollection($models);
-}
-
+//  Customize the names of the columns used to store the timestamps
+&nbsp;&nbsp;&nbsp;
+    const CREATED_AT = 'creation_date';
+    const UPDATED_AT = 'last_update';
+//  Indicate the model should be timestamped
+&nbsp;&nbsp;&nbsp;
+    public $timestamps = false;
+//  The table associated with the model
+&nbsp;&nbsp;&nbsp;
+    protected $table = 'my_users';
+//  The storage format of the model's date columns
+&nbsp;&nbsp;&nbsp;
+    protected $dateFormat = 'U';
+//  The connection name for the model
+&nbsp;&nbsp;&nbsp;
+    protected $connection = 'connection-name';
+//  Make mass assignable
+&nbsp;&nbsp;&nbsp;
+    protected $fillable = ['name'];
+//  Make not mass assignable
+&nbsp;&nbsp;&nbsp;
+    protected $guarded = ['price'];
+//  Should be hidden for arrays
+&nbsp;&nbsp;&nbsp;
+    protected $hidden = ['password'];
+//  Should be visible in arrays
+&nbsp;&nbsp;&nbsp;
+    protected $visible = ['first_name', 'last_name'];
+//  Define date mutators
+&nbsp;&nbsp;&nbsp;
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at'
+    ];
+//  All of the relationships to be touched
+&nbsp;&nbsp;&nbsp;
+    protected $touches = ['post'];
+//  Convert attributes to common data types
+//  Suport types: integer, real, float, double, string, boolean,
+//  object, array, collection, date, datetime, and timestamp
+&nbsp;&nbsp;&nbsp;
+    protected $casts = [
+        'is_admin' => 'boolean',
+    ];
+//  Receive a custom collection when Eloquent returns a Collection instance
+&nbsp;&nbsp;&nbsp;
+    public function newCollection(array $models = []) {
+        return new CustomCollection($models);
+    }
 }
 </pre>
 

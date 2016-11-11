@@ -1,0 +1,84 @@
+<h4><a name="packages" href="#packages">Package Development</a> <a href="https://laravel.com/docs/5.3/packages" title="packages @ Laravel Docs"><i class="icon-file-text"></i></a></h4>
+<pre class="prettyprint lang-php">
+use Illuminate\Support\ServiceProvider;
+class MyPackageServiceProvider extends ServiceProvider {
+    public function boot() {
+//      Define routes
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        if (! $this->app->routesAreCached()) {
+            require __DIR__.'/../../routes.php';
+        }
+//      Publish configuration file
+//      config('courier.option');
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        $this->publishes([
+            __DIR__.'/path/to/config/courier.php' =>
+            config_path('courier.php'),
+        ]);
+//           Load migrations
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        $this->loadMigrationsFrom(__DIR__.'/path/to/migrations');
+//      Load translations
+//      trans('courier::messages.welcome');
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        $this->loadTranslationsFrom(
+            __DIR__.'/path/to/translations',
+            'courier'
+        );
+//      Publish translations
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        $this->publishes([
+            __DIR__.'/path/to/translations' =>
+            resource_path('lang/vendor/courier'),
+        ]);
+//      Load views
+//      view('courier::admin');
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        $this->loadViewsFrom(
+            __DIR__.'/path/to/views',
+            'courier'
+        );
+//      Publish views
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        $this->publishes([
+            __DIR__.'/path/to/views' =>
+            resource_path('views/vendor/courier'),
+        ]);
+//      register Artisan commands
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                FooCommand::class,
+                BarCommand::class,
+            ]);
+        }
+//      Publish assets to public directory
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        $this->publishes([
+            __DIR__.'/path/to/assets' =>
+            public_path('vendor/courier'),
+        ], 'public');
+//      Publish files separately
+//      php artisan vendor:publish --tag=config
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        $this->publishes([
+            __DIR__.'/../config/package.php' =>
+            config_path('package.php')
+        ], 'config');
+
+        $this->publishes([
+            __DIR__.'/../database/migrations/' =>
+            database_path('migrations')
+        ], 'migrations');
+}
+
+    public function register() {
+//      Merge package configuration file with the application's published copy
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        $this->mergeConfigFrom(
+            __DIR__.'/path/to/config/courier.php',
+            'courier'
+        );
+    }
+}
+</pre>
